@@ -1,8 +1,8 @@
 {
   "name": "react-native-mopsdk",
-  "title": "React Native Mopsdk",
-  "version": "1.0.0",
-  "description": "TODO",
+  "title": "小程序React Native SDK",
+  "version": "1.0.1",
+  "description": "小程序React Native SDK",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

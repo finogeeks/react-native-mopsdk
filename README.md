@@ -1,4 +1,4 @@
-# react-native-mopsdk
+# 小程序React Native SDK
 
 ## Getting started
 
