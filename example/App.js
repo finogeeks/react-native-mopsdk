@@ -11,10 +11,15 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import MopSDK from 'react-native-mopsdk';
-const onPressOpenApplet = () => {
-  MopSDK.openApplet('5e3c147a188211000141e9b1', '', '', '0', (data) => { });
+const onPressOpenCanvasApplet = () => {
+  MopSDK.openApplet('5e933835b795a5000199d547', '', '', (data) => { });
 };
-
+const onPressOpenDemoApplet = () => {
+  MopSDK.openApplet('5e4d123647edd60001055df1', '', '', (data) => { });
+};
+const onPressOpenProfileApplet = () => {
+  MopSDK.openApplet('5e637a18cbfae4000170fa7a', '', '', (data) => { });
+};
 export default class App extends Component<{}> {
   state = {
     status: 'starting',
@@ -34,17 +39,6 @@ export default class App extends Component<{}> {
         message: s
       });
     });
-    // MopSDK.sampleMethod('Testing', 123, (message) => {
-    //   console.log('---->>>>>', message)
-    //   console.log(message);
-    //   this.setState({
-    //     status: 'native callback received',
-    //     message
-    //   });
-    // });
-  }
-  onPressOpenApplet() {
-    MopSDK.openApplet('5e933835b795a5000199d547', '', '', (data) => { });
   }
   render() {
     return (
@@ -54,8 +48,20 @@ export default class App extends Component<{}> {
         <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
         <Text style={styles.instructions}>{this.state.message}</Text>
         <Button
-          onPress={onPressOpenApplet}
-          title="打开小程序"
+          onPress={onPressOpenCanvasApplet}
+          title="打开画图小程序"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressOpenDemoApplet}
+          title="打开官方小程序"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressOpenProfileApplet}
+          title="打开智能对账单小程序"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />

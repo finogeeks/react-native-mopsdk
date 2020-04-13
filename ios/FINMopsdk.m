@@ -39,10 +39,6 @@ RCT_EXPORT_METHOD(initialize:(nonnull NSString *)appkey secret:(nonnull NSString
 }
 RCT_EXPORT_METHOD(openApplet:(nonnull NSString *)appId path:(NSString *)path query:(NSString*)query sequence:(NSString*)sequence callback:(RCTResponseSenderBlock)callback)
 {
-    
-    if (!sequence) {
-        sequence = @"0";
-    }
     NSDictionary* params = nil;
     if(!path) {
         params = @{

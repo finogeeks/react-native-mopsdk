@@ -24,16 +24,10 @@ const MopSDK = {
     if (apiPrefix.endsWith('/')) {
       apiPrefix = apiPrefix.substr(0, apiPrefix.length() - 1);
     }
-    console.log({
-      appkey: appkey,
-      secret: secret,
-      apiServer: apiServer,
-      apiPrefix: apiPrefix
-    })
     FINMopsdk.initialize(appkey, secret, apiServer, apiPrefix, callback);
   },
-  openApplet(appId, path, query, sequence, callback) {
-    FINMopsdk.openApplet(appId, path, query, sequence, callback);
+  openApplet(appId, path, query, callback) {
+    FINMopsdk.openApplet(appId, path, query, null, callback);
   }
 };
 export default MopSDK;
