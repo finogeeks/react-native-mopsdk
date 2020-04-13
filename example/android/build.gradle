@@ -3,13 +3,24 @@
 buildscript {
     ext {
         buildToolsVersion = "28.0.3"
-        minSdkVersion = 16
+        minSdkVersion = 21
         compileSdkVersion = 28
         targetSdkVersion = 28
     }
     repositories {
         google()
         jcenter()
+
+        google()
+        jcenter()
+        maven {
+            url "https://gradle.finogeeks.club/repository/applet/"
+            credentials {
+                username "applet"
+                password "123321"
+            }
+        }
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.5.2")
@@ -33,6 +44,13 @@ allprojects {
 
         google()
         jcenter()
-        maven { url 'https://www.jitpack.io' }
+        maven {
+            url "https://gradle.finogeeks.club/repository/applet/"
+            credentials {
+                username "applet"
+                password "123321"
+            }
+        }
+        maven { url "https://jitpack.io" }
     }
 }
