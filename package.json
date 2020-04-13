@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-mopsdk.git",
-    "baseUrl": "https://github.com/github_account/react-native-mopsdk"
+    "url": "git+https://github.com/finogeeks/react-native-mopsdk.git",
+    "baseUrl": "https://github.com/finogeeks/react-native-mopsdk"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
-    "name": "Your Name",
-    "email": "yourname@email.com"
+    "name": "finogeeks",
+    "email": "developer@finogeeks.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
