@@ -69,10 +69,12 @@ public class FINMopsdkModule extends ReactContextBaseJavaModule {
 
             }
         };
-        FinAppClient.INSTANCE.init(this.reactContext.getCurrentActivity().getApplication(), config, cb);
-
-
-
+        this.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FinAppClient.INSTANCE.init(reactContext.getCurrentActivity().getApplication(), config, cb);
+            }
+        });
     }
 
     @ReactMethod
