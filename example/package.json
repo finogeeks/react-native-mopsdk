@@ -10,9 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "16.11.0",
-    "react-native": "0.62.3",
-    "react-native-mopsdk": "link:../"
+    "react": "17.0.2",
+    "react-native": "0.67.4",
+    "react-native-mopsdk": "../"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
