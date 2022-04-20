@@ -1,7 +1,7 @@
 {
   "name": "react-native-mopsdk",
   "title": "小程序React Native SDK",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "小程序React Native SDK",
   "main": "index.js",
   "scripts": {
