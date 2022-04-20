@@ -1,0 +1,484 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A00B188927ED719B00ADA24C /* MOPAppletDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */; };
+		A00B189427ED7AF800ADA24C /* MopCustomMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */; };
+		A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */; };
+		A05C1FC22806B34C00BAD9FD /* MOP_addWebExtentionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C1FC02806B34B00BAD9FD /* MOP_addWebExtentionApi.m */; };
+		A092BDAE27EC7F8A001D67D1 /* NSDictionary+MOP.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7327EC7F8A001D67D1 /* NSDictionary+MOP.m */; };
+		A092BDB027EC7F8A001D67D1 /* MOPApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7827EC7F8A001D67D1 /* MOPApiRequest.m */; };
+		A092BDB127EC7F8A001D67D1 /* MOPApiConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7A27EC7F8A001D67D1 /* MOPApiConverter.m */; };
+		A092BDB227EC7F8A001D67D1 /* MopPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7B27EC7F8A001D67D1 /* MopPlugin.m */; };
+		A092BDB327EC7F8A001D67D1 /* MOPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7D27EC7F8A001D67D1 /* MOPTools.m */; };
+		A092BDB427EC7F8A001D67D1 /* MOPBaseApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD7E27EC7F8A001D67D1 /* MOPBaseApi.m */; };
+		A092BDB527EC7F8A001D67D1 /* MOP_initialize.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8227EC7F8A001D67D1 /* MOP_initialize.m */; };
+		A092BDB627EC7F8A001D67D1 /* MOP_removeApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8627EC7F8A001D67D1 /* MOP_removeApplet.m */; };
+		A092BDB727EC7F8A001D67D1 /* MOP_registerAppletHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8A27EC7F8A001D67D1 /* MOP_registerAppletHandler.m */; };
+		A092BDB827EC7F8A001D67D1 /* MOP_finishRunningApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8B27EC7F8A001D67D1 /* MOP_finishRunningApplet.m */; };
+		A092BDB927EC7F8A001D67D1 /* MOP_clearApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8C27EC7F8A001D67D1 /* MOP_clearApplets.m */; };
+		A092BDBA27EC7F8A001D67D1 /* MOP_smsign.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD8F27EC7F8A001D67D1 /* MOP_smsign.m */; };
+		A092BDBB27EC7F8A001D67D1 /* MOP_currentApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9427EC7F8A001D67D1 /* MOP_currentApplet.m */; };
+		A092BDBC27EC7F8A001D67D1 /* MOP_registerExtensionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9827EC7F8A001D67D1 /* MOP_registerExtensionApi.m */; };
+		A092BDBD27EC7F8A001D67D1 /* MOP_closeAllApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9927EC7F8A001D67D1 /* MOP_closeAllApplets.m */; };
+		A092BDBE27EC7F8A001D67D1 /* MOP_openApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9A27EC7F8A001D67D1 /* MOP_openApplet.m */; };
+		A092BDBF27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9C27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m */; };
+		A092BDC027EC7F8A001D67D1 /* MOP_scanOpenApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9D27EC7F8A001D67D1 /* MOP_scanOpenApplet.m */; };
+		A092BDC127EC7F8A001D67D1 /* MOP_removeUsedApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BD9F27EC7F8A001D67D1 /* MOP_removeUsedApplet.m */; };
+		A092BDC227EC7F8A001D67D1 /* MOP_closeApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDA327EC7F8A001D67D1 /* MOP_closeApplet.m */; };
+		A092BDC327EC7F8A001D67D1 /* MOP_sdkVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDA427EC7F8A001D67D1 /* MOP_sdkVersion.m */; };
+		A092BDC427EC7F8A001D67D1 /* MOP_webViewBounces.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDA527EC7F8A001D67D1 /* MOP_webViewBounces.m */; };
+		A092BDC527EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDA727EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.m */; };
+		A092BDC727EC7F8A001D67D1 /* MOP_sendCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDA927EC7F8A001D67D1 /* MOP_sendCustomEvent.m */; };
+		A092BDC827EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAA27EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m */; };
+		A092BDC927EC7F8A001D67D1 /* MOP_callJS.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAB27EC7F8A001D67D1 /* MOP_callJS.m */; };
+		A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAC27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libFINMopSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFINMopSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A00B188727ED719B00ADA24C /* MOPAppletDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPAppletDelegate.h; sourceTree = "<group>"; };
+		A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPAppletDelegate.m; sourceTree = "<group>"; };
+		A00B189227ED7AF800ADA24C /* MopCustomMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MopCustomMenuModel.h; sourceTree = "<group>"; };
+		A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MopCustomMenuModel.m; sourceTree = "<group>"; };
+		A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FINMopSDK.m; sourceTree = "<group>"; };
+		A05C1FBE2804236E00BAD9FD /* FINMopSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FINMopSDK.h; sourceTree = "<group>"; };
+		A05C1FC02806B34B00BAD9FD /* MOP_addWebExtentionApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_addWebExtentionApi.m; sourceTree = "<group>"; };
+		A05C1FC12806B34B00BAD9FD /* MOP_addWebExtentionApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_addWebExtentionApi.h; sourceTree = "<group>"; };
+		A092BD7227EC7F8A001D67D1 /* NSDictionary+MOP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MOP.h"; sourceTree = "<group>"; };
+		A092BD7327EC7F8A001D67D1 /* NSDictionary+MOP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MOP.m"; sourceTree = "<group>"; };
+		A092BD7727EC7F8A001D67D1 /* MOPTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPTools.h; sourceTree = "<group>"; };
+		A092BD7827EC7F8A001D67D1 /* MOPApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPApiRequest.m; sourceTree = "<group>"; };
+		A092BD7927EC7F8A001D67D1 /* MOPBaseApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPBaseApi.h; sourceTree = "<group>"; };
+		A092BD7A27EC7F8A001D67D1 /* MOPApiConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPApiConverter.m; sourceTree = "<group>"; };
+		A092BD7B27EC7F8A001D67D1 /* MopPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MopPlugin.m; sourceTree = "<group>"; };
+		A092BD7C27EC7F8A001D67D1 /* MOPApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPApiRequest.h; sourceTree = "<group>"; };
+		A092BD7D27EC7F8A001D67D1 /* MOPTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPTools.m; sourceTree = "<group>"; };
+		A092BD7E27EC7F8A001D67D1 /* MOPBaseApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPBaseApi.m; sourceTree = "<group>"; };
+		A092BD7F27EC7F8A001D67D1 /* MopPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MopPlugin.h; sourceTree = "<group>"; };
+		A092BD8027EC7F8A001D67D1 /* MOPApiConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPApiConverter.h; sourceTree = "<group>"; };
+		A092BD8227EC7F8A001D67D1 /* MOP_initialize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_initialize.m; sourceTree = "<group>"; };
+		A092BD8327EC7F8A001D67D1 /* MOP_scanOpenApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_scanOpenApplet.h; sourceTree = "<group>"; };
+		A092BD8427EC7F8A001D67D1 /* MOP_showBotomSheetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_showBotomSheetModel.h; sourceTree = "<group>"; };
+		A092BD8527EC7F8A001D67D1 /* MOP_openApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_openApplet.h; sourceTree = "<group>"; };
+		A092BD8627EC7F8A001D67D1 /* MOP_removeApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_removeApplet.m; sourceTree = "<group>"; };
+		A092BD8727EC7F8A001D67D1 /* MOP_closeAllApplets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_closeAllApplets.h; sourceTree = "<group>"; };
+		A092BD8827EC7F8A001D67D1 /* MOP_registerExtensionApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_registerExtensionApi.h; sourceTree = "<group>"; };
+		A092BD8927EC7F8A001D67D1 /* MOP_closeApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_closeApplet.h; sourceTree = "<group>"; };
+		A092BD8A27EC7F8A001D67D1 /* MOP_registerAppletHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_registerAppletHandler.m; sourceTree = "<group>"; };
+		A092BD8B27EC7F8A001D67D1 /* MOP_finishRunningApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_finishRunningApplet.m; sourceTree = "<group>"; };
+		A092BD8C27EC7F8A001D67D1 /* MOP_clearApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_clearApplets.m; sourceTree = "<group>"; };
+		A092BD8D27EC7F8A001D67D1 /* MOP_removeUsedApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_removeUsedApplet.h; sourceTree = "<group>"; };
+		A092BD8E27EC7F8A001D67D1 /* MOP_sendCustomEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_sendCustomEvent.h; sourceTree = "<group>"; };
+		A092BD8F27EC7F8A001D67D1 /* MOP_smsign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_smsign.m; sourceTree = "<group>"; };
+		A092BD9127EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_parseAppletInfoFromWXQrCode.h; sourceTree = "<group>"; };
+		A092BD9227EC7F8A001D67D1 /* MOP_sdkVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_sdkVersion.h; sourceTree = "<group>"; };
+		A092BD9327EC7F8A001D67D1 /* MOP_webViewBounces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_webViewBounces.h; sourceTree = "<group>"; };
+		A092BD9427EC7F8A001D67D1 /* MOP_currentApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_currentApplet.m; sourceTree = "<group>"; };
+		A092BD9527EC7F8A001D67D1 /* MOP_setFinStoreConfigs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_setFinStoreConfigs.h; sourceTree = "<group>"; };
+		A092BD9627EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_qrcodeOpenApplet.h; sourceTree = "<group>"; };
+		A092BD9727EC7F8A001D67D1 /* MOP_callJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_callJS.h; sourceTree = "<group>"; };
+		A092BD9827EC7F8A001D67D1 /* MOP_registerExtensionApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_registerExtensionApi.m; sourceTree = "<group>"; };
+		A092BD9927EC7F8A001D67D1 /* MOP_closeAllApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_closeAllApplets.m; sourceTree = "<group>"; };
+		A092BD9A27EC7F8A001D67D1 /* MOP_openApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_openApplet.m; sourceTree = "<group>"; };
+		A092BD9B27EC7F8A001D67D1 /* MOP_removeApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_removeApplet.h; sourceTree = "<group>"; };
+		A092BD9C27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_showBotomSheetModel.m; sourceTree = "<group>"; };
+		A092BD9D27EC7F8A001D67D1 /* MOP_scanOpenApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_scanOpenApplet.m; sourceTree = "<group>"; };
+		A092BD9E27EC7F8A001D67D1 /* MOP_initialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_initialize.h; sourceTree = "<group>"; };
+		A092BD9F27EC7F8A001D67D1 /* MOP_removeUsedApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_removeUsedApplet.m; sourceTree = "<group>"; };
+		A092BDA027EC7F8A001D67D1 /* MOP_clearApplets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_clearApplets.h; sourceTree = "<group>"; };
+		A092BDA127EC7F8A001D67D1 /* MOP_finishRunningApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_finishRunningApplet.h; sourceTree = "<group>"; };
+		A092BDA227EC7F8A001D67D1 /* MOP_registerAppletHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_registerAppletHandler.h; sourceTree = "<group>"; };
+		A092BDA327EC7F8A001D67D1 /* MOP_closeApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_closeApplet.m; sourceTree = "<group>"; };
+		A092BDA427EC7F8A001D67D1 /* MOP_sdkVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_sdkVersion.m; sourceTree = "<group>"; };
+		A092BDA527EC7F8A001D67D1 /* MOP_webViewBounces.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_webViewBounces.m; sourceTree = "<group>"; };
+		A092BDA627EC7F8A001D67D1 /* MOP_smsign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_smsign.h; sourceTree = "<group>"; };
+		A092BDA727EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_parseAppletInfoFromWXQrCode.m; sourceTree = "<group>"; };
+		A092BDA927EC7F8A001D67D1 /* MOP_sendCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_sendCustomEvent.m; sourceTree = "<group>"; };
+		A092BDAA27EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_qrcodeOpenApplet.m; sourceTree = "<group>"; };
+		A092BDAB27EC7F8A001D67D1 /* MOP_callJS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_callJS.m; sourceTree = "<group>"; };
+		A092BDAC27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_setFinStoreConfigs.m; sourceTree = "<group>"; };
+		A092BDAD27EC7F8A001D67D1 /* MOP_currentApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_currentApplet.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libFINMopSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				A05C1FBE2804236E00BAD9FD /* FINMopSDK.h */,
+				A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */,
+				A092BD8127EC7F8A001D67D1 /* Api */,
+				A092BD7127EC7F8A001D67D1 /* Category */,
+				A00B189127ED7AF800ADA24C /* Model */,
+				134814211AA4EA7D00B7C361 /* Products */,
+				A092BD7627EC7F8A001D67D1 /* Utils */,
+			);
+			sourceTree = "<group>";
+		};
+		A00B189127ED7AF800ADA24C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A00B189227ED7AF800ADA24C /* MopCustomMenuModel.h */,
+				A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A092BD7127EC7F8A001D67D1 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				A092BD7227EC7F8A001D67D1 /* NSDictionary+MOP.h */,
+				A092BD7327EC7F8A001D67D1 /* NSDictionary+MOP.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		A092BD7627EC7F8A001D67D1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A092BD8027EC7F8A001D67D1 /* MOPApiConverter.h */,
+				A092BD7A27EC7F8A001D67D1 /* MOPApiConverter.m */,
+				A092BD7C27EC7F8A001D67D1 /* MOPApiRequest.h */,
+				A092BD7827EC7F8A001D67D1 /* MOPApiRequest.m */,
+				A00B188727ED719B00ADA24C /* MOPAppletDelegate.h */,
+				A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */,
+				A092BD7927EC7F8A001D67D1 /* MOPBaseApi.h */,
+				A092BD7E27EC7F8A001D67D1 /* MOPBaseApi.m */,
+				A092BD7F27EC7F8A001D67D1 /* MopPlugin.h */,
+				A092BD7B27EC7F8A001D67D1 /* MopPlugin.m */,
+				A092BD7727EC7F8A001D67D1 /* MOPTools.h */,
+				A092BD7D27EC7F8A001D67D1 /* MOPTools.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A092BD8127EC7F8A001D67D1 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				A05C1FC12806B34B00BAD9FD /* MOP_addWebExtentionApi.h */,
+				A05C1FC02806B34B00BAD9FD /* MOP_addWebExtentionApi.m */,
+				A092BD9727EC7F8A001D67D1 /* MOP_callJS.h */,
+				A092BDAB27EC7F8A001D67D1 /* MOP_callJS.m */,
+				A092BDA027EC7F8A001D67D1 /* MOP_clearApplets.h */,
+				A092BD8C27EC7F8A001D67D1 /* MOP_clearApplets.m */,
+				A092BD8727EC7F8A001D67D1 /* MOP_closeAllApplets.h */,
+				A092BD9927EC7F8A001D67D1 /* MOP_closeAllApplets.m */,
+				A092BD8927EC7F8A001D67D1 /* MOP_closeApplet.h */,
+				A092BDA327EC7F8A001D67D1 /* MOP_closeApplet.m */,
+				A092BDAD27EC7F8A001D67D1 /* MOP_currentApplet.h */,
+				A092BD9427EC7F8A001D67D1 /* MOP_currentApplet.m */,
+				A092BDA127EC7F8A001D67D1 /* MOP_finishRunningApplet.h */,
+				A092BD8B27EC7F8A001D67D1 /* MOP_finishRunningApplet.m */,
+				A092BD9E27EC7F8A001D67D1 /* MOP_initialize.h */,
+				A092BD8227EC7F8A001D67D1 /* MOP_initialize.m */,
+				A092BD8527EC7F8A001D67D1 /* MOP_openApplet.h */,
+				A092BD9A27EC7F8A001D67D1 /* MOP_openApplet.m */,
+				A092BD9127EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.h */,
+				A092BDA727EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.m */,
+				A092BD9627EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.h */,
+				A092BDAA27EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m */,
+				A092BDA227EC7F8A001D67D1 /* MOP_registerAppletHandler.h */,
+				A092BD8A27EC7F8A001D67D1 /* MOP_registerAppletHandler.m */,
+				A092BD8827EC7F8A001D67D1 /* MOP_registerExtensionApi.h */,
+				A092BD9827EC7F8A001D67D1 /* MOP_registerExtensionApi.m */,
+				A092BD9B27EC7F8A001D67D1 /* MOP_removeApplet.h */,
+				A092BD8627EC7F8A001D67D1 /* MOP_removeApplet.m */,
+				A092BD8D27EC7F8A001D67D1 /* MOP_removeUsedApplet.h */,
+				A092BD9F27EC7F8A001D67D1 /* MOP_removeUsedApplet.m */,
+				A092BD8327EC7F8A001D67D1 /* MOP_scanOpenApplet.h */,
+				A092BD9D27EC7F8A001D67D1 /* MOP_scanOpenApplet.m */,
+				A092BD9227EC7F8A001D67D1 /* MOP_sdkVersion.h */,
+				A092BDA427EC7F8A001D67D1 /* MOP_sdkVersion.m */,
+				A092BD8E27EC7F8A001D67D1 /* MOP_sendCustomEvent.h */,
+				A092BDA927EC7F8A001D67D1 /* MOP_sendCustomEvent.m */,
+				A092BD9527EC7F8A001D67D1 /* MOP_setFinStoreConfigs.h */,
+				A092BDAC27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m */,
+				A092BD8427EC7F8A001D67D1 /* MOP_showBotomSheetModel.h */,
+				A092BD9C27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m */,
+				A092BDA627EC7F8A001D67D1 /* MOP_smsign.h */,
+				A092BD8F27EC7F8A001D67D1 /* MOP_smsign.m */,
+				A092BD9327EC7F8A001D67D1 /* MOP_webViewBounces.h */,
+				A092BDA527EC7F8A001D67D1 /* MOP_webViewBounces.m */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* FINMopSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "FINMopSDK" */;
+			buildPhases = (
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FINMopSDK;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libFINMopSDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "FINMopSDK" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* FINMopSDK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */,
+				A092BDBB27EC7F8A001D67D1 /* MOP_currentApplet.m in Sources */,
+				A092BDBF27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m in Sources */,
+				A092BDC727EC7F8A001D67D1 /* MOP_sendCustomEvent.m in Sources */,
+				A092BDB827EC7F8A001D67D1 /* MOP_finishRunningApplet.m in Sources */,
+				A092BDB527EC7F8A001D67D1 /* MOP_initialize.m in Sources */,
+				A092BDBD27EC7F8A001D67D1 /* MOP_closeAllApplets.m in Sources */,
+				A092BDB027EC7F8A001D67D1 /* MOPApiRequest.m in Sources */,
+				A092BDAE27EC7F8A001D67D1 /* NSDictionary+MOP.m in Sources */,
+				A00B188927ED719B00ADA24C /* MOPAppletDelegate.m in Sources */,
+				A092BDBC27EC7F8A001D67D1 /* MOP_registerExtensionApi.m in Sources */,
+				A092BDC427EC7F8A001D67D1 /* MOP_webViewBounces.m in Sources */,
+				A092BDB927EC7F8A001D67D1 /* MOP_clearApplets.m in Sources */,
+				A092BDC127EC7F8A001D67D1 /* MOP_removeUsedApplet.m in Sources */,
+				A092BDB427EC7F8A001D67D1 /* MOPBaseApi.m in Sources */,
+				A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */,
+				A092BDB727EC7F8A001D67D1 /* MOP_registerAppletHandler.m in Sources */,
+				A092BDB627EC7F8A001D67D1 /* MOP_removeApplet.m in Sources */,
+				A05C1FC22806B34C00BAD9FD /* MOP_addWebExtentionApi.m in Sources */,
+				A092BDC027EC7F8A001D67D1 /* MOP_scanOpenApplet.m in Sources */,
+				A092BDB227EC7F8A001D67D1 /* MopPlugin.m in Sources */,
+				A092BDBA27EC7F8A001D67D1 /* MOP_smsign.m in Sources */,
+				A092BDC327EC7F8A001D67D1 /* MOP_sdkVersion.m in Sources */,
+				A092BDC227EC7F8A001D67D1 /* MOP_closeApplet.m in Sources */,
+				A092BDB127EC7F8A001D67D1 /* MOPApiConverter.m in Sources */,
+				A092BDC827EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m in Sources */,
+				A092BDC927EC7F8A001D67D1 /* MOP_callJS.m in Sources */,
+				A092BDBE27EC7F8A001D67D1 /* MOP_openApplet.m in Sources */,
+				A00B189427ED7AF800ADA24C /* MopCustomMenuModel.m in Sources */,
+				A092BDB327EC7F8A001D67D1 /* MOPTools.m in Sources */,
+				A092BDC527EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = FINMopSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = FINMopSDK;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "FINMopSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "FINMopSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}

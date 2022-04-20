@@ -10,8 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MOPTools : NSObject
+
 + (UIViewController *)topViewController;
-+  (UIViewController *)topViewController:(UIViewController *)rootViewController;
++ (UIViewController *)topViewController:(UIViewController *)rootViewController;
++ (UIColor *)colorWithRGBHex:(UInt32)hex;
++ (NSString *)md5:(NSString *)input;
 
 @end
 

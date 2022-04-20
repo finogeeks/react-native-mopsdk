@@ -12,13 +12,18 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button } from 'react-native';
 import MopSDK from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
-  MopSDK.openApplet('5ea03fa563cb900001d73863', '', '', (data) => { });
+  MopSDK.openApplet({appId: '5ea03fa563cb900001d73863'});
 };
 const onPressOpenDemoApplet = () => {
-  MopSDK.openApplet('5ea0401463cb900001d73865', '', '', (data) => { });
+  MopSDK.openApplet({appId: '5ea0401463cb900001d73865'});
 };
 const onPressOpenProfileApplet = () => {
-  MopSDK.openApplet('5ea0412663cb900001d73867', '', '', (data) => { });
+   MopSDK.registerAppletHandler({
+     getCustomMenus(appId){
+       console.log("getCustomMenus")
+        return []
+     }
+   })
 };
 export default class App extends Component<{}> {
   state = {
@@ -32,16 +37,22 @@ export default class App extends Component<{}> {
         secret: 'c5cc7a8c14a2b04a',
         apiServer: 'https://mp.finogeeks.com',
         apiPrefix: '/api/v1/mop',
-      },
-      (data) => {
-        console.log('message;', data);
-        const s = JSON.stringify(data);
-        this.setState({
-          status: 'native callback received',
-          message: s,
-        });
-      },
-    );
+      }
+    ).then((res) => {
+      console.log('message: ', res);
+      const s = JSON.stringify(res);
+      this.setState({
+        status: 'native callback received',
+        message: s,
+      });
+    }).catch((error) => {
+      console.log('error: ', error);
+      const s = 'initialize fail'
+      this.setState({
+        status: 'native callback received',
+        message: s,
+      });
+    })
   }
   render() {
     return (
