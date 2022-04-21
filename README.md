@@ -56,14 +56,32 @@
 
 ## 🔨 使用方法
 ```javascript
-import FINMopsdk from 'react-native-mopsdk';
+import MopSDK from 'react-native-mopsdk';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 
-// TODO: What to do with the module?
-FINMopsdk;
+// 初始化
+const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
+  MopSDK.initialize({
+    appkey:
+      'Ev7QHvml1UcW98Y1GaLfRz34ReffbDESaTXbCoFyKhEm0a3gam0elOOOdZ6Twpa3HkBzlvOwJ2cyhOrMVWuuGw==',
+    secret: '16f2d2700453ae51',
+    apiServer: 'https://api.finclip.com',
+    apiPrefix: '/api/v1/mop/',
+    nativeEventEmitter: eventEmitter,
+    finMopSDK: NativeModules.FINMopSDK,
+  }).then(res => {
+    console.log('初始化成功')
+  }).catch(err => {
+    console.log('初始化失败')
+  })
+
 ```
 
+## 📱 DEMO
+[点击这里](https://github.com/finogeeks/finclip-react-native-demo) 查看 React Native Demo
+
 ## 📋 接口文档
-[点击这里](https://www.finclip.com/mop/document/introduce/quickStart/intergration-guide.html#_4-reactnative-%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90) 查看 React Native 快速集成文档
+[点击这里](https://www.finclip.com/mop/document/runtime-sdk/reactNative/rn-integrate.html) 查看 React Native 快速集成文档
 
 ## 🔗 常用链接
 以下内容是您在 FinClip 进行开发与体验时，常见的问题与指引信息
