@@ -44,6 +44,8 @@
         config = [FATConfig configWithStoreConfigs:storeArrayM];
     } else {
         FATStoreConfig *storeConfig = [[FATStoreConfig alloc] init];
+        storeConfig.sdkKey = [self.appkey copy];
+        storeConfig.sdkSecret = [self.secret copy];
         storeConfig.apiServer = [self.apiServer copy];
         if([self.cryptType isEqualToString: @"SM"])
         {
