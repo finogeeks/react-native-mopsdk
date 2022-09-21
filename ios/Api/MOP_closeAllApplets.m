@@ -12,8 +12,9 @@
 
 - (void)setupApiWithSuccess:(void (^)(NSDictionary<NSString *,id> * _Nonnull))success failure:(void (^)(id _Nullable))failure cancel:(void (^)(void))cancel {
     NSLog(@"closeAllApplets");
-    [[FATClient sharedClient] closeAllApplets];
-    success(@{});
+    [[FATClient sharedClient] closeAllAppletsWithCompletion:^{
+        success(@{});
+    }];
 }
 
 @end

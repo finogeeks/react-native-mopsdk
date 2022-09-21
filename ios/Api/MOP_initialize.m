@@ -43,20 +43,22 @@
         }
         config = [FATConfig configWithStoreConfigs:storeArrayM];
     } else {
-        config = [FATConfig configWithAppSecret:self.secret appKey:self.appkey];
-        config.apiServer = [self.apiServer copy];
+        FATStoreConfig *storeConfig = [[FATStoreConfig alloc] init];
+        storeConfig.apiServer = [self.apiServer copy];
         if([self.cryptType isEqualToString: @"SM"])
         {
-            config.cryptType = FATApiCryptTypeSM;
+            storeConfig.cryptType = FATApiCryptTypeSM;
         }
         else
         {
-            config.cryptType = FATApiCryptTypeMD5;
+            storeConfig.cryptType = FATApiCryptTypeMD5;
         }
         
         // encryptServerData
         NSLog(@"encryptServerData:%d",self.encryptServerData);
-        config.encryptServerData = self.encryptServerData;
+        storeConfig.encryptServerData = self.encryptServerData;
+        
+        config = [FATConfig configWithStoreConfigs:@[storeConfig]];
     }
     
     NSLog(@"disablePermission:%d",self.disablePermission);

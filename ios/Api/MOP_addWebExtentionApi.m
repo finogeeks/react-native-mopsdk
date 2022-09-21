@@ -12,7 +12,7 @@
 
 - (void)setupApiWithSuccess:(void (^)(NSDictionary<NSString *,id> * _Nonnull))success failure:(void (^)(id _Nullable))failure cancel:(void (^)(void))cancel {
     NSLog(@"MOP_addWebExtentionApi");
-    [[FATClient sharedClient] fat_registerWebApi:self.name handle:^(id param, FATExtensionApiCallback callback) {
+    [[FATClient sharedClient] fat_registerWebApi:self.name handler:^(FATAppletInfo *appletInfo, id param, FATExtensionApiCallback callback) {
         NSLog(@"invoke webExtentionApi:");
         NSLog(@"%@",self.name);
         NSLog(@"%@",param);

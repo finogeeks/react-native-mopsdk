@@ -130,7 +130,8 @@
     }
 }
 
-- (void)applet:(NSString *)appletId didOpenCompletion:(NSError *)error {
+- (void)appletInfo:(FATAppletInfo *)appletInfo didOpenCompletion:(NSError *)error {
+    NSString *appletId = appletInfo.appId;
     if (!appletId) {
         return;
     }
@@ -164,8 +165,14 @@ static NSString *scheme = @"fatae55433be2f62915";//App对应的scheme
     [url appendFormat:@"&linkhref=%@", herf];
     
     NSLog(@"跳转到中间页面:%@", url);
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    if (@available(iOS 10.0, *)) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    } else {
+        // Fallback on earlier versions
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
 }
 
 @end

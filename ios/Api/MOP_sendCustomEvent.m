@@ -19,7 +19,7 @@
         return;
     }
     
-    [[FATClient sharedClient].nativeViewManager sendCustomEventWithDetail:self.eventData applet:self.appId completion:^(id result, FATError *error) {
+    [[FATClient sharedClient].nativeViewManager sendCustomEventWithDetail:self.eventData applet:self.appId completion:^(id result, NSError *error) {
         if (error) {
             failure(@{@"errMsg": @"sendCustomEvent:fail"});
         } else {
