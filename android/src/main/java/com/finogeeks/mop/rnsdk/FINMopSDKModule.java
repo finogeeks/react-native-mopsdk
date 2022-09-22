@@ -249,9 +249,9 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         Log.d(TAG, "openApplet:" + appId + "," + param + "," + sequence + "," + apiServer);
 
         if (apiServer != null) {
-            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, apiServer, appId, sequence, startParams);
+            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, apiServer, appId, sequence, startParams, null);
         } else {
-            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, appId, sequence, startParams);
+            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, appId, sequence, startParams, null);
         }
         callback.invoke(success(null));
     }

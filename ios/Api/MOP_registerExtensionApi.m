@@ -12,7 +12,7 @@
 
 - (void)setupApiWithSuccess:(void (^)(NSDictionary<NSString *,id> * _Nonnull))success failure:(void (^)(id _Nullable))failure cancel:(void (^)(void))cancel {
     NSLog(@"MOP_registerExtensionApi");
-    [[FATClient sharedClient] registerExtensionApi:self.name handle:^(id param, FATExtensionApiCallback callback) {
+    [[FATClient sharedClient] registerExtensionApi:self.name handler:^(FATAppletInfo *appletInfo, id param, FATExtensionApiCallback callback) {
         NSLog(@"invoke ExtensionApi:");
         NSLog(@"%@",self.name);
         NSLog(@"%@",param);

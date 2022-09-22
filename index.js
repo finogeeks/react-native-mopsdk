@@ -50,7 +50,7 @@ class MopSDK {
       const handler = MopSDK._extensionApis[apiName]
       if (handler !== null) {
         const res = await handler(event.params)
-        console.warn("CUSTOM AP 调用的结果", res)
+        console.warn("CUSTOM API 调用的结果", res)
         MopSDK._finMopSDK.eventReminderCallback(apiName, res, event.callbackId)
       }
     } else if(event.apiName.startsWith(webExtensionApiPrefix)) {
