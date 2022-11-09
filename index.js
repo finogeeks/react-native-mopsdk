@@ -130,7 +130,9 @@ class MopSDK {
         this._extentionApiCallbacks(event)
       })
       
-      MopSDK._finMopSDK.initialize(params, (data) => {
+      MopSDK._finMopSDK.initialize({
+        appkey, secret, apiServer, apiPrefix, userId,
+      }, (data) => {
         data = handleCallbackData(data)
         if(data.success) {
           resolve(data)
