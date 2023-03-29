@@ -242,10 +242,9 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         Log.d(TAG, "openApplet:params:" + param);
         String appId = String.valueOf(param.get("appId"));
         Integer sequence = (Integer) param.get("sequence");
-        Map<String, String> params = (Map) param.get("params");
         String apiServer = (String) param.get("apiServer");
 
-        FinAppInfo.StartParams startParams = params == null ? null : new FinAppInfo.StartParams(params.get("path"), params.get("query"), params.get("scene"));
+        FinAppInfo.StartParams startParams = new FinAppInfo.StartParams((String) param.get("path"), (String) param.get("query"), (String) param.get("scene"));
         Log.d(TAG, "openApplet:" + appId + "," + param + "," + sequence + "," + apiServer);
 
         if (apiServer != null) {
