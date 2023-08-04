@@ -329,6 +329,17 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
         FinAppClient.INSTANCE.getAppletApiManager().setAppletHandler(new IAppletHandler() {
 
+            @Nullable
+            @Override
+            public Map<String, String> getWebViewCookie(@NonNull String s) {
+                return null;
+            }
+
+            @Override
+            public void getJSSDKConfig(@NonNull JSONObject jsonObject, @NonNull IAppletCallback iAppletCallback) {
+
+            }
+
             @Override
             public boolean launchApp(@Nullable String s) {
                 return false;
