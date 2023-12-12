@@ -25,5 +25,6 @@ Pod::Spec.new do |s|
   # ...
   # s.dependency "..."
   s.dependency "FinApplet", "2.41.11"
+  s.dependency "FinAppletExt", "2.41.11"
 end
 
