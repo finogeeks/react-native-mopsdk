@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		371FE1A72B31A9CC000D0A57 /* Mop_LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */; };
 		A00B188927ED719B00ADA24C /* MOPAppletDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */; };
 		A00B189427ED7AF800ADA24C /* MopCustomMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */; };
 		A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */; };
@@ -54,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libFINMopSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFINMopSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		371FE1A52B31A9CC000D0A57 /* Mop_LoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mop_LoadingView.h; sourceTree = "<group>"; };
+		371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mop_LoadingView.m; sourceTree = "<group>"; };
 		A00B188727ED719B00ADA24C /* MOPAppletDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPAppletDelegate.h; sourceTree = "<group>"; };
 		A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPAppletDelegate.m; sourceTree = "<group>"; };
 		A00B189227ED7AF800ADA24C /* MopCustomMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MopCustomMenuModel.h; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				A092BD8F27EC7F8A001D67D1 /* MOP_smsign.m */,
 				A092BD9327EC7F8A001D67D1 /* MOP_webViewBounces.h */,
 				A092BDA527EC7F8A001D67D1 /* MOP_webViewBounces.m */,
+				371FE1A52B31A9CC000D0A57 /* Mop_LoadingView.h */,
+				371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -311,6 +316,7 @@
 				A092BDC127EC7F8A001D67D1 /* MOP_removeUsedApplet.m in Sources */,
 				A092BDB427EC7F8A001D67D1 /* MOPBaseApi.m in Sources */,
 				A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */,
+				371FE1A72B31A9CC000D0A57 /* Mop_LoadingView.m in Sources */,
 				A092BDB727EC7F8A001D67D1 /* MOP_registerAppletHandler.m in Sources */,
 				A092BDB627EC7F8A001D67D1 /* MOP_removeApplet.m in Sources */,
 				A05C1FC22806B34C00BAD9FD /* MOP_addWebExtentionApi.m in Sources */,

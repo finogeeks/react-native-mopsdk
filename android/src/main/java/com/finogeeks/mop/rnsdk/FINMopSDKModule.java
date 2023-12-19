@@ -176,10 +176,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 }
             }
         }
-        FinAppConfig.UIConfig uiConfig = null;
+        FinAppConfig.UIConfig uiConfig = new FinAppConfig.UIConfig();
         if (param.get("uiConfig") != null) {
             uiConfig = gson.fromJson(gson.toJson(param.get("uiConfig")), FinAppConfig.UIConfig.class);
         }
+        uiConfig.setLoadingLayoutCls(FINMopCustomLoadingPage.class);
 
 
         FinAppConfig.Builder builder = new FinAppConfig.Builder()
