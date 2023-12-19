@@ -67,6 +67,7 @@
     config.disableAuthorize = self.disablePermission;
     config.currentUserId = [self.userId copy];
     config.appletIntervalUpdateLimit = self.appletIntervalUpdateLimit;
+    config.baseLoadingViewClass = @"Mop_LoadingView";
 
     NSError* error = nil;
     FATUIConfig *uiconfig = [[FATUIConfig alloc]init];
