@@ -1,4 +1,4 @@
-package com.finogeeks.mop.demo;
+package com.finogeeks.mop.rnsdk;
 
 import android.content.Context;
 
