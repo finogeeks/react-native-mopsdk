@@ -15,7 +15,7 @@ const onPressOpenCanvasApplet = () => {
   MopSDK.openApplet({appId: '5ea03fa563cb900001d73863'});
 };
 const onPressOpenDemoApplet = () => {
-  MopSDK.openApplet({appId: '5ea0401463cb900001d73865'});
+  MopSDK.openApplet({appId: '5ea0401463cb900001d73865', params:{"path": "pages/component/text/text", "query": "name=123"}});
 };
 const onPressOpenProfileApplet = () => {
    MopSDK.registerAppletHandler({
