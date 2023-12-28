@@ -245,15 +245,31 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         Integer sequence = (Integer) param.get("sequence");
         String apiServer = (String) param.get("apiServer");
 
-        FinAppInfo.StartParams startParams = new FinAppInfo.StartParams((String) param.get("path"), (String) param.get("query"), (String) param.get("scene"));
-        Log.d(TAG, "openApplet:" + appId + "," + param + "," + sequence + "," + apiServer);
-
-        if (apiServer != null) {
-            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, apiServer, appId, sequence, startParams, null);
-        } else {
-            FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext, appId, sequence, startParams, null);
+        if (apiServer == null) {
+            apiServer = "";
         }
-        callback.invoke(success(null));
+        Map<String, String> startParams = (Map<String, String>) param.get("params");
+
+        FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
+                IFinAppletRequest.Companion.fromAppId(apiServer, appId)
+                        .setSequence(sequence)
+                        .setStartParams(startParams),
+                new FinCallback<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        callback.invoke(success(null));
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        callback.invoke(fail(s));
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                });
     }
 
     @ReactMethod
