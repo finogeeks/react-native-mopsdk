@@ -34,6 +34,7 @@ import com.finogeeks.lib.applet.client.FinAppInfo;
 import com.finogeeks.lib.applet.client.FinStoreConfig;
 import com.finogeeks.lib.applet.db.entity.FinApplet;
 import com.finogeeks.lib.applet.interfaces.FinCallback;
+import com.finogeeks.lib.applet.sdk.api.request.IFinAppletRequest;
 import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuItem;
 import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuType;
 import com.finogeeks.lib.applet.rest.model.GrayAppletVersionConfig;
