@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
@@ -249,7 +250,10 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         if (apiServer == null) {
             apiServer = "";
         }
-        Map<String, String> startParams = (Map<String, String>) param.get("params");
+        Map<String, String> startParams = new HashMap<>();
+        if (param.get("params") != null) {
+            startParams = (Map<String, String>) param.get("params")
+        }
 
         FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
                 IFinAppletRequest.Companion.fromAppId(apiServer, appId)
