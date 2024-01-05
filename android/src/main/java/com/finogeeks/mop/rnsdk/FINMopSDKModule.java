@@ -252,7 +252,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         }
         Map<String, String> startParams = new HashMap<>();
         if (param.get("params") != null) {
-            startParams = (Map<String, String>) param.get("params")
+            startParams = (Map<String, String>) param.get("params");
         }
 
         FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
