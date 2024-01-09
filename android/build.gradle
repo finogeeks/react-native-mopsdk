@@ -10,10 +10,10 @@
 //   original location:
 //   - https://github.com/facebook/react-native/blob/0.58-stable/local-cli/templates/HelloWorld/android/app/build.gradle
 
-def DEFAULT_COMPILE_SDK_VERSION = 28
-def DEFAULT_BUILD_TOOLS_VERSION = '28.0.3'
-def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 28
+def DEFAULT_COMPILE_SDK_VERSION = 33
+def DEFAULT_BUILD_TOOLS_VERSION = '33.0.0'
+def DEFAULT_MIN_SDK_VERSION = 21
+def DEFAULT_TARGET_SDK_VERSION = 33
 def REACT_NATIVE_VERSION = new File(['node', '--print',"JSON.parse(require('fs').readFileSync(require.resolve('react-native/package.json'), 'utf-8')).version"].execute(null, rootDir).text.trim())
 
 def safeExtGet(prop, fallback) {
@@ -21,6 +21,15 @@ def safeExtGet(prop, fallback) {
 }
 
 buildscript {
+      ext {
+        buildToolsVersion = "33.0.0"
+        minSdkVersion = 21
+        compileSdkVersion = 33
+        targetSdkVersion = 33
+
+        // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
+        ndkVersion = "23.1.7779620"
+    }
     // The Android Gradle plugin is only required when opening the android folder stand-alone.
     // This avoids unnecessary downloads and potential conflicts when the library is included as a
     // module dependency in an application project.
@@ -62,11 +71,6 @@ android {
     lintOptions {
         abortOnError false
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 }
 
 repositories {
@@ -97,7 +101,6 @@ dependencies {
     implementation "com.facebook.react:react-native:"+REACT_NATIVE_VERSION  // From node_modules
     implementation 'com.finogeeks.lib:finapplet:2.41.11'
     implementation 'com.finogeeks.mop:plugins:2.41.11'
-
 }
 
 def configureReactNativePom(def pom) {

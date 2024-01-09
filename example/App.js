@@ -9,7 +9,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter  } from 'react-native';
 import MopSDK from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
   MopSDK.openApplet({appId: '5ea03fa563cb900001d73863'});
@@ -31,12 +31,17 @@ export default class App extends Component<{}> {
     message: '--',
   };
   componentDidMount() {
+
+    const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
+
     MopSDK.initialize(
       {
         appkey: '22LyZEib0gLTQdU3MUauASlb4KFRNRajt4RmY6UDSucA',
         secret: 'c5cc7a8c14a2b04a',
         apiServer: 'https://mp.finogeeks.com',
         apiPrefix: '/api/v1/mop',
+        nativeEventEmitter: eventEmitter,
+        finMopSDK: NativeModules.FINMopSDK,
       }
     ).then((res) => {
       console.log('message: ', res);
@@ -46,7 +51,7 @@ export default class App extends Component<{}> {
         message: s,
       });
     }).catch((error) => {
-      console.log('error: ', error);
+      console.log('init error: ', error);
       const s = 'initialize fail'
       this.setState({
         status: 'native callback received',

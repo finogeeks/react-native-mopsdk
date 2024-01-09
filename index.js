@@ -129,7 +129,6 @@ class MopSDK {
       nativeEventEmitter.addListener('EventReminder', (event) => {
         this._extentionApiCallbacks(event)
       })
-      
       MopSDK._finMopSDK.initialize({
         appkey, secret, apiServer, apiPrefix, userId,
       }, (data) => {
