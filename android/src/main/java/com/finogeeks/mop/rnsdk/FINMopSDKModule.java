@@ -236,7 +236,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void openApplet(ReadableMap map, Callback callback) {
+    public void openApplet(ReadableMap map,final Callback callback) {
         Map<String, Object> param = map.toHashMap();
         if (param.get("appId") == null) {
             callback.invoke(fail("appId不能为空"));
@@ -465,8 +465,8 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
             @Nullable
             @Override
             public List<MoreMenuItem> getRegisteredMoreMenuItems(@NotNull String s) {
-                CountDownLatch latch = new CountDownLatch(1);
-                List<MoreMenuItem> moreMenuItems = new ArrayList<>();
+                final CountDownLatch latch = new CountDownLatch(1);
+                final List<MoreMenuItem> moreMenuItems = new ArrayList<>();
                 Map<String, Object> params = new HashMap<>();
                 params.put("appId", s);
                 handler.post(() -> {
