@@ -143,6 +143,42 @@ class MopSDK {
   }
 
   /**
+   * @description Initialize the SDK with the provided configuration
+   * @param {Object} params
+   * @param {Object} params.config - Main SDK configuration
+   * @param {Object} params.uiConfig - UI related configuration
+   * @returns 
+   */
+  initSDK(params) {
+    return new Promise((resolve, reject) => {
+      let { config, uiConfig } = params;
+
+      // 参数校验
+      if (!config || typeof config !== 'object') {
+        reject({ success: false, retMsg: 'config is required and must be an object' });
+        return;
+      }
+      if (!uiConfig || typeof uiConfig !== 'object') {
+        reject({ success: false, retMsg: 'uiConfig is required and must be an object' });
+        return;
+      }
+
+      // 调用原生模块的 initSDK 方法
+      MopSDK._finMopSDK.initSDK({
+        config, uiConfig
+      }, (data) => {
+        data = handleCallbackData(data);
+        if (data.success) {
+          resolve(data);
+        } else {
+          reject(data);
+        }
+      });
+    });
+  }
+
+
+  /**
    * 
    * @param {Object} params 
    * @param {String} params.appId

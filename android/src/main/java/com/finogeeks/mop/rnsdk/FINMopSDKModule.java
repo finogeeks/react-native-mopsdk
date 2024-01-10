@@ -236,6 +236,75 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void initSDK(ReadableMap params, Callback callback) {
+        Map<String, Object> param = params.toHashMap();
+        if (FinAppClient.INSTANCE.isFinAppProcess(reactContext)) {
+            // 小程序进程不执行任何初始化操作
+            return;
+        }
+
+        // 从 param 中提取 config 和 uiConfig 字典
+        ReadableMap configMap = params.getMap("config");
+        ReadableMap uiConfigMap = params.getMap("uiConfig");
+
+        // 对 configMap 和 uiConfigMap 进行必要的验证
+        // ...
+
+        Gson gson = new Gson();
+        FinAppConfig config = null;
+        FinAppConfig.UIConfig uiConfig = null;
+
+        if (configMap != null) {
+            config = gson.fromJson(gson.toJson(configMap.toHashMap()), FinAppConfig.class);
+        }
+        if (uiConfigMap != null) {
+            uiConfig = gson.fromJson(gson.toJson(uiConfigMap.toHashMap()), FinAppConfig.UIConfig.class);
+        }
+
+        // 构建 FinAppConfig 对象
+        FinAppConfig.Builder builder = new FinAppConfig.Builder();
+        if (config != null) {
+            // 设置 config 相关的属性
+            // ...
+        }
+        if (uiConfig != null) {
+            builder.setUiConfig(uiConfig);
+        }
+
+        FinAppConfig finalConfig = builder.build();
+        Log.d(TAG, "config:" + gson.toJson(finalConfig));
+
+        // SDK 初始化结果回调
+        FinCallback<Object> cb = new FinCallback<Object>() {
+            @Override
+            public void onSuccess(Object result) {
+                // SDK 初始化成功
+                callback.invoke(success(null));
+            }
+
+            @Override
+            public void onError(int code, String error) {
+                // SDK 初始化失败
+                callback.invoke(fail(error));
+            }
+
+            @Override
+            public void onProgress(int status, String error) {
+                // 处理进度更新（如果有）
+            }
+        };
+
+        // 运行在 UI 线程进行 SDK 初始化
+        this.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FinAppClient.INSTANCE.init(reactContext.getCurrentActivity().getApplication(), finalConfig, cb);
+            }
+        });
+    }
+
+
+    @ReactMethod
     public void openApplet(ReadableMap map, Callback callback) {
         Map<String, Object> param = map.toHashMap();
         if (param.get("appId") == null) {

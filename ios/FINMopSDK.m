@@ -62,6 +62,15 @@ RCT_EXPORT_METHOD(initialize:(NSDictionary *)param callback:(RCTResponseSenderBl
     });
 }
 
+RCT_EXPORT_METHOD(initSDK:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"initSDK param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"initSDK" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
 RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
     NSLog(@"openApplet param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{

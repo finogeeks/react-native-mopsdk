@@ -39,7 +39,18 @@
 		A092BDC827EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAA27EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m */; };
 		A092BDC927EC7F8A001D67D1 /* MOP_callJS.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAB27EC7F8A001D67D1 /* MOP_callJS.m */; };
 		A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */ = {isa = PBXBuildFile; fileRef = A092BDAC27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m */; };
+		EE9BC7B02B4E2A7200B24EA9 /* MOP_initSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9BC7AE2B4E2A7200B24EA9 /* MOP_initSDK.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EE9BC7AC2B4E2A5700B24EA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B7740289A2CC416D8EC656F3 /* FINMopSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = FINMopSDK;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
@@ -119,6 +130,9 @@
 		A092BDAB27EC7F8A001D67D1 /* MOP_callJS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_callJS.m; sourceTree = "<group>"; };
 		A092BDAC27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_setFinStoreConfigs.m; sourceTree = "<group>"; };
 		A092BDAD27EC7F8A001D67D1 /* MOP_currentApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_currentApplet.h; sourceTree = "<group>"; };
+		B7740289A2CC416D8EC656F3 /* FINMopSDK.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FINMopSDK.xcodeproj; path = "../node_modules/react-native-mopsdk/ios/FINMopSDK.xcodeproj"; sourceTree = "<group>"; };
+		EE9BC7AE2B4E2A7200B24EA9 /* MOP_initSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_initSDK.m; sourceTree = "<group>"; };
+		EE9BC7AF2B4E2A7200B24EA9 /* MOP_initSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_initSDK.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +146,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D4EC1DBBB9245EF877F7290 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B7740289A2CC416D8EC656F3 /* FINMopSDK.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		134814211AA4EA7D00B7C361 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +172,7 @@
 				A00B189127ED7AF800ADA24C /* Model */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				A092BD7627EC7F8A001D67D1 /* Utils */,
+				0D4EC1DBBB9245EF877F7290 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -209,6 +232,8 @@
 				A092BD8B27EC7F8A001D67D1 /* MOP_finishRunningApplet.m */,
 				A092BD9E27EC7F8A001D67D1 /* MOP_initialize.h */,
 				A092BD8227EC7F8A001D67D1 /* MOP_initialize.m */,
+				EE9BC7AF2B4E2A7200B24EA9 /* MOP_initSDK.h */,
+				EE9BC7AE2B4E2A7200B24EA9 /* MOP_initSDK.m */,
 				A092BD8527EC7F8A001D67D1 /* MOP_openApplet.h */,
 				A092BD9A27EC7F8A001D67D1 /* MOP_openApplet.m */,
 				A092BD9127EC7F8A001D67D1 /* MOP_parseAppletInfoFromWXQrCode.h */,
@@ -243,6 +268,14 @@
 			path = Api;
 			sourceTree = "<group>";
 		};
+		EE9BC7A92B4E2A5700B24EA9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE9BC7AD2B4E2A5700B24EA9 /* libFINMopSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -269,7 +302,7 @@
 		58B511D31A9E6C8500147676 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 920;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					58B511DA1A9E6C8500147676 = {
@@ -288,12 +321,28 @@
 			mainGroup = 58B511D21A9E6C8500147676;
 			productRefGroup = 58B511D21A9E6C8500147676;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EE9BC7A92B4E2A5700B24EA9 /* Products */;
+					ProjectRef = B7740289A2CC416D8EC656F3 /* FINMopSDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* FINMopSDK */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EE9BC7AD2B4E2A5700B24EA9 /* libFINMopSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFINMopSDK.a;
+			remoteRef = EE9BC7AC2B4E2A5700B24EA9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -325,6 +374,7 @@
 				A092BDBA27EC7F8A001D67D1 /* MOP_smsign.m in Sources */,
 				A092BDC327EC7F8A001D67D1 /* MOP_sdkVersion.m in Sources */,
 				A092BDC227EC7F8A001D67D1 /* MOP_closeApplet.m in Sources */,
+				EE9BC7B02B4E2A7200B24EA9 /* MOP_initSDK.m in Sources */,
 				A092BDB127EC7F8A001D67D1 /* MOPApiConverter.m in Sources */,
 				A092BDC827EC7F8A001D67D1 /* MOP_qrcodeOpenApplet.m in Sources */,
 				A092BDC927EC7F8A001D67D1 /* MOP_callJS.m in Sources */,
