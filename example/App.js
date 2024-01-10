@@ -33,17 +33,28 @@ export default class App extends Component<{}> {
   componentDidMount() {
 
     const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
+    
+    let finStoreConfigs = [{
+      sdkKey: "22LyZEib0gLTQdU3MUauATBwgfnTCJjdr7FCnywmAEM=",
+      sdkSecret: "bdfd76cae24d4313",
+      apiServer: "https://api.finclip.com"
+    }]
 
-    MopSDK.initialize(
-      {
-        appkey: '22LyZEib0gLTQdU3MUauATBwgfnTCJjdr7FCnywmAEM=',
-        secret: 'bdfd76cae24d4313',
-        apiServer: 'https://api.finclip.com',
-        apiPrefix: '/api/v1/mop',
-        nativeEventEmitter: eventEmitter,
-        finMopSDK: NativeModules.FINMopSDK,
+    let config = {
+      finStoreConfigs: finStoreConfigs,
+      appletDebugMode:true,
+      userId:"123456789",
+      debug:true
+
+    }
+    let uiConfig = {}
+    let params = { config: config, 
+       uiConfig: uiConfig ,
+       finMopSDK:NativeModules.FINMopSDK,
+       nativeEventEmitter: eventEmitter
       }
-    ).then((res) => {
+
+    MopSDK.initSDK(params).then((res) => {
       console.log('message: ', res);
       const s = JSON.stringify(res);
       this.setState({

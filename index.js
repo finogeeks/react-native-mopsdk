@@ -147,22 +147,32 @@ class MopSDK {
    * @param {Object} params
    * @param {Object} params.config - Main SDK configuration
    * @param {Object} params.uiConfig - UI related configuration
+   * @param {Object} params.finMopSDK 
+   * @param {Object} params.nativeEventEmitter 
    * @returns 
    */
   initSDK(params) {
     return new Promise((resolve, reject) => {
-      let { config, uiConfig } = params;
-
-      // 参数校验
+      let { config, uiConfig,finMopSDK, nativeEventEmitter } = params;
+      MopSDK._finMopSDK = finMopSDK
+       // 参数校验
       if (!config || typeof config !== 'object') {
         reject({ success: false, retMsg: 'config is required and must be an object' });
         return;
       }
-      if (!uiConfig || typeof uiConfig !== 'object') {
-        reject({ success: false, retMsg: 'uiConfig is required and must be an object' });
-        return;
+      // uiConfig 可选
+       if (uiConfig && typeof uiConfig !== 'object') {
+         reject({ success: false, retMsg: 'uiConfig must be an object' });
+         return;
+       }
+       const nativeEventEmitterCheck = typeCheck(nativeEventEmitter, 'Object')
+       if(!nativeEventEmitterCheck.success) {
+        reject(nativeEventEmitterCheck)
+        return 
       }
-
+      nativeEventEmitter.addListener('EventReminder', (event) => {
+        this._extentionApiCallbacks(event)
+      })
       // 调用原生模块的 initSDK 方法
       MopSDK._finMopSDK.initSDK({
         config, uiConfig
