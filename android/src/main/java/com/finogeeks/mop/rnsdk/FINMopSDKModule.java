@@ -49,10 +49,9 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
@@ -115,12 +114,12 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initialize(ReadableMap params, Callback callback) {
+        Log.d(TAG, "initialize:" + params);
         Map<String, Object> param = params.toHashMap();
         if (FinAppClient.INSTANCE.isFinAppProcess(reactContext)) {
             // 小程序进程不执行任何初始化操作
             return;
         }
-
         String appkey = String.valueOf(param.get("appkey"));
         String secret = String.valueOf(param.get("secret"));
         String apiServer = "https://api.finclip.com";
@@ -204,6 +203,26 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         if (maxRunningApplet != null) builder.setMaxRunningApplet(maxRunningApplet);
         if (finStoreConfigs != null) builder.setFinStoreConfigs(finStoreConfigs);
         if (uiConfig != null) builder.setUiConfig(uiConfig);
+
+        Object localeLanguage = param.get("localeLanguage");
+        if (localeLanguage != null) {
+            String language = (String) localeLanguage;
+            if (language.contains("_")) {
+                String[] locales = language.split("_");
+                builder.setLocale(new Locale(locales[0], locales[1]));
+            } else {
+                builder.setLocale(new Locale(language));
+            }
+        } else {
+            Object languageInteger = param.get("language");
+            if (languageInteger != null) {
+                if (languageInteger instanceof Double && ((Double) languageInteger).intValue() == 1) {
+                    builder.setLocale(Locale.ENGLISH);
+                } else {
+                    builder.setLocale(Locale.SIMPLIFIED_CHINESE);
+                }
+            }
+        }
 
         FinAppConfig config = builder.build();
         Log.d(TAG, "config:" + gson.toJson(config));
