@@ -72,6 +72,7 @@ class MopSDK {
    * @param {string} params.apiServer 
    * @param {string} params.apiPrefix 
    * @param {string} params.userId 
+   * @param {string} params.appletText  注入小程序统称appletText字符串，默认为“小程序”。
    * @param {number} params.language  SDK的语言类型，默认为中文，0：中文，1：英文
    * @param {string} params.customLanguagePath  【iOS属性】自定义SDK的语言，优先级高于内置的 language 属性；示例：如果是放在 mainBundle 下，则设置相对路径：@"abc.lproj"；如果是放在自定于 Bundle 下，则设置相对路径：@"bundleName.bundle/abc.lproj"
    * @param {string} params.localeLanguage 【Android属性】自定义SDK的语言，优先级高于内置的 language 属性；语言列表可以参考：https://uutool.cn/info-i18n/ 或者Java类 【java.util.Locale】;示例：简体中文：zh_CN，繁体中文：zh_TW，英文：en
@@ -81,7 +82,7 @@ class MopSDK {
    */
   initialize(params) {
     return new Promise((resolve, reject) => {
-      let { appkey, secret, apiServer, apiPrefix, userId, language, customLanguagePath, localeLanguage, nativeEventEmitter, finMopSDK } = params;
+      let { appkey, secret, apiServer, apiPrefix, userId, language, customLanguagePath, appletText, localeLanguage, nativeEventEmitter, finMopSDK } = params;
       MopSDK._finMopSDK = finMopSDK
       const appKeyCheck = typeCheck(appkey, 'String')
       const secretCheck = typeCheck(secret, 'String')
@@ -123,7 +124,7 @@ class MopSDK {
         this._extentionApiCallbacks(event)
       })
       MopSDK._finMopSDK.initialize({
-        appkey, secret, apiServer, apiPrefix, userId, language, customLanguagePath, localeLanguage
+        appkey, secret, apiServer, apiPrefix, userId, language, customLanguagePath, appletText, localeLanguage
       }, (data) => {
         data = handleCallbackData(data)
         if (data.success) {

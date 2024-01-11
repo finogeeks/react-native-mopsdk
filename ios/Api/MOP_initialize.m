@@ -120,7 +120,8 @@
         }
     }
     uiconfig.appendingCustomUserAgent = self.customWebViewUserAgent;
-    
+    uiconfig.appletText = self.appletText;
+
     [[FATClient sharedClient] initWithConfig:config uiConfig:uiconfig error:&error];
     if (error) {
         failure(@"初始化失败");

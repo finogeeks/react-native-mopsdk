@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, copy, nullable) NSString *customLanguagePath;
 
+/**
+ 注入小程序统称appletText字符串，默认为“小程序”。
+*/
+@property (nonatomic, copy, nullable) NSString *appletText;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
