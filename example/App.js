@@ -43,8 +43,9 @@ export default class App extends Component<{}> {
         userId: '123456',
         language: 0,
         customLanguagePath:"wwwww",
-        //localeLanguage:"ko_KR",
-        localeLanguage:"ja_JP",
+       // localeLanguage:"ko_KR",
+        appletText:"【替换字符】",
+        //localeLanguage:"ja_JP",
         nativeEventEmitter: eventEmitter,
         finMopSDK: NativeModules.FINMopSDK
       }

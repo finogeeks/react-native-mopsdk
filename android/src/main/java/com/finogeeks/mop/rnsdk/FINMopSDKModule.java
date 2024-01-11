@@ -204,6 +204,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         if (finStoreConfigs != null) builder.setFinStoreConfigs(finStoreConfigs);
         if (uiConfig != null) builder.setUiConfig(uiConfig);
 
+        Object appletText = param.get("appletText");
+        if (appletText != null) {
+            builder.setAppletText((String) appletText);
+        }
+
         Object localeLanguage = param.get("localeLanguage");
         if (localeLanguage != null) {
             String language = (String) localeLanguage;
