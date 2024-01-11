@@ -9,21 +9,21 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter  } from 'react-native';
-import MopSDK from 'react-native-mopsdk';
+import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter } from 'react-native';
+import MopSDK, { Config, FinStoreConfig,BOOLState, UIConfig } from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
-  MopSDK.openApplet({appId: '64c23309c533620001a1971e'});
+  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });
 };
 const onPressOpenDemoApplet = () => {
-  MopSDK.openApplet({appId: '64c23309c533620001a1971e'});
+  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });
 };
 const onPressOpenProfileApplet = () => {
-   MopSDK.registerAppletHandler({
-     getCustomMenus(appId){
-       console.log("getCustomMenus")
-        return []
-     }
-   })
+  MopSDK.registerAppletHandler({
+    getCustomMenus(appId) {
+      console.log("getCustomMenus")
+      return []
+    }
+  })
 };
 export default class App extends Component<{}> {
   state = {
@@ -33,26 +33,21 @@ export default class App extends Component<{}> {
   componentDidMount() {
 
     const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
-    
-    let finStoreConfigs = [{
-      sdkKey: "22LyZEib0gLTQdU3MUauATBwgfnTCJjdr7FCnywmAEM=",
-      sdkSecret: "bdfd76cae24d4313",
-      apiServer: "https://api.finclip.com"
-    }]
 
-    let config = {
-      finStoreConfigs: finStoreConfigs,
-      appletDebugMode:true,
-      userId:"123456789",
-      debug:true
+    let finStoreConfigA = new FinStoreConfig(
+      "22LyZEib0gLTQdU3MUauATBwgfnTCJjdr7FCnywmAEM=",
+      "bdfd76cae24d4313",
+      "https://api.finclip.com");
 
+    let finStoreConfigs = [finStoreConfigA];
+    let config = new Config(finStoreConfigs,{userId:"123456789",debug:true,appletDebugMode:BOOLState.BOOLStateTrue}) ;
+    let uiConfig = new UIConfig({isHideClearCacheMenu:true});
+    let params = {
+      config: config,
+      uiConfig: uiConfig,
+      finMopSDK: NativeModules.FINMopSDK,
+      nativeEventEmitter: eventEmitter
     }
-    let uiConfig = {}
-    let params = { config: config, 
-       uiConfig: uiConfig ,
-       finMopSDK:NativeModules.FINMopSDK,
-       nativeEventEmitter: eventEmitter
-      }
 
     MopSDK.initSDK(params).then((res) => {
       console.log('message: ', res);
