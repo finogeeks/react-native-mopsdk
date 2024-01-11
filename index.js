@@ -73,7 +73,7 @@ class MopSDK {
    * @param {string} params.apiPrefix 
    * @param {string} params.userId 
    * @param {string} params.appletText  注入小程序统称appletText字符串，默认为“小程序”。
-   * @param {number} params.language  SDK的语言类型，默认为中文，0：中文，1：英文
+   * @param {number} params.language  SDK的语言类型，默认为中文，0：中文，1：英文,其他语言得使用 customLanguagePath、localeLanguage属性。具体看文档
    * @param {string} params.customLanguagePath  【iOS属性】自定义SDK的语言，优先级高于内置的 language 属性；示例：如果是放在 mainBundle 下，则设置相对路径：@"abc.lproj"；如果是放在自定于 Bundle 下，则设置相对路径：@"bundleName.bundle/abc.lproj"
    * @param {string} params.localeLanguage 【Android属性】自定义SDK的语言，优先级高于内置的 language 属性；语言列表可以参考：https://uutool.cn/info-i18n/ 或者Java类 【java.util.Locale】;示例：简体中文：zh_CN，繁体中文：zh_TW，英文：en
    * @param {Object} param.nativeEventEmitter eventEmitter 实例
