@@ -68,6 +68,16 @@
     config.currentUserId = [self.userId copy];
     config.appletIntervalUpdateLimit = self.appletIntervalUpdateLimit;
     config.baseLoadingViewClass = @"Mop_LoadingView";
+    
+    if (self.language == 1) {
+        config.language = FATPreferredLanguageEnglish;
+    } else {
+        config.language = FATPreferredLanguageSimplifiedChinese;
+    }
+    
+    
+    config.customLanguagePath = self.customLanguagePath;
+
 
     NSError* error = nil;
     FATUIConfig *uiconfig = [[FATUIConfig alloc]init];

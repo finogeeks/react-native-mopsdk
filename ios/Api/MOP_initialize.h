@@ -26,6 +26,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger appletIntervalUpdateLimit;
 @property (nonatomic, assign) NSInteger maxRunningApplet;
 
+/**
+ 设置SDK的语言，应用公共UI（比如关于、设置、更多面板等）上展示的文字。默认为中文,当值为1的时候，为英文
+ 设置不支持的语言时，显示默认值
+ */
+@property (nonatomic, assign) NSInteger language;
+
+/**
+ 自定义SDK的语言，优先级高于内置的 language 属性。
+ 示例：
+ 如果是放在 mainBundle 下，则设置相对路径：@"abc.lproj"
+ 如果是放在自定于 Bundle 下，则设置相对路径：@"bundleName.bundle/abc.lproj"
+ */
+@property (nonatomic, copy, nullable) NSString *customLanguagePath;
+
 @end
 
 NS_ASSUME_NONNULL_END
