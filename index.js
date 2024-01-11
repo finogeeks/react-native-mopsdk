@@ -1,13 +1,15 @@
+import {BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig } from './mop.js';
+
 const handleCallbackData = (params) => {
   let result = {}
-  if(params instanceof Array) {
+  if (params instanceof Array) {
     result = params[0]
-    if(typeof params[0] === 'string') {
+    if (typeof params[0] === 'string') {
       result = JSON.parse(params[0])
     }
-  } else if(params instanceof Object){
+  } else if (params instanceof Object) {
     result = params
-  } else if(typeof params === 'string') {
+  } else if (typeof params === 'string') {
     result = JSON.parse(params)
   }
 
@@ -23,14 +25,14 @@ const typeCheck = (data, type) => {
     '[object Undefined]': 'Undefined',
     '[object Object]': 'Object'
   }
-  if(!Object.values(TYPE_MAP).includes(type)) {
-    return { success: false , retMsg: 'error type'}
+  if (!Object.values(TYPE_MAP).includes(type)) {
+    return { success: false, retMsg: 'error type' }
   }
-  const result = TYPE_MAP[Object.prototype.toString.call(data)] === type 
-  if(!result) {
-    return { success: false , retMsg: `params should be ${type}`}
+  const result = TYPE_MAP[Object.prototype.toString.call(data)] === type
+  if (!result) {
+    return { success: false, retMsg: `params should be ${type}` }
   }
-  return { success: true , retMsg: ''}
+  return { success: true, retMsg: '' }
 }
 
 class MopSDK {
@@ -41,11 +43,11 @@ class MopSDK {
   static _webExtensionApis = {}
   static _finMopSDK = {}
 
-  async _extentionApiCallbacks (event) {
+  async _extentionApiCallbacks(event) {
     const extensionAPIPrefix = 'extensionApi:'
     const webExtensionApiPrefix = 'webExtentionApi:'
 
-    if(event.apiName.startsWith(extensionAPIPrefix)) {
+    if (event.apiName.startsWith(extensionAPIPrefix)) {
       let apiName = event.apiName.substring(extensionAPIPrefix.length)
       const handler = MopSDK._extensionApis[apiName]
       if (handler !== null) {
@@ -53,16 +55,16 @@ class MopSDK {
         console.warn("CUSTOM API 调用的结果", res)
         MopSDK._finMopSDK.eventReminderCallback(apiName, res, event.callbackId)
       }
-    } else if(event.apiName.startsWith(webExtensionApiPrefix)) {
+    } else if (event.apiName.startsWith(webExtensionApiPrefix)) {
       let apiName = event.apiName.substring(webExtensionApiPrefix.length)
       const handler = MopSDK._webExtensionApis[apiName]
-      if(handler !== null) {
+      if (handler !== null) {
         const res = await handler(event.params)
         console.warn("WEB CUSTOM API 调用的结果", res)
         MopSDK._finMopSDK.eventReminderCallback(apiName, res, event.callbackId)
       }
-    }   
-  } 
+    }
+  }
 
   /**
    * @description 
@@ -86,29 +88,29 @@ class MopSDK {
    * @param {Number} params.maxRunningApplet
    * @returns 
    */
-   initialize(params) {
+  initialize(params) {
     return new Promise((resolve, reject) => {
       let { appkey, secret, apiServer, apiPrefix, nativeEventEmitter, userId, finMopSDK } = params;
       MopSDK._finMopSDK = finMopSDK
       const appKeyCheck = typeCheck(appkey, 'String')
       const secretCheck = typeCheck(secret, 'String')
       const nativeEventEmitterCheck = typeCheck(nativeEventEmitter, 'Object')
-      if(!appKeyCheck.success) {
+      if (!appKeyCheck.success) {
         reject(appKeyCheck)
-        return 
+        return
       }
-      if(!secretCheck.success) {
+      if (!secretCheck.success) {
         reject(secretCheck)
         return
       }
 
-      if(!nativeEventEmitterCheck.success) {
+      if (!nativeEventEmitterCheck.success) {
         reject(nativeEventEmitterCheck)
-        return 
+        return
       }
-      
-      if(appkey === '' || secret === '') {
-        reject({ success: false , retMsg: 'appkey, secret 不能为空'})
+
+      if (appkey === '' || secret === '') {
+        reject({ success: false, retMsg: 'appkey, secret 不能为空' })
       }
 
       if (!apiServer) {
@@ -133,7 +135,7 @@ class MopSDK {
         appkey, secret, apiServer, apiPrefix, userId,
       }, (data) => {
         data = handleCallbackData(data)
-        if(data.success) {
+        if (data.success) {
           resolve(data)
         } else {
           reject(data)
@@ -145,30 +147,30 @@ class MopSDK {
   /**
    * @description Initialize the SDK with the provided configuration
    * @param {Object} params
-   * @param {Object} params.config - Main SDK configuration
-   * @param {Object} params.uiConfig - UI related configuration
+   * @param {Config} params.config - Main SDK configuration
+   * @param {UIConfig} params.uiConfig - UI related configuration
    * @param {Object} params.finMopSDK 
    * @param {Object} params.nativeEventEmitter 
    * @returns 
    */
   initSDK(params) {
     return new Promise((resolve, reject) => {
-      let { config, uiConfig,finMopSDK, nativeEventEmitter } = params;
+      let { config, uiConfig, finMopSDK, nativeEventEmitter } = params;
       MopSDK._finMopSDK = finMopSDK
-       // 参数校验
-      if (!config || typeof config !== 'object') {
-        reject({ success: false, retMsg: 'config is required and must be an object' });
+      // 参数校验
+      if (!config || !(config instanceof Config)) {
+        reject({ success: false, retMsg: 'config is required and must be class Config' });
         return;
       }
       // uiConfig 可选
-       if (uiConfig && typeof uiConfig !== 'object') {
-         reject({ success: false, retMsg: 'uiConfig must be an object' });
-         return;
-       }
-       const nativeEventEmitterCheck = typeCheck(nativeEventEmitter, 'Object')
-       if(!nativeEventEmitterCheck.success) {
+      if (uiConfig && !(uiConfig instanceof UIConfig)) {
+        reject({ success: false, retMsg: 'uiConfig must be class UIConfig' });
+        return;
+      }
+      const nativeEventEmitterCheck = typeCheck(nativeEventEmitter, 'Object')
+      if (!nativeEventEmitterCheck.success) {
         reject(nativeEventEmitterCheck)
-        return 
+        return
       }
       nativeEventEmitter.addListener('EventReminder', (event) => {
         this._extentionApiCallbacks(event)
@@ -199,18 +201,18 @@ class MopSDK {
    * @param {String} params.scene
    * @returns
    */
-   openApplet(params) {
+  openApplet(params) {
     return new Promise((resolve, reject) => {
       const { appId } = params
       const appIdCheck = typeCheck(appId, 'String')
-      if(!appIdCheck.success) {
+      if (!appIdCheck.success) {
         reject(appIdCheck)
         return
       }
 
       MopSDK._finMopSDK.openApplet(params, (params) => {
         params = handleCallbackData(params)
-        if(params.success) {
+        if (params.success) {
           resolve(params)
         } else {
           reject(params)
@@ -222,16 +224,16 @@ class MopSDK {
   closeApplet(appletId, animated) {
     const appletIdCheck = typeCheck(appletId, 'String')
     const animatedCheck = typeCheck(animated, 'Boolean')
-    if(!appletIdCheck.success) {
+    if (!appletIdCheck.success) {
       console.error(appletIdCheck.retMsg)
-      return 
+      return
     }
 
-    if(!animatedCheck) {
+    if (!animatedCheck) {
       console.error(appletIdCheck.retMsg)
-      return 
+      return
     }
-    MopSDK._finMopSDK.closeApplet({ appletId, animated})
+    MopSDK._finMopSDK.closeApplet({ appletId, animated })
   }
   // 关闭当前打开的所有小程序
   closeAllApplets() {
@@ -240,18 +242,18 @@ class MopSDK {
   // 二维码打开小程序
   qrcodeOpenApplet(qrcode) {
     const qrcodeCheck = typeCheck(qrcode, 'String')
-    if(!qrcodeCheck.success) {
+    if (!qrcodeCheck.success) {
       console.error(qrcodeCheck.retMsg)
-      return 
+      return
     }
     MopSDK._finMopSDK.qrcodeOpenApplet({ qrcode })
   }
   // 获取当前正在使用的小程序信息
   currentApplet() {
     return new Promise((resolve, reject) => {
-      MopSDK._finMopSDK.currentApplet({},(params) => {
+      MopSDK._finMopSDK.currentApplet({}, (params) => {
         params = handleCallbackData(params)
-        if(params.success) {
+        if (params.success) {
           resolve(params)
         } else {
           reject(params)
@@ -273,23 +275,23 @@ class MopSDK {
       return handler.getUserInfo(params)
     }
 
-    MopSDK._extensionApis["getCustomMenus"] = async (params)  =>  {
+    MopSDK._extensionApis["getCustomMenus"] = async (params) => {
       const res = await handler.getCustomMenus(params["appId"]);
       let list = res.map(item => {
-        return { 
+        return {
           menuId: item.menuId,
-          image: item.image, 
+          image: item.image,
           title: item.title,
           type: item.type
         }
       })
-      return list 
+      return list
     };
     MopSDK._extensionApis["onCustomMenuClick"] = (params) => {
       return handler.onCustomMenuClick(
         params["appId"], params["path"], params["menuId"], params["appInfo"]);
     };
-    MopSDK._extensionApis["appletDidOpen"] = (params) =>  {
+    MopSDK._extensionApis["appletDidOpen"] = (params) => {
       return handler.appletDidOpen(params["appId"]);
     };
     MopSDK._finMopSDK.registerAppletHandler()
@@ -311,41 +313,41 @@ class MopSDK {
     const appIdCheck = typeCheck(appId, 'String')
     const eventNameCheck = typeCheck(eventName, 'String')
 
-    if(!appIdCheck.success) {
+    if (!appIdCheck.success) {
       console.error(appIdCheck.retMsg)
       return Promise.reject()
     }
 
-    if(!eventNameCheck.success) {
+    if (!eventNameCheck.success) {
       console.error(eventNameCheck.retMsg)
       return Promise.reject()
     }
     return new Promise((resolve, reject) => {
-      MopSDK._finMopSDK.callJS({ appId, eventName, nativeViewId, eventData },(params)=>{
+      MopSDK._finMopSDK.callJS({ appId, eventName, nativeViewId, eventData }, (params) => {
         params = handleCallbackData(params)
-          if(params.success) {
-            resolve(params)
-          } else {
-            reject(params)
-          }
+        if (params.success) {
+          resolve(params)
+        } else {
+          reject(params)
+        }
       })
-   })
+    })
   }
   // 原生发送事件给小程序
   sendCustomEvent(appId, eventData) {
     const appIdCheck = typeCheck(appId, 'String')
-    if(!appIdCheck.success) {
+    if (!appIdCheck.success) {
       console.error(appIdCheck.retMsg)
-      return 
+      return
     }
     MopSDK._finMopSDK.sendCustomEvent({ appId, eventData })
   }
   // 结束小程序
   finishRunningApplet(appletId, animated) {
     const appletIdCheck = typeCheck(appletId, 'String')
-    if(!appletIdCheck.success) {
+    if (!appletIdCheck.success) {
       console.error(appletIdCheck.retMsg)
-      return 
+      return
     }
     MopSDK._finMopSDK.finishRunningApplet({ appletId, animated })
   }
@@ -357,3 +359,5 @@ class MopSDK {
 
 
 export default new MopSDK();
+export { BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };
+
