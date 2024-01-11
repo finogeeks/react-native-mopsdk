@@ -40,8 +40,12 @@ export default class App extends Component<{}> {
         secret: 'bdfd76cae24d4313',
         apiServer: 'https://api.finclip.com',
         apiPrefix: '/api/v1/mop',
+        userId: '123456',
+        language: 0,
+        customLanguagePath:"wwwww",
+        localeLanguage:"en",
         nativeEventEmitter: eventEmitter,
-        finMopSDK: NativeModules.FINMopSDK,
+        finMopSDK: NativeModules.FINMopSDK
       }
     ).then((res) => {
       console.log('message: ', res);
