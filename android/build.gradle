@@ -71,6 +71,11 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -99,8 +104,8 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:"+REACT_NATIVE_VERSION  // From node_modules
-    implementation 'com.finogeeks.lib:finapplet:2.43.1'
-    implementation 'com.finogeeks.mop:plugins:2.41.1'
+    implementation 'com.finogeeks.lib:finapplet:2.43.1-fix20240110v01'
+    implementation 'com.finogeeks.mop:plugins:2.43.1-fix20240110v01'
 }
 
 def configureReactNativePom(def pom) {
