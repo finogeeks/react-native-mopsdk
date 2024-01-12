@@ -40,3 +40,7 @@ local.properties
 buck-out/
 \.buckd/
 *.keystore
+.vscode
+android/gradle
+android/gradlew
+android/gradlew.bat
