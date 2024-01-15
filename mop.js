@@ -229,12 +229,12 @@ class CapsuleConfig {
    * @param {number} options.capsuleRightMargin - 右上角胶囊视图的右边距
    * @param {number} options.capsuleCornerRadius - 右上角胶囊视图的圆角半径，默认值为5
    * @param {number} options.capsuleBorderWidth - 右上角胶囊视图的边框宽度，默认值为1
-   * @param {number} options.capsuleBgLightColor - 胶囊背景颜色浅色
-   * @param {number} options.capsuleBgDarkColor - 胶囊背景颜色深色
-   * @param {number} options.capsuleBorderLightColor - 右上角胶囊视图的边框浅色颜色
-   * @param {number} options.capsuleBorderDarkColor - 右上角胶囊视图的边框深色颜色
-   * @param {number} options.capsuleDividerLightColor - 胶囊分割线浅色颜色
-   * @param {number} options.capsuleDividerDarkColor - 胶囊分割线深色颜色
+   * @param {string} options.capsuleBgLightColor - 胶囊背景颜色浅色
+   * @param {string} options.capsuleBgDarkColor - 胶囊背景颜色深色
+   * @param {string} options.capsuleBorderLightColor - 右上角胶囊视图的边框浅色颜色
+   * @param {string} options.capsuleBorderDarkColor - 右上角胶囊视图的边框深色颜色
+   * @param {string} options.capsuleDividerLightColor - 胶囊分割线浅色颜色
+   * @param {string} options.capsuleDividerDarkColor - 胶囊分割线深色颜色
    * @param {number} options.moreLightImage - 胶囊里的浅色更多按钮的图片对象，如果不传，会使用默认图标
    * @param {number} options.moreDarkImage - 胶囊里的深色更多按钮的图片对象，如果不传，会使用默认图标
    * @param {number} options.moreBtnWidth - 胶囊里的更多按钮的宽度，高度与宽度相等。android默认值为32；ios默认值为20
@@ -250,12 +250,12 @@ class CapsuleConfig {
     capsuleRightMargin = 8,
     capsuleCornerRadius = 5,
     capsuleBorderWidth = 1,
-    capsuleBgLightColor = isAndroid() ? 0x33000000 : 0x80ffffff,
-    capsuleBgDarkColor = isAndroid() ? 0x80ffffff : 0x33000000,
-    capsuleBorderLightColor = 0x80ffffff,
-    capsuleBorderDarkColor = 0x26000000,
-    capsuleDividerLightColor = 0x80ffffff,
-    capsuleDividerDarkColor = 0x26000000,
+    capsuleBgLightColor = isAndroid() ? "#33000000" : "#80ffffff",
+    capsuleBgDarkColor = isAndroid() ? "#80ffffff" : "#33000000",
+    capsuleBorderLightColor = "#80ffffff",
+    capsuleBorderDarkColor = "#26000000",
+    capsuleDividerLightColor = "#80ffffff",
+    capsuleDividerDarkColor = "#26000000",
     moreLightImage = null,
     moreDarkImage = null,
     moreBtnWidth = isAndroid() ? 32 : 20,
@@ -296,10 +296,10 @@ class NavHomeConfig {
    * @param {number} options.leftMargin - 返回首页按钮的左边距，Android默认值为8，iOS默认值为10
    * @param {number} options.cornerRadius - 返回首页按钮的圆角半径，默认值为5
    * @param {number} options.borderWidth - 返回首页按钮的边框宽度，Android默认值为0.75，iOS默认值为0.8
-   * @param {number} options.borderLightColor - 返回首页按钮的边框浅色颜色（暗黑模式）
-   * @param {number} options.borderDarkColor - 返回首页按钮的边框深色颜色（明亮模式）
-   * @param {number} options.bgLightColor - 返回首页按钮的背景浅色颜色（明亮模式）
-   * @param {number} options.bgDarkColor - 返回首页按钮的背景深色颜色（暗黑模式）
+   * @param {string} options.borderLightColor - 返回首页按钮的边框浅色颜色（暗黑模式）
+   * @param {string} options.borderDarkColor - 返回首页按钮的边框深色颜色（明亮模式）
+   * @param {string} options.bgLightColor - 返回首页按钮的背景浅色颜色（明亮模式）
+   * @param {string} options.bgDarkColor - 返回首页按钮的背景深色颜色（暗黑模式）
    */
   constructor(
     width,
@@ -307,10 +307,10 @@ class NavHomeConfig {
       leftMargin = isAndroid() ? 8 : 10,
       cornerRadius = 5,
       borderWidth = isAndroid() ? 0.75 : 0.8,
-      borderLightColor = 0x80ffffff,
-      borderDarkColor = 0x26000000,
-      bgLightColor = 0x33000000,
-      bgDarkColor = 0x80ffffff
+      borderLightColor = "#80ffffff",
+      borderDarkColor = "#26000000",
+      bgLightColor = "#33000000",
+      bgDarkColor = "#80ffffff"
     } = {}) {
     this.width = width;
     this.height = height;
@@ -352,12 +352,12 @@ class AuthButtonConfig {
   /**
    * @param {Object} options - 可选参数
    * @param {number} options.cornerRadius - 按钮的圆角半径
-   * @param {number} options.normalBackgroundColor - 按钮默认背景颜色
-   * @param {number} options.pressedBackgroundColor - 按钮按下背景颜色
-   * @param {number} options.normalTextColor - 按钮默认文字颜色
-   * @param {number} options.pressedTextColor - 按钮按下文字颜色
-   * @param {number} options.normalBorderColor - 按钮默认边框颜色
-   * @param {number} options.pressedBorderColor - 按钮按下边框颜色
+   * @param {string} options.normalBackgroundColor - 按钮默认背景颜色
+   * @param {string} options.pressedBackgroundColor - 按钮按下背景颜色
+   * @param {string} options.normalTextColor - 按钮默认文字颜色
+   * @param {string} options.pressedTextColor - 按钮按下文字颜色
+   * @param {string} options.normalBorderColor - 按钮默认边框颜色
+   * @param {string} options.pressedBorderColor - 按钮按下边框颜色
    */
   constructor({
     cornerRadius,
@@ -382,22 +382,22 @@ class AuthViewConfig {
   /**
    * @param {Object} options - 可选参数
    * @param {number} options.appletNameTextSize - 小程序名称字体大小，默认字体为PingFangSC-Regular，默认大小16
-   * @param {number} options.appletNameLightColor - 小程序名称的浅色颜色（明亮模式），默认#222222
-   * @param {number} options.appletNameDarkColor - 小程序名称的深色颜色（暗黑模式），默认#D0D0D0
+   * @param {string} options.appletNameLightColor - 小程序名称的浅色颜色（明亮模式），默认#222222
+   * @param {string} options.appletNameDarkColor - 小程序名称的深色颜色（暗黑模式），默认#D0D0D0
    * @param {number} options.authorizeTitleTextSize - 权限标题字体大小，默认字体为PingFangSC-Medium，默认大小17；备注：权限选项文字字体大小使用该配置项，但字体固定为PingFangSC-Regular
-   * @param {number} options.authorizeTitleLightColor - 权限标题的浅色颜色（明亮模式），默认#222222 ; 备注：权限选项文字字体颜色使用该配置项
-   * @param {number} options.authorizeTitleDarkColor - 权限标题的深色颜色（暗黑模式），默认#D0D0D0 ; 备注：权限选项文字字体颜色使用该配置项
+   * @param {string} options.authorizeTitleLightColor - 权限标题的浅色颜色（明亮模式），默认#222222 ; 备注：权限选项文字字体颜色使用该配置项
+   * @param {string} options.authorizeTitleDarkColor - 权限标题的深色颜色（暗黑模式），默认#D0D0D0 ; 备注：权限选项文字字体颜色使用该配置项
    * @param {number} options.authorizeDescriptionTextSize - 权限描述字体大小，默认字体为PingFangSC-Regular，默认大小14
-   * @param {number} options.authorizeDescriptionLightColor - 权限描述的浅色颜色（明亮模式），默认#666666
-   * @param {number} options.authorizeDescriptionDarkColor - 权限描述的深色颜色（暗黑模式），默认#5c5c5c
+   * @param {string} options.authorizeDescriptionLightColor - 权限描述的浅色颜色（明亮模式），默认#666666
+   * @param {string} options.authorizeDescriptionDarkColor - 权限描述的深色颜色（暗黑模式），默认#5c5c5c
    * @param {number} options.agreementTitleTextSize - 协议标题字体大小，默认字体为PingFangSC-Regular，默认大小16
-   * @param {number} options.agreementTitleLightColor - 协议标题的浅色颜色（明亮模式），默认#222222
-   * @param {number} options.agreementTitleDarkColor - 协议标题的深色颜色（暗黑模式），默认#D0D0D0
+   * @param {string} options.agreementTitleLightColor - 协议标题的浅色颜色（明亮模式），默认#222222
+   * @param {string} options.agreementTitleDarkColor - 协议标题的深色颜色（暗黑模式），默认#D0D0D0
    * @param {number} options.agreementDescriptionTextSize - 协议描述字体大小，默认字体为PingFangSC-Regular，默认大小14
-   * @param {number} options.agreementDescriptionLightColor - 协议描述的浅色颜色（明亮模式），默认#222222
-   * @param {number} options.agreementDescriptionDarkColor - 协议描述的深色颜色（暗黑模式），默认#D0D0D0
-   * @param {number} options.linkLightColor - 链接的浅色颜色（明亮模式），默认#4285f4
-   * @param {number} options.linkDarkColor - 链接的深色颜色（暗黑模式），默认#4285f4
+   * @param {string} options.agreementDescriptionLightColor - 协议描述的浅色颜色（明亮模式），默认#222222
+   * @param {string} options.agreementDescriptionDarkColor - 协议描述的深色颜色（暗黑模式），默认#D0D0D0
+   * @param {string} options.linkLightColor - 链接的浅色颜色（明亮模式），默认#4285f4
+   * @param {string} options.linkDarkColor - 链接的深色颜色（暗黑模式），默认#4285f4
    * @param {AuthButtonConfig} options.allowButtonLightConfig - 同意按钮配置（明亮模式）; 默认配置-> 圆角：4; 默认背景色：#4285F4 ; 默认描边：#4285F4 ; 默认文字颜色：#FFFFFF ; 按下背景色：#3B77DB ; 按下默认描边：#3B77DB ; 按下文字颜色：#FFFFFF
    * @param {AuthButtonConfig} options.allowButtonDarkConfig - 同意按钮配置（暗黑模式） ; 默认配置-> 圆角：4; 默认背景色：#4285F4 ; 默认描边：#4285F4 ; 默认文字颜色：#FFFFFF ; 按下背景色：#5E97F5 ; 按下默认描边：#5E97F5 ; 按下文字颜色：#FFFFFF
    * @param {AuthButtonConfig} options.rejectButtonLightConfig - 拒绝按钮配置（明亮模式）; 默认配置-> 圆角：4; 默认背景色：#FFFFFF ; 默认描边：#E2E2E2 ; 默认文字颜色：#222222 ; 按下背景色：#D8D8D8 ; 按下默认描边：#D8D8D8 ; 按下文字颜色：#222222
@@ -405,22 +405,22 @@ class AuthViewConfig {
    */
   constructor({
     appletNameTextSize = 16,
-    appletNameLightColor = 0xff222222,
-    appletNameDarkColor = 0xffd0d0d0,
+    appletNameLightColor = "#ff222222",
+    appletNameDarkColor = "#ffd0d0d0",
     authorizeTitleTextSize = 17,
-    authorizeTitleLightColor = 0xff222222,
-    authorizeTitleDarkColor = 0xffd0d0d0,
+    authorizeTitleLightColor = "#ff222222",
+    authorizeTitleDarkColor = "#ffd0d0d0",
     authorizeDescriptionTextSize = 14,
-    authorizeDescriptionLightColor = 0xff666666,
-    authorizeDescriptionDarkColor = 0xff5c5c5c,
+    authorizeDescriptionLightColor = "#ff666666",
+    authorizeDescriptionDarkColor = "#ff5c5c5c",
     agreementTitleTextSize = 16,
-    agreementTitleLightColor = 0xff222222,
-    agreementTitleDarkColor = 0xffd0d0d0,
+    agreementTitleLightColor = "#ff222222",
+    agreementTitleDarkColor = "#ffd0d0d0",
     agreementDescriptionTextSize = 14,
-    agreementDescriptionLightColor = 0xff222222,
-    agreementDescriptionDarkColor = 0xffd0d0d0,
-    linkLightColor = 0xff4285f4,
-    linkDarkColor = 0xff4285f4,
+    agreementDescriptionLightColor = "#ff222222",
+    agreementDescriptionDarkColor = "#ffd0d0d0",
+    linkLightColor = "#ff4285f4",
+    linkDarkColor = "#ff4285f4",
     allowButtonLightConfig = null,
     allowButtonDarkConfig = null,
     rejectButtonLightConfig = null,
@@ -455,10 +455,10 @@ class UIConfig {
    * @param {Object} options - 可选参数
    * @param {Map<string,any>} options.navigationTitleTextAttributes - 【iOS属性】 导航栏的标题样式,目前支持了font，
    * @param {number} options.navigationBarHeight - 【iOS属性】 导航栏的高度(不含状态栏高度)，默认值为44
-   * @param {number} options.navigationBarTitleLightColor - 导航栏的标题颜色（深色主题），默认值为白色
-   * @param {number} options.navigationBarTitleDarkColor - 导航栏的标题颜色（明亮主题），默认值为黑色
-   * @param {number} options.navigationBarBackBtnLightColor - 导航栏的返回按钮颜色（深色主题），默认值为白色
-   * @param {number} options.navigationBarBackBtnDarkColor - 导航栏的返回按钮颜色（明亮主题），默认值为黑色
+   * @param {string} options.navigationBarTitleLightColor - 导航栏的标题颜色（深色主题），默认值为白色
+   * @param {string} options.navigationBarTitleDarkColor - 导航栏的标题颜色（明亮主题），默认值为黑色
+   * @param {string} options.navigationBarBackBtnLightColor - 导航栏的返回按钮颜色（深色主题），默认值为白色
+   * @param {string} options.navigationBarBackBtnDarkColor - 导航栏的返回按钮颜色（明亮主题），默认值为黑色
    * @param {number} options.moreMenuStyle - 弹出的菜单视图的样式 0:默认 1:Normal
    * @param {number} options.isHideBackHomePriority - 隐藏导航栏返回首页按钮的优先级设置，默认全局配置优先
    * @param {boolean} options.isAlwaysShowBackInDefaultNavigationBar - 【Android属性】 当导航栏为默认导航栏时，是否始终显示返回按钮
@@ -476,7 +476,7 @@ class UIConfig {
    * @param {NavHomeConfig} options.navHomeConfig - 返回首页按钮的配置
    * @param {FloatWindowConfig} options.floatWindowConfig - 浮窗配置
    * @param {AuthViewConfig} options.authViewConfig - 权限弹窗UI配置
-   * @param {number} options.webViewProgressBarColor - 小程序里加载H5页面时进度条的颜色 格式 0xFFFFAA00
+   * @param {string} options.webViewProgressBarColor - 小程序里加载H5页面时进度条的颜色 格式 #FFFFAA00
    * @param {boolean} options.hideWebViewProgressBar - 隐藏小程序里加载H5时进度条，默认为false
    * @param {boolean} options.autoAdaptDarkMode - 是否自适应暗黑模式。如果设置为true，则更多页面、关于等原生页面会随着手机切换暗黑，也自动调整为暗黑模式
    * @param {boolean} options.useNativeLiveComponent - 是否使用内置的live组件，默认为false。(目前仅iOS支持)
@@ -490,10 +490,10 @@ class UIConfig {
   constructor({
     navigationTitleTextAttributes = null,
     navigationBarHeight = 44,
-    navigationBarTitleLightColor = 0xffffffff,
-    navigationBarTitleDarkColor = 0xff000000,
-    navigationBarBackBtnLightColor = 0xffffffff,
-    navigationBarBackBtnDarkColor = 0xff000000,
+    navigationBarTitleLightColor = "#ffffffff",
+    navigationBarTitleDarkColor = "#ff000000",
+    navigationBarBackBtnLightColor = "#ffffffff",
+    navigationBarBackBtnDarkColor = "#ff000000",
     moreMenuStyle = 0,
     isHideBackHomePriority = ConfigPriority.ConfigGlobalPriority,
     isAlwaysShowBackInDefaultNavigationBar = false,
@@ -502,8 +502,8 @@ class UIConfig {
     isHideBackHome = false,
     isHideForwardMenu = false,
     isHideShareAppletMenu = true,
-    isHideAddToDesktopMenu = false,
-    isHideFavoriteMenu = false,
+    isHideAddToDesktopMenu = true,
+    isHideFavoriteMenu = true,
     isHideRefreshMenu = false,
     isHideSettingMenu = false,
     isHideClearCacheMenu = false,
