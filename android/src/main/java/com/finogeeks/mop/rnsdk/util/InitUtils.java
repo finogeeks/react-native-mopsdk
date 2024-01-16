@@ -1,17 +1,20 @@
 package com.finogeeks.mop.rnsdk.util;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.graphics.Color;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.finogeeks.lib.applet.client.FinAppConfig;
 import com.finogeeks.lib.applet.client.FinAppConfigPriority;
+import com.finogeeks.lib.applet.utils.ColorUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class InitUtils {
+
+    public static final String COLOR_TEXT_WHITE = "#ffffffff";
+    public static final String COLOR_TEXT_BLACK = "#ff000000";
 
     private static float covertNumToFloat(Object obj) {
         if (obj instanceof Float) {
@@ -30,130 +33,344 @@ public class InitUtils {
         throw new IllegalArgumentException("Unsupported argument type " + obj.getClass().getName());
     }
 
-    public static FinAppConfig.UIConfig createUIConfigFromMap(Map<String, Object> map) {
+    public static FinAppConfig.UIConfig createUIConfigFromMap(ReadableMap map) {
         if (map != null) {
             FinAppConfig.UIConfig uiConfig = new FinAppConfig.UIConfig();
-            uiConfig.setNavigationBarTitleLightColor((Integer) map.get("navigationBarTitleLightColor"));
-            uiConfig.setNavigationBarTitleDarkColor((Integer) map.get("navigationBarTitleDarkColor"));
-            uiConfig.setNavigationBarBackBtnLightColor((Integer) map.get("navigationBarBackBtnLightColor"));
-            uiConfig.setAlwaysShowBackInDefaultNavigationBar((Boolean) map.get("isAlwaysShowBackInDefaultNavigationBar"));
-            uiConfig.setClearNavigationBarNavButtonBackground((Boolean) map.get("isClearNavigationBarNavButtonBackground"));
-            uiConfig.setHideFeedbackAndComplaints((Boolean) map.get("isHideFeedbackAndComplaints"));
-            uiConfig.setHideBackHome((Boolean) map.get("isHideBackHome"));
-            uiConfig.setHideForwardMenu((Boolean) map.get("isHideForwardMenu"));
-            uiConfig.setHideRefreshMenu((Boolean) map.get("isHideRefreshMenu"));
-            uiConfig.setHideShareAppletMenu((Boolean) map.get("isHideShareAppletMenu"));
-            uiConfig.setHideAddToDesktopMenu((Boolean) map.get("isHideAddToDesktopMenu"));
-            uiConfig.setHideFavoriteMenu((Boolean) map.get("isHideFavoriteMenu"));
-            uiConfig.setHideClearCacheMenu((Boolean) map.get("isHideClearCacheMenu"));
-            uiConfig.setHideSettingMenu((Boolean) map.get("isHideSettingMenu"));
-            uiConfig.setHideTransitionCloseButton((Boolean) map.get("hideTransitionCloseButton"));
-            uiConfig.setUseNativeLiveComponent((Boolean) map.get("useNativeLiveComponent"));
-            Map<Object, Object> capsuleConfigMap = (Map<Object, Object>) map.get("capsuleConfig");
+            Integer navigationBarTitleLightColor = getColor(map, "navigationBarTitleLightColor");
+            if (navigationBarTitleLightColor != null) {
+                uiConfig.setNavigationBarTitleLightColor(navigationBarTitleLightColor);
+            }
+            Integer navigationBarTitleDarkColor = getColor(map, "navigationBarTitleDarkColor");
+            if (navigationBarTitleDarkColor != null) {
+                uiConfig.setNavigationBarTitleDarkColor(navigationBarTitleDarkColor);
+            }
+
+            Integer navigationBarBackBtnLightColor = getColor(map, "navigationBarBackBtnLightColor");
+            if (navigationBarBackBtnLightColor != null) {
+                uiConfig.setNavigationBarBackBtnLightColor(navigationBarBackBtnLightColor);
+            }
+            Boolean isAlwaysShowBackInDefaultNavigationBar = getBooleanVal(map, "isAlwaysShowBackInDefaultNavigationBar", null);
+            if (isAlwaysShowBackInDefaultNavigationBar != null) {
+                uiConfig.setAlwaysShowBackInDefaultNavigationBar(isAlwaysShowBackInDefaultNavigationBar);
+            }
+            Boolean isClearNavigationBarNavButtonBackground = getBooleanVal(map, "isClearNavigationBarNavButtonBackground", null);
+            if (isClearNavigationBarNavButtonBackground != null) {
+                uiConfig.setClearNavigationBarNavButtonBackground(isClearNavigationBarNavButtonBackground);
+            }
+            Boolean isHideFeedbackAndComplaints = getBooleanVal(map, "isHideFeedbackAndComplaints");
+            if (isHideFeedbackAndComplaints != null) {
+                uiConfig.setHideFeedbackAndComplaints(isHideFeedbackAndComplaints);
+            }
+            Boolean isHideBackHome = getBooleanVal(map, "isHideBackHome");
+            if (isHideBackHome != null) {
+                uiConfig.setHideBackHome(isHideBackHome);
+            }
+            Boolean isHideForwardMenu = getBooleanVal(map, "isHideForwardMenu");
+            if (isHideForwardMenu != null) {
+                uiConfig.setHideForwardMenu(isHideForwardMenu);
+            }
+
+            Boolean isHideRefreshMenu = getBooleanVal(map, "isHideRefreshMenu");
+            if (isHideRefreshMenu != null) {
+                uiConfig.setHideRefreshMenu(isHideRefreshMenu);
+            }
+
+            Boolean isHideShareAppletMenu = getBooleanVal(map, "isHideShareAppletMenu");
+            if (isHideShareAppletMenu != null) {
+                uiConfig.setHideShareAppletMenu(isHideShareAppletMenu);
+            }
+
+
+            Boolean isHideAddToDesktopMenu = getBooleanVal(map, "isHideAddToDesktopMenu");
+            if (isHideAddToDesktopMenu != null) {
+                uiConfig.setHideAddToDesktopMenu(isHideAddToDesktopMenu);
+            }
+
+            Boolean isHideFavoriteMenu = getBooleanVal(map, "isHideFavoriteMenu");
+            if (isHideFavoriteMenu != null) {
+                uiConfig.setHideFavoriteMenu(isHideFavoriteMenu);
+            }
+
+            Boolean isHideClearCacheMenu = getBooleanVal(map, "isHideClearCacheMenu");
+            if (isHideClearCacheMenu != null) {
+                uiConfig.setHideClearCacheMenu(isHideClearCacheMenu);
+            }
+            Boolean isHideSettingMenu = getBooleanVal(map, "isHideSettingMenu");
+            if (isHideSettingMenu != null) {
+                uiConfig.setHideSettingMenu(isHideSettingMenu);
+            }
+
+            Boolean hideTransitionCloseButton = getBooleanVal(map, "hideTransitionCloseButton");
+            if (hideTransitionCloseButton != null) {
+                uiConfig.setHideTransitionCloseButton(hideTransitionCloseButton);
+            }
+
+            Boolean useNativeLiveComponent = getBooleanVal(map, "useNativeLiveComponent");
+            if (useNativeLiveComponent != null) {
+                uiConfig.setUseNativeLiveComponent(useNativeLiveComponent);
+            }
+
+            ReadableMap capsuleConfigMap = map.getMap("capsuleConfig");
             if (capsuleConfigMap != null) {
                 FinAppConfig.UIConfig.CapsuleConfig capsuleConfig = new FinAppConfig.UIConfig.CapsuleConfig();
-                capsuleConfig.capsuleWidth = covertNumToFloat(capsuleConfigMap.get("capsuleWidth"));
-                capsuleConfig.capsuleHeight = covertNumToFloat(capsuleConfigMap.get("capsuleHeight"));
-                capsuleConfig.capsuleRightMargin = covertNumToFloat(capsuleConfigMap.get("capsuleRightMargin"));
-                capsuleConfig.capsuleCornerRadius = covertNumToFloat(capsuleConfigMap.get("capsuleCornerRadius"));
-                capsuleConfig.capsuleBorderWidth = covertNumToFloat(capsuleConfigMap.get("capsuleBorderWidth"));
-                capsuleConfig.capsuleBgLightColor = (int) capsuleConfigMap.get("capsuleBgLightColor");
-                capsuleConfig.capsuleBgDarkColor = (int) capsuleConfigMap.get("capsuleBgDarkColor");
-                capsuleConfig.capsuleBorderLightColor = (int) capsuleConfigMap.get("capsuleBorderLightColor");
-                capsuleConfig.capsuleBorderDarkColor = (int) capsuleConfigMap.get("capsuleBorderDarkColor");
-                capsuleConfig.capsuleDividerLightColor = (int) capsuleConfigMap.get("capsuleDividerLightColor");
-                capsuleConfig.capsuleDividerDarkColor = (int) capsuleConfigMap.get("capsuleDividerDarkColor");
-                Integer moreLightImage = (Integer) capsuleConfigMap.get("moreLightImage");
+                Double capsuleWidth = getDoubleVal(capsuleConfigMap, "capsuleWidth");
+                if (capsuleWidth != null) {
+                    capsuleConfig.capsuleWidth = capsuleWidth.floatValue();
+                }
+                Double capsuleHeight = getDoubleVal(capsuleConfigMap, "capsuleHeight");
+                if (capsuleHeight != null) {
+                    capsuleConfig.capsuleHeight = capsuleHeight.floatValue();
+                }
+                Double capsuleRightMargin = getDoubleVal(capsuleConfigMap, "capsuleRightMargin");
+                if (capsuleRightMargin != null) {
+                    capsuleConfig.capsuleRightMargin = capsuleRightMargin.floatValue();
+                }
+
+                Double capsuleCornerRadius = getDoubleVal(capsuleConfigMap, "capsuleCornerRadius");
+                if (capsuleCornerRadius != null) {
+                    capsuleConfig.capsuleCornerRadius = capsuleCornerRadius.floatValue();
+                }
+
+                Double capsuleBorderWidth = getDoubleVal(capsuleConfigMap, "capsuleBorderWidth");
+                if (capsuleBorderWidth != null) {
+                    capsuleConfig.capsuleBorderWidth = capsuleBorderWidth.floatValue();
+                }
+
+                Integer capsuleBgLightColor = getColor(capsuleConfigMap, "capsuleBgLightColor");
+                if (capsuleBgLightColor != null) {
+                    capsuleConfig.capsuleBgLightColor = capsuleBgLightColor;
+                }
+                Integer capsuleBgDarkColor = getColor(capsuleConfigMap, "capsuleBgDarkColor");
+                if (capsuleBgDarkColor != null) {
+                    capsuleConfig.capsuleBgDarkColor = capsuleBgDarkColor;
+                }
+                Integer capsuleBorderLightColor = getColor(capsuleConfigMap, "capsuleBorderLightColor");
+                if (capsuleBorderLightColor != null) {
+                    capsuleConfig.capsuleBorderLightColor = capsuleBorderLightColor;
+                }
+                Integer capsuleBorderDarkColor = getColor(capsuleConfigMap, "capsuleBorderDarkColor");
+                if (capsuleBorderDarkColor != null) {
+                    capsuleConfig.capsuleBorderDarkColor = capsuleBorderDarkColor;
+                }
+                Integer capsuleDividerLightColor = getColor(capsuleConfigMap, "capsuleDividerLightColor");
+                if (capsuleDividerLightColor != null) {
+                    capsuleConfig.capsuleDividerLightColor = capsuleDividerLightColor;
+                }
+
+                Integer capsuleDividerDarkColor = getColor(capsuleConfigMap, "capsuleDividerDarkColor");
+                if (capsuleDividerDarkColor != null) {
+                    capsuleConfig.capsuleDividerDarkColor = capsuleDividerDarkColor;
+                }
+                Integer moreLightImage = getIntVal(capsuleConfigMap, "moreLightImage");
                 if (moreLightImage != null) {
                     capsuleConfig.moreLightImage = moreLightImage;
                 }
-                Integer moreDarkImage = (Integer) capsuleConfigMap.get("moreDarkImage");
+                Integer moreDarkImage = getIntVal(capsuleConfigMap, "moreDarkImage");
                 if (moreDarkImage != null) {
                     capsuleConfig.moreDarkImage = moreDarkImage;
                 }
-                capsuleConfig.moreBtnWidth = covertNumToFloat(capsuleConfigMap.get("moreBtnWidth"));
-                capsuleConfig.moreBtnLeftMargin = covertNumToFloat(capsuleConfigMap.get("moreBtnLeftMargin"));
-                Integer closeLightImage = (Integer) capsuleConfigMap.get("closeLightImage");
+
+                Double moreBtnWidth = getDoubleVal(capsuleConfigMap, "moreBtnWidth");
+                if (moreBtnWidth != null) {
+                    capsuleConfig.moreBtnWidth = moreBtnWidth.floatValue();
+                }
+                Double moreBtnLeftMargin = getDoubleVal(capsuleConfigMap, "moreBtnLeftMargin");
+                if (moreBtnLeftMargin != null) {
+                    capsuleConfig.moreBtnLeftMargin = moreBtnLeftMargin.floatValue();
+                }
+                Integer closeLightImage = getIntVal(capsuleConfigMap, "closeLightImage");
                 if (closeLightImage != null) {
                     capsuleConfig.closeLightImage = closeLightImage;
                 }
-                Integer closeDarkImage = (Integer) capsuleConfigMap.get("closeDarkImage");
+
+                Integer closeDarkImage = getIntVal(capsuleConfigMap, "closeDarkImage");
                 if (closeDarkImage != null) {
                     capsuleConfig.closeDarkImage = closeDarkImage;
                 }
-                capsuleConfig.closeBtnWidth = covertNumToFloat(capsuleConfigMap.get("closeBtnWidth"));
-                capsuleConfig.closeBtnLeftMargin = covertNumToFloat(capsuleConfigMap.get("closeBtnLeftMargin"));
+                Double closeBtnWidth = getDoubleVal(capsuleConfigMap, "closeBtnWidth");
+                if (closeBtnWidth != null) {
+                    capsuleConfig.closeBtnWidth = closeBtnWidth.floatValue();
+                }
+                Double closeBtnLeftMargin = getDoubleVal(capsuleConfigMap, "closeBtnLeftMargin");
+                if (closeBtnLeftMargin != null) {
+                    capsuleConfig.closeBtnLeftMargin = closeBtnLeftMargin.floatValue();
+                }
                 uiConfig.setCapsuleConfig(capsuleConfig);
             }
-            Map<Object, Object> navHomeConfigMap = (Map<Object, Object>) map.get("navHomeConfig");
+
+
+            ReadableMap navHomeConfigMap = map.getMap("navHomeConfig");
             if (navHomeConfigMap != null) {
                 FinAppConfig.UIConfig.NavHomeConfig navHomeConfig = new FinAppConfig.UIConfig.NavHomeConfig();
-                navHomeConfig.width = covertNumToFloat(navHomeConfigMap.get("width"));
-                navHomeConfig.height = covertNumToFloat(navHomeConfigMap.get("height"));
-                navHomeConfig.leftMargin = covertNumToFloat(navHomeConfigMap.get("leftMargin"));
-                navHomeConfig.cornerRadius = covertNumToFloat(navHomeConfigMap.get("cornerRadius"));
-                navHomeConfig.borderWidth = covertNumToFloat(navHomeConfigMap.get("borderWidth"));
-                navHomeConfig.borderLightColor = (int) navHomeConfigMap.get("borderLightColor");
-                navHomeConfig.borderDarkColor = (int) navHomeConfigMap.get("borderDarkColor");
-                navHomeConfig.bgLightColor = (int) navHomeConfigMap.get("bgLightColor");
-                navHomeConfig.bgDarkColor = (int) navHomeConfigMap.get("bgDarkColor");
+                Double width = getDoubleVal(navHomeConfigMap, "width");
+                if (width != null) {
+                    navHomeConfig.width = width.floatValue();
+                }
+                Double height = getDoubleVal(navHomeConfigMap, "height");
+                if (height != null) {
+                    navHomeConfig.height = height.floatValue();
+                }
+                Double leftMargin = getDoubleVal(navHomeConfigMap, "leftMargin");
+                if (leftMargin != null) {
+                    navHomeConfig.leftMargin = leftMargin.floatValue();
+                }
+                Double cornerRadius = getDoubleVal(navHomeConfigMap, "cornerRadius");
+                if (cornerRadius != null) {
+                    navHomeConfig.cornerRadius = cornerRadius.floatValue();
+                }
+                Double borderWidth = getDoubleVal(navHomeConfigMap, "borderWidth");
+                if (borderWidth != null) {
+                    navHomeConfig.borderWidth = borderWidth.floatValue();
+                }
+
+                Integer borderLightColor = getColor(navHomeConfigMap, "borderLightColor");
+                if (borderLightColor != null) {
+                    navHomeConfig.borderLightColor = borderLightColor;
+                }
+                Integer borderDarkColor = getColor(navHomeConfigMap, "borderDarkColor");
+                if (borderDarkColor != null) {
+                    navHomeConfig.borderDarkColor = borderDarkColor;
+                }
+                Integer bgLightColor = getColor(navHomeConfigMap, "bgLightColor");
+                if (bgLightColor != null) {
+                    navHomeConfig.bgLightColor = bgLightColor;
+                }
+                Integer bgDarkColor = getColor(navHomeConfigMap, "bgDarkColor");
+                if (bgDarkColor != null) {
+                    navHomeConfig.bgDarkColor = bgDarkColor;
+                }
                 uiConfig.setNavHomeConfig(navHomeConfig);
             }
-            Map<Object, Object> authViewConfigMap = (Map<Object, Object>) map.get("authViewConfig");
+            ReadableMap authViewConfigMap = map.getMap("authViewConfig");
             if (authViewConfigMap != null) {
                 FinAppConfig.UIConfig.AuthViewConfig authViewConfig = new FinAppConfig.UIConfig.AuthViewConfig();
-                authViewConfig.appletNameTextSize = covertNumToFloat(authViewConfigMap.get("appletNameTextSize"));
-                authViewConfig.appletNameLightColor = (int) authViewConfigMap.get("appletNameLightColor");
-                authViewConfig.appletNameDarkColor = (int) authViewConfigMap.get("appletNameDarkColor");
-                authViewConfig.authorizeTitleTextSize = covertNumToFloat(authViewConfigMap.get("authorizeTitleTextSize"));
-                authViewConfig.authorizeTitleLightColor = (int) authViewConfigMap.get("authorizeTitleLightColor");
-                authViewConfig.authorizeTitleDarkColor = (int) authViewConfigMap.get("authorizeTitleDarkColor");
-                authViewConfig.authorizeDescriptionTextSize = covertNumToFloat(authViewConfigMap.get("authorizeDescriptionTextSize"));
-                authViewConfig.authorizeDescriptionLightColor = (int) authViewConfigMap.get("authorizeDescriptionLightColor");
-                authViewConfig.authorizeDescriptionDarkColor = (int) authViewConfigMap.get("authorizeDescriptionDarkColor");
-                authViewConfig.agreementTitleTextSize = covertNumToFloat(authViewConfigMap.get("agreementTitleTextSize"));
-                authViewConfig.agreementTitleLightColor = (int) authViewConfigMap.get("agreementTitleLightColor");
-                authViewConfig.agreementTitleDarkColor = (int) authViewConfigMap.get("agreementTitleDarkColor");
-                authViewConfig.agreementDescriptionTextSize = covertNumToFloat(authViewConfigMap.get("agreementDescriptionTextSize"));
-                authViewConfig.agreementDescriptionLightColor = (int) authViewConfigMap.get("agreementDescriptionLightColor");
-                authViewConfig.agreementDescriptionDarkColor = (int) authViewConfigMap.get("agreementDescriptionDarkColor");
-                authViewConfig.linkLightColor = (int) authViewConfigMap.get("linkLightColor");
-                authViewConfig.linkDarkColor = (int) authViewConfigMap.get("linkDarkColor");
-                Map<Object, Object> allowButtonLightConfig = (Map<Object, Object>) authViewConfigMap.get("allowButtonLightConfig");
+                Double appletNameTextSize = getDoubleVal(authViewConfigMap, "appletNameTextSize");
+                if (appletNameTextSize != null) {
+                    authViewConfig.appletNameTextSize = appletNameTextSize.floatValue();
+                }
+                Integer appletNameLightColor = getColor(authViewConfigMap, "appletNameLightColor");
+                if (appletNameLightColor != null) {
+                    authViewConfig.appletNameLightColor = appletNameLightColor;
+                }
+
+                Integer appletNameDarkColor = getColor(authViewConfigMap, "appletNameDarkColor");
+                if (appletNameDarkColor != null) {
+                    authViewConfig.appletNameDarkColor = appletNameDarkColor;
+                }
+
+                Double authorizeTitleTextSize = getDoubleVal(authViewConfigMap, "authorizeTitleTextSize");
+                if (authorizeTitleTextSize != null) {
+                    authViewConfig.authorizeTitleTextSize = authorizeTitleTextSize.floatValue();
+                }
+                Integer authorizeTitleLightColor = getColor(authViewConfigMap, "authorizeTitleLightColor");
+                if (authorizeTitleLightColor != null) {
+                    authViewConfig.authorizeTitleLightColor = authorizeTitleLightColor;
+                }
+                Integer authorizeTitleDarkColor = getColor(authViewConfigMap, "authorizeTitleDarkColor");
+                if (authorizeTitleDarkColor != null) {
+                    authViewConfig.authorizeTitleDarkColor = authorizeTitleDarkColor;
+                }
+                Double authorizeDescriptionTextSize = getDoubleVal(authViewConfigMap, "authorizeDescriptionTextSize");
+                if (authorizeDescriptionTextSize != null) {
+                    authViewConfig.authorizeDescriptionTextSize = authorizeDescriptionTextSize.floatValue();
+                }
+                Integer authorizeDescriptionLightColor = getColor(authViewConfigMap, "authorizeDescriptionLightColor");
+                if (authorizeDescriptionLightColor != null) {
+                    authViewConfig.authorizeDescriptionLightColor = authorizeDescriptionLightColor;
+                }
+                Integer authorizeDescriptionDarkColor = getColor(authViewConfigMap, "authorizeDescriptionDarkColor");
+                if (authorizeDescriptionDarkColor != null) {
+                    authViewConfig.authorizeDescriptionDarkColor = authorizeDescriptionDarkColor;
+                }
+                Double agreementTitleTextSize = getDoubleVal(authViewConfigMap, "agreementTitleTextSize");
+                if (agreementTitleTextSize != null) {
+                    authViewConfig.agreementTitleTextSize = agreementTitleTextSize.floatValue();
+                }
+                Integer agreementTitleLightColor = getColor(authViewConfigMap, "agreementTitleLightColor");
+                if (agreementTitleLightColor != null) {
+                    authViewConfig.agreementTitleLightColor = agreementTitleLightColor;
+                }
+                Integer agreementTitleDarkColor = getColor(authViewConfigMap, "agreementTitleDarkColor");
+                if (agreementTitleDarkColor != null) {
+                    authViewConfig.agreementTitleDarkColor = agreementTitleDarkColor;
+                }
+                Double agreementDescriptionTextSize = getDoubleVal(authViewConfigMap, "agreementDescriptionTextSize");
+                if (agreementDescriptionTextSize != null) {
+                    authViewConfig.agreementDescriptionTextSize = agreementDescriptionTextSize.floatValue();
+                }
+                Integer agreementDescriptionLightColor = getColor(authViewConfigMap, "agreementDescriptionLightColor");
+                if (agreementDescriptionLightColor != null) {
+                    authViewConfig.agreementDescriptionLightColor = agreementDescriptionLightColor;
+                }
+                Integer agreementDescriptionDarkColor = getColor(authViewConfigMap, "agreementDescriptionDarkColor");
+                if (agreementDescriptionDarkColor != null) {
+                    authViewConfig.agreementDescriptionDarkColor = agreementDescriptionDarkColor;
+                }
+                Integer linkLightColor = getColor(authViewConfigMap, "linkLightColor");
+                if (linkLightColor != null) {
+                    authViewConfig.linkLightColor = linkLightColor;
+                }
+                Integer linkDarkColor = getColor(authViewConfigMap, "linkDarkColor");
+                if (linkDarkColor != null) {
+                    authViewConfig.linkDarkColor = linkDarkColor;
+                }
+
+                ReadableMap allowButtonLightConfig = authViewConfigMap.getMap("allowButtonLightConfig");
                 if (allowButtonLightConfig != null) {
                     authViewConfig.allowButtonLightConfig = getAuthButtonConfig(allowButtonLightConfig);
                 }
-                Map<Object, Object> allowButtonDarkConfig = (Map<Object, Object>) authViewConfigMap.get("allowButtonDarkConfig");
+                ReadableMap allowButtonDarkConfig = authViewConfigMap.getMap("allowButtonDarkConfig");
                 if (allowButtonDarkConfig != null) {
                     authViewConfig.allowButtonDarkConfig = getAuthButtonConfig(allowButtonDarkConfig);
                 }
-                Map<Object, Object> rejectButtonLightConfig = (Map<Object, Object>) authViewConfigMap.get("rejectButtonLightConfig");
+                ReadableMap rejectButtonLightConfig = authViewConfigMap.getMap("rejectButtonLightConfig");
                 if (rejectButtonLightConfig != null) {
                     authViewConfig.rejectButtonLightConfig = getAuthButtonConfig(rejectButtonLightConfig);
                 }
-                Map<Object, Object> rejectButtonDarkConfig = (Map<Object, Object>) authViewConfigMap.get("rejectButtonDarkConfig");
+                ReadableMap rejectButtonDarkConfig = authViewConfigMap.getMap("rejectButtonDarkConfig");
                 if (rejectButtonDarkConfig != null) {
                     authViewConfig.rejectButtonDarkConfig = getAuthButtonConfig(rejectButtonDarkConfig);
                 }
                 uiConfig.setAuthViewConfig(authViewConfig);
             }
-            Map<Object, Object> floatWindowConfigMap = (Map<Object, Object>) map.get("floatWindowConfig");
+            ReadableMap floatWindowConfigMap = map.getMap("floatWindowConfig");
             if (floatWindowConfigMap != null) {
                 FinAppConfig.UIConfig.FloatWindowConfig floatWindowConfig = new FinAppConfig.UIConfig.FloatWindowConfig();
-                floatWindowConfig.floatMode = (boolean) floatWindowConfigMap.get("floatMode");
-                floatWindowConfig.x = (int) floatWindowConfigMap.get("x");
-                floatWindowConfig.y = (int) floatWindowConfigMap.get("y");
-                floatWindowConfig.width = (int) floatWindowConfigMap.get("width");
-                floatWindowConfig.height = (int) floatWindowConfigMap.get("height");
+                Boolean floatMode = getBooleanVal(floatWindowConfigMap, "floatMode");
+                if (floatMode != null) {
+                    floatWindowConfig.floatMode = floatMode;
+                }
+                Integer x = getIntVal(floatWindowConfigMap, "x");
+                if (x != null) {
+                    floatWindowConfig.x = x;
+                }
+                Integer y = getIntVal(floatWindowConfigMap, "y");
+                if (y != null) {
+                    floatWindowConfig.y = y;
+                }
+                Integer width = getIntVal(floatWindowConfigMap, "width");
+                if (width != null) {
+                    floatWindowConfig.width = width;
+                }
+                Integer height = getIntVal(floatWindowConfigMap, "height");
+                if (height != null) {
+                    floatWindowConfig.height = height;
+                }
                 uiConfig.setFloatWindowConfig(floatWindowConfig);
             }
-            Integer webViewProgressBarColor = (Integer) map.get("webViewProgressBarColor");
+            Integer webViewProgressBarColor = getColor(map, "webViewProgressBarColor");
             if (webViewProgressBarColor != null) {
                 uiConfig.setWebViewProgressBarColor(webViewProgressBarColor);
             }
-            uiConfig.setHideWebViewProgressBar((Boolean) map.get("hideWebViewProgressBar"));
-            uiConfig.setMoreMenuStyle((Integer) map.get("moreMenuStyle"));
-            int isHideBackHomePriorityIndex = (Integer) map.get("isHideBackHomePriority");
+            Boolean hideWebViewProgressBar = getBooleanVal(map, "hideWebViewProgressBar");
+            if (hideWebViewProgressBar != null) {
+                uiConfig.setHideWebViewProgressBar(hideWebViewProgressBar);
+            }
+            Integer moreMenuStyle = getIntVal(map, "moreMenuStyle");
+            if (moreMenuStyle != null) {
+                uiConfig.setMoreMenuStyle(moreMenuStyle);
+            }
+            Integer isHideBackHomePriorityIndex = getIntVal(map, "isHideBackHomePriority");
             if (isHideBackHomePriorityIndex == 0) {
                 uiConfig.setIsHideBackHomePriority(FinAppConfigPriority.GLOBAL);
             } else if (isHideBackHomePriorityIndex == 1) {
@@ -161,9 +378,15 @@ public class InitUtils {
             } else if (isHideBackHomePriorityIndex == 2) {
                 uiConfig.setIsHideBackHomePriority(FinAppConfigPriority.APPLET_FILE);
             }
-            uiConfig.setAutoAdaptDarkMode((Boolean) map.get("autoAdaptDarkMode"));
-            uiConfig.setDisableSlideCloseAppletGesture((Boolean) map.get("disableSlideCloseAppletGesture"));
-            String loadingLayoutCls = (String) map.get("loadingLayoutCls");
+            Boolean autoAdaptDarkMode = getBooleanVal(map, "autoAdaptDarkMode");
+            if (autoAdaptDarkMode != null) {
+                uiConfig.setAutoAdaptDarkMode(autoAdaptDarkMode);
+            }
+            Boolean disableSlideCloseAppletGesture = getBooleanVal(map, "disableSlideCloseAppletGesture");
+            if (disableSlideCloseAppletGesture != null) {
+                uiConfig.setDisableSlideCloseAppletGesture(disableSlideCloseAppletGesture);
+            }
+            String loadingLayoutCls = getStringVal(map, "loadingLayoutCls");
             if (loadingLayoutCls != null) {
                 uiConfig.setLoadingLayoutCls(loadingLayoutCls);
             }
@@ -172,16 +395,14 @@ public class InitUtils {
         return null;
     }
 
-    private static FinAppConfig.UIConfig.AuthViewConfig.AuthButtonConfig getAuthButtonConfig(Map<Object, Object> map) {
-        return new FinAppConfig.UIConfig.AuthViewConfig.AuthButtonConfig(
-                (float) map.get("cornerRadius"),
-                (int) map.get("normalBackgroundColor"),
-                (int) map.get("pressedBackgroundColor"),
-                (int) map.get("normalBorderColor"),
-                (int) map.get("pressedBorderColor"),
-                (int) map.get("normalTextColor"),
-                (int) map.get("pressedTextColor")
-        );
+    private static FinAppConfig.UIConfig.AuthViewConfig.AuthButtonConfig getAuthButtonConfig(ReadableMap map) {
+        return new FinAppConfig.UIConfig.AuthViewConfig.AuthButtonConfig(getDoubleVal(map, "cornerRadius", 0.0).floatValue(),
+                getColor(map, "normalBackgroundColor", Color.TRANSPARENT),
+                getColor(map, "pressedBackgroundColor", Color.TRANSPARENT),
+                getColor(map, "normalBorderColor", Color.TRANSPARENT),
+                getColor(map, "pressedBorderColor", Color.TRANSPARENT),
+                getColor(map, "normalTextColor", Color.TRANSPARENT),
+                getColor(map, "pressedTextColor", Color.TRANSPARENT));
     }
 
     public static Map<String, String> createMapFromMap(Map<String, Object> map) {
@@ -195,10 +416,10 @@ public class InitUtils {
         return newMap;
     }
 
-    @Nullable
+
     public static String[] toArray(ReadableArray array) {
         if (array == null) {
-            return null;
+            return new String[0];
         }
         int size = array.size();
         String[] result = new String[size];
@@ -209,6 +430,8 @@ public class InitUtils {
     }
 
     /**
+     * 从map中获取key对应的值，如果map为空或者key不存在或者key对应的值为null，则返回defaultValue
+     *
      * @param map
      * @param key
      * @param clazz
@@ -216,42 +439,8 @@ public class InitUtils {
      * @param <T>
      * @return
      */
-    public static <T> T getValue(ReadableMap map, String key, Class clazz, T defaultValue) {
-        if (map == null || !map.hasKey(key) || map.isNull(key)) {
-            return defaultValue;
-        }
-        if (defaultValue.getClass() != clazz) {
-            throw new IllegalArgumentException("defaultValue class is not equal to clazz");
-        }
-        if (clazz == Boolean.class) {
-            return (T) Boolean.valueOf(map.getBoolean(key));
-        } else if (clazz == Integer.class) {
-            return (T) Integer.valueOf(map.getInt(key));
-        } else if (clazz == Double.class) {
-            return (T) Double.valueOf(map.getDouble(key));
-        } else if (clazz == String.class) {
-            return (T) map.getString(key);
-        }
-        return defaultValue;
-    }
-    public static <T> T getValueX(ReadableMap map, String key, T defaultValue) {
 
-        if (defaultValue == null || map == null || !map.hasKey(key) || map.isNull(key)) {
-            return defaultValue;
-        }
-        if (defaultValue instanceof Boolean) {
-            return (T) Boolean.valueOf(map.getBoolean(key));
-        } else if (defaultValue instanceof Integer) {
-            return (T) Integer.valueOf(map.getInt(key));
-        } else if (defaultValue instanceof Double) {
-            return (T) Double.valueOf(map.getDouble(key));
-        } else if (defaultValue instanceof String) {
-            return (T) map.getString(key);
-        }
-        return defaultValue;
-    }
-
-    public static <T> T getValueY(ReadableMap map, String key, Class<T> clazz, T defaultValue) {
+    private static <T> T getValue(ReadableMap map, String key, Class<T> clazz, T defaultValue) {
         if (map == null || !map.hasKey(key) || map.isNull(key)) {
             return defaultValue;
         }
@@ -266,37 +455,63 @@ public class InitUtils {
         }
         return defaultValue;
     }
-    /**
-     * 从map中获取key对应的值，如果map为空或者key不存在或者key对应的值为null，则返回defaultValue
-     *
-     * @param map
-     * @param key
-     * @param defaultValue 默认值。不要传null, 会导致返回值都是null
-     * @param <T>
-     * @return
-     */
-    public static <T> T getValue(ReadableMap map, String key, @NonNull T defaultValue) {
-        if (defaultValue == null) {
-            throw new IllegalArgumentException("defaultValue can not be null");
-        }
-        if (map == null || !map.hasKey(key) || map.isNull(key)) {
-            return defaultValue;
-        }
-        return getValue(map, key, defaultValue.getClass(), defaultValue);
+
+    public static Boolean getBooleanVal(ReadableMap map, String key, Boolean defaultValue) {
+        return getValue(map, key, Boolean.class, defaultValue);
     }
 
-    public static <T> T getValue(ReadableArray array, int index, T defaultValue) {
+    public static Integer getIntVal(ReadableMap map, String key, Integer defaultValue) {
+        return getValue(map, key, Integer.class, defaultValue);
+    }
+
+    public static Double getDoubleVal(ReadableMap map, String key, Double defaultValue) {
+        return getValue(map, key, Double.class, defaultValue);
+    }
+
+    public static String getStringVal(ReadableMap map, String key, String defaultValue) {
+        return getValue(map, key, String.class, defaultValue);
+    }
+
+    public static Integer getColor(ReadableMap map, String key, Integer defaultValue) {
+        String color = getStringVal(map, key);
+        if (color != null) {
+            return ColorUtil.parseColor(color);
+        }
+        return defaultValue;
+    }
+
+    public static String getStringVal(ReadableMap map, String key) {
+        return getValue(map, key, String.class, null);
+    }
+
+    public static Boolean getBooleanVal(ReadableMap map, String key) {
+        return getValue(map, key, Boolean.class, null);
+    }
+
+    public static Double getDoubleVal(ReadableMap map, String key) {
+        return getValue(map, key, Double.class, null);
+    }
+
+    public static Integer getIntVal(ReadableMap map, String key) {
+        return getIntVal(map, key, null);
+    }
+
+    public static Integer getColor(ReadableMap map, String key) {
+        return getColor(map, key, null);
+    }
+
+    public static <T> T getValue(ReadableArray array, int index, Class<T> clazz, T defaultValue) {
         if (array == null || index < 0 || index >= array.size() || array.isNull(index)) {
             return defaultValue;
         }
-        if (defaultValue instanceof Boolean) {
-            return (T) Boolean.valueOf(array.getBoolean(index));
-        } else if (defaultValue instanceof Integer) {
-            return (T) Integer.valueOf(array.getInt(index));
-        } else if (defaultValue instanceof Double) {
-            return (T) Double.valueOf(array.getDouble(index));
-        } else if (defaultValue instanceof String) {
-            return (T) array.getString(index);
+        if (clazz == Boolean.class) {
+            return clazz.cast(array.getBoolean(index));
+        } else if (clazz == Integer.class) {
+            return clazz.cast(array.getInt(index));
+        } else if (clazz == Double.class) {
+            return clazz.cast(array.getDouble(index));
+        } else if (clazz == String.class) {
+            return clazz.cast(array.getString(index));
         }
         return defaultValue;
     }

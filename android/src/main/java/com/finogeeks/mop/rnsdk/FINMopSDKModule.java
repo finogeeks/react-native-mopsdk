@@ -4,24 +4,20 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
-
-
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.modules.core.RCTNativeAppEventEmitter;
 import com.finogeeks.lib.applet.anim.FadeInAnim;
 import com.finogeeks.lib.applet.anim.NoneAnim;
 import com.finogeeks.lib.applet.anim.SlideFromBottomToTopAnim;
@@ -30,7 +26,7 @@ import com.finogeeks.lib.applet.anim.SlideFromRightToLeftAnim;
 import com.finogeeks.lib.applet.anim.SlideFromTopToBottomAnim;
 import com.finogeeks.lib.applet.client.FinAppClient;
 import com.finogeeks.lib.applet.client.FinAppConfig;
-import com.finogeeks.lib.applet.client.FinAppInfo;
+import com.finogeeks.lib.applet.client.FinAppConfigPriority;
 import com.finogeeks.lib.applet.client.FinStoreConfig;
 import com.finogeeks.lib.applet.db.entity.FinApplet;
 import com.finogeeks.lib.applet.interfaces.FinCallback;
@@ -39,13 +35,13 @@ import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuItem;
 import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuType;
 import com.finogeeks.lib.applet.rest.model.GrayAppletVersionConfig;
 import com.finogeeks.lib.applet.sdk.api.IAppletHandler;
+import com.finogeeks.mop.rnsdk.util.InitUtils;
+import com.finogeeks.xlog.XLogLevel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,7 +84,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         return res;
     }
 
-    private Map<String, FinCallback> callbacks = new HashMap<>();
+    private final Map<String, FinCallback> callbacks = new HashMap<>();
 
     private void sendEvent(String apiName, Map<String, Object> params, FinCallback finCallback) {
         String callbackId = UUID.randomUUID().toString();
@@ -113,7 +109,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initialize(ReadableMap params, Callback callback) {
+    public void initialize(ReadableMap params, final Callback callback) {
         Log.d(TAG, "initialize:" + params);
         Map<String, Object> param = params.toHashMap();
         if (FinAppClient.INSTANCE.isFinAppProcess(reactContext)) {
@@ -230,7 +226,6 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         }
 
         FinAppConfig config = builder.build();
-        Log.d(TAG, "config:" + gson.toJson(config));
 
         // SDK初始化结果回调，用于接收SDK初始化状态
         FinCallback<Object> cb = new FinCallback<Object>() {
@@ -260,46 +255,218 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void initSDK(ReadableMap params, Callback callback) {
-        Map<String, Object> param = params.toHashMap();
+    public void initSDK(ReadableMap params, final Callback callback) {
+        Log.d(TAG, "initSDK:" + params);
+        if (params == null) {
+            callback.invoke(fail("params is null"));
+            return;
+        }
         if (FinAppClient.INSTANCE.isFinAppProcess(reactContext)) {
             // 小程序进程不执行任何初始化操作
             return;
         }
-
         // 从 param 中提取 config 和 uiConfig 字典
+        // config
         ReadableMap configMap = params.getMap("config");
+        if (configMap == null) {
+            callback.invoke(fail("params config is null"));
+            return;
+        }
+        // uiConfig
         ReadableMap uiConfigMap = params.getMap("uiConfig");
 
-        // 对 configMap 和 uiConfigMap 进行必要的验证
-        // ...
+        FinAppConfig.Builder configBuilder = new FinAppConfig.Builder();
 
-        Gson gson = new Gson();
-        FinAppConfig config = null;
-        FinAppConfig.UIConfig uiConfig = null;
-
-        if (configMap != null) {
-            config = gson.fromJson(gson.toJson(configMap.toHashMap()), FinAppConfig.class);
+        ReadableArray finStoreConfigs = configMap.getArray("finStoreConfigs");
+        if (finStoreConfigs != null) {
+            List<FinStoreConfig> storeConfigs = new ArrayList<>();
+            int size = finStoreConfigs.size();
+            for (int i = 0; i < size; i++) {
+                ReadableMap finStoreConfig = finStoreConfigs.getMap(i);
+                String sdkKey = InitUtils.getStringVal(finStoreConfig, "sdkKey", "");
+                String sdkSecret = InitUtils.getStringVal(finStoreConfig, "sdkSecret", "");
+                String apiServer = InitUtils.getStringVal(finStoreConfig, "apiServer", "");
+                String apmServer = InitUtils.getStringVal(finStoreConfig, "apmServer", "");
+                String fingerprint = InitUtils.getStringVal(finStoreConfig, "fingerprint", "");
+                String cryptType = InitUtils.getStringVal(finStoreConfig, "cryptType", "");
+                boolean encryptServerData = InitUtils.getBooleanVal(finStoreConfig, "encryptServerData", false);
+                boolean enablePreloadFramework = InitUtils.getBooleanVal(finStoreConfig, "enablePreloadFramework", false);
+                //凡泰助手里，服务器是https://api.finclip.com，默认开启预加载基础库
+                if (!TextUtils.isEmpty(apiServer) && apiServer.equals("https://api.finclip.com")) {
+                    enablePreloadFramework = true;
+                }
+                storeConfigs.add(new FinStoreConfig(sdkKey, sdkSecret, apiServer, apmServer, "",
+                        fingerprint, cryptType, encryptServerData, enablePreloadFramework));
+            }
+            configBuilder.setFinStoreConfigs(storeConfigs);
         }
+
+        String userId = InitUtils.getStringVal(configMap, "userId");
+        if (userId != null) {
+            configBuilder.setUserId(userId);
+        }
+        String productIdentification = InitUtils.getStringVal(configMap, "productIdentification");
+        if (productIdentification != null) {
+            configBuilder.setProductIdentification(productIdentification);
+        }
+
+        configBuilder.setDisableRequestPermissions(InitUtils.getBooleanVal(configMap, "disableRequestPermissions", false));
+        configBuilder.setAppletAutoAuthorize(InitUtils.getBooleanVal(configMap, "appletAutoAuthorize", false));
+        configBuilder.setDisableGetSuperviseInfo(InitUtils.getBooleanVal(configMap, "disableGetSuperviseInfo", false));
+        configBuilder.setIgnoreWebviewCertAuth(InitUtils.getBooleanVal(configMap, "ignoreWebviewCertAuth", false));
+        configBuilder.setAppletIntervalUpdateLimit(InitUtils.getIntVal(configMap, "appletIntervalUpdateLimit", 3));
+        ReadableMap apmExtendInfo = configMap.getMap("apmExtendInfo");
+        if (apmExtendInfo != null) {
+            configBuilder.setApmExtendInfo(apmExtendInfo.toHashMap());
+        }
+        configBuilder.setEnableApmDataCompression(InitUtils.getBooleanVal(configMap, "enableApmDataCompression", false));
+        configBuilder.setEncryptServerData(InitUtils.getBooleanVal(configMap, "encryptServerData", false));
+
+        int appletDebugModeIndex = InitUtils.getIntVal(configMap, "appletDebugMode", 0);
+        if (appletDebugModeIndex == 0) {
+            configBuilder.setAppletDebugMode(FinAppConfig.AppletDebugMode.appletDebugModeUndefined);
+        } else if (appletDebugModeIndex == 1) {
+            configBuilder.setAppletDebugMode(FinAppConfig.AppletDebugMode.appletDebugModeEnable);
+        } else if (appletDebugModeIndex == 2) {
+            configBuilder.setAppletDebugMode(FinAppConfig.AppletDebugMode.appletDebugModeDisable);
+        } else if (appletDebugModeIndex == 3) {
+            configBuilder.setAppletDebugMode(FinAppConfig.AppletDebugMode.appletDebugModeForbidden);
+        }
+        configBuilder.setEnableWatermark(InitUtils.getBooleanVal(configMap, "enableWatermark", false));
+        int watermarkPriorityIndex = InitUtils.getIntVal(configMap,"watermarkPriority",0);
+        if (watermarkPriorityIndex == 0) {
+            configBuilder.setWatermarkPriority(FinAppConfigPriority.GLOBAL);
+        } else if (watermarkPriorityIndex == 1) {
+            configBuilder.setWatermarkPriority(FinAppConfigPriority.SPECIFIED);
+        } else if (watermarkPriorityIndex == 2) {
+            configBuilder.setWatermarkPriority(FinAppConfigPriority.APPLET_FILE);
+        }
+        ReadableMap header = configMap.getMap("header");
+        if (header != null) {
+            HashMap<String, Object> headerMap = header.toHashMap();
+            configBuilder.setHeader(InitUtils.createMapFromMap(headerMap));
+        }
+        int headerPriorityIndex = InitUtils.getIntVal(configMap,"headerPriority",0);
+        if (headerPriorityIndex == 0) {
+            configBuilder.setHeaderPriority(FinAppConfigPriority.GLOBAL);
+        } else if (headerPriorityIndex == 1) {
+            configBuilder.setHeaderPriority(FinAppConfigPriority.SPECIFIED);
+        } else if (headerPriorityIndex == 2) {
+            configBuilder.setHeaderPriority(FinAppConfigPriority.APPLET_FILE);
+        }
+        configBuilder.setPageCountLimit(InitUtils.getIntVal(configMap,"pageCountLimit",0));
+        ReadableArray schemes = configMap.getArray("schemes");
+        if (schemes != null) {
+            configBuilder.setSchemes(InitUtils.toArray(schemes));
+        }
+        configBuilder.setDebugMode(InitUtils.getBooleanVal(configMap,"debug",false));
+        configBuilder.setEnableLog(InitUtils.getBooleanVal(configMap,"debug",false));
+        Integer maxRunningApplet = InitUtils.getIntVal(configMap, "maxRunningApplet" );
+        if (maxRunningApplet != null) {
+            configBuilder.setMaxRunningApplet(maxRunningApplet);
+        }
+
+        Integer backgroundFetchPeriod = InitUtils.getIntVal(configMap, "backgroundFetchPeriod" );
+        if (backgroundFetchPeriod != null) {
+            configBuilder.setBackgroundFetchPeriod(backgroundFetchPeriod);
+        }
+
+        Integer webViewMixedContentMode = InitUtils.getIntVal(configMap, "webViewMixedContentMode");
+        if (webViewMixedContentMode != null) {
+            configBuilder.setWebViewMixedContentMode(webViewMixedContentMode);
+        }
+        configBuilder.setBindAppletWithMainProcess(InitUtils.getBooleanVal( configMap,"bindAppletWithMainProcess",false));
+        String killAppletProcessNotice = InitUtils.getStringVal(configMap,"killAppletProcessNotice");
+        if (killAppletProcessNotice != null) {
+            configBuilder.setKillAppletProcessNotice(killAppletProcessNotice);
+        }
+        Integer minAndroidSdkVersion = InitUtils.getIntVal(configMap, "minAndroidSdkVersion");
+        if(minAndroidSdkVersion!=null){
+            configBuilder.setMinAndroidSdkVersion(minAndroidSdkVersion);
+        }
+        Boolean enableScreenShot = InitUtils.getBooleanVal(configMap, "enableScreenShot");
+        if (enableScreenShot != null) {
+            configBuilder.setEnableScreenShot(enableScreenShot);
+        }
+
+        Integer screenShotPriorityIndex = InitUtils.getIntVal(configMap, "screenShotPriority", 0);
+        if (screenShotPriorityIndex == 0) {
+            configBuilder.setScreenShotPriority(FinAppConfigPriority.GLOBAL);
+        } else if (screenShotPriorityIndex == 1) {
+            configBuilder.setScreenShotPriority(FinAppConfigPriority.SPECIFIED);
+        } else if (screenShotPriorityIndex == 2) {
+            configBuilder.setScreenShotPriority(FinAppConfigPriority.APPLET_FILE);
+        }
+        Integer logLevelIndex = InitUtils.getIntVal(configMap, "logLevel");
+        if (logLevelIndex == 0) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_ERROR);
+        } else if (logLevelIndex == 1) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_WARNING);
+        } else if (logLevelIndex == 2) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_INFO);
+        } else if (logLevelIndex == 3) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_DEBUG);
+        } else if (logLevelIndex == 4) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_VERBOSE);
+        } else if (logLevelIndex == 5) {
+            configBuilder.setLogLevel(XLogLevel.LEVEL_NONE);
+        }
+        Integer logMaxAliveSec = InitUtils.getIntVal(configMap, "logMaxAliveSec");
+        if (logMaxAliveSec != null) {
+            configBuilder.setLogMaxAliveSec(logMaxAliveSec);
+        }
+        String logDir = InitUtils.getStringVal(configMap, "logDir");
+        if (logDir != null) {
+            configBuilder.setXLogDir(logDir);
+        }
+        configBuilder.setEnablePreNewProcess(InitUtils.getBooleanVal(configMap, "enablePreNewProcess", true));
+        configBuilder.setUseLocalTbsCore(InitUtils.getBooleanVal(configMap, "useLocalTbsCore", false));
+        String tbsCoreUrl = InitUtils.getStringVal(configMap, "tbsCoreUrl");
+        if (tbsCoreUrl != null) {
+            configBuilder.setTbsCoreUrl(tbsCoreUrl);
+        }
+        configBuilder.setEnableJ2V8(InitUtils.getBooleanVal(configMap, "enableJ2V8", false));
+
+        String localeLanguage = InitUtils.getStringVal(configMap,"localeLanguage");
+        if (!TextUtils.isEmpty(localeLanguage)) {
+            if (localeLanguage.contains("_")) {
+                String[] locales = localeLanguage.split("_");
+                configBuilder.setLocale(new Locale(locales[0], locales[1]));
+            } else {
+                configBuilder.setLocale(new Locale(localeLanguage));
+            }
+        } else {
+            Integer languageInteger = InitUtils.getIntVal(configMap, "language", 0);
+            if (languageInteger == 1) {
+                configBuilder.setLocale(Locale.ENGLISH);
+            } else {
+                configBuilder.setLocale(Locale.SIMPLIFIED_CHINESE);
+            }
+        }
+
+        String appletText = InitUtils.getStringVal(uiConfigMap, "appletText");
+        if (appletText != null) {
+            configBuilder.setAppletText(appletText);
+        }
+
+        // 处理UIConfig
         if (uiConfigMap != null) {
-            uiConfig = gson.fromJson(gson.toJson(uiConfigMap.toHashMap()), FinAppConfig.UIConfig.class);
+            String appendingCustomUserAgent = InitUtils.getStringVal(uiConfigMap, "appendingCustomUserAgent");
+            if (appendingCustomUserAgent != null) {
+                configBuilder.setCustomWebViewUserAgent(appendingCustomUserAgent);
+            }
+
+            FinAppConfig.UIConfig uiConfig = InitUtils.createUIConfigFromMap(uiConfigMap);
+            if (uiConfig != null) {
+                configBuilder.setUiConfig(uiConfig);
+            }
+
         }
 
-        // 构建 FinAppConfig 对象
-        FinAppConfig.Builder builder = new FinAppConfig.Builder();
-        if (config != null) {
-            // 设置 config 相关的属性
-            // ...
-        }
-        if (uiConfig != null) {
-            builder.setUiConfig(uiConfig);
-        }
-
-        FinAppConfig finalConfig = builder.build();
-        Log.d(TAG, "config:" + gson.toJson(finalConfig));
+        final FinAppConfig finAppConfig = configBuilder.build();
 
         // SDK 初始化结果回调
-        FinCallback<Object> cb = new FinCallback<Object>() {
+        final FinCallback<Object> cb = new FinCallback<Object>() {
             @Override
             public void onSuccess(Object result) {
                 // SDK 初始化成功
@@ -322,14 +489,14 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         this.reactContext.getCurrentActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                FinAppClient.INSTANCE.init(reactContext.getCurrentActivity().getApplication(), finalConfig, cb);
+                FinAppClient.INSTANCE.init(reactContext.getCurrentActivity().getApplication(), finAppConfig, cb);
             }
         });
     }
 
 
     @ReactMethod
-    public void openApplet(ReadableMap map, Callback callback) {
+    public void openApplet(ReadableMap map, final Callback callback) {
         Map<String, Object> param = map.toHashMap();
         if (param.get("appId") == null) {
             callback.invoke(fail("appId不能为空"));
@@ -521,7 +688,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
             @Override
             public Map<String, String> getUserInfo() {
                 Log.d("AppletHandlerModule", "getUserInfo");
-                CountDownLatch latch = new CountDownLatch(1);
+                final CountDownLatch latch = new CountDownLatch(1);
                 final Map<String, String>[] ret = new Map[1];
                 handler.post(() -> {
                     sendEvent("extensionApi:getUserInfo", null, new FinCallback<Dynamic>() {
