@@ -120,10 +120,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         String secret = String.valueOf(param.get("secret"));
         String apiServer = "https://api.finclip.com";
         String apiPrefix = "/api/v1/mop/";
-        String cryptType = (String) param.get("cryptType");
-        if (cryptType == null || cryptType.isEmpty()) {
-            cryptType = "MD5";
-        }
+
         if (param.get("apiServer") != null) {
             apiServer = String.valueOf(param.get("apiServer"));
         }
@@ -133,72 +130,18 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 apiPrefix = apiPrefix + "/";
             }
         }
-        Boolean disablePermission = (Boolean) param.get("disablePermission");
-        if (disablePermission == null) {
-            disablePermission = false;
-        }
-        String userId = "";
-        if (param.get("userId") != null) {
-            userId = (String) param.get("userId");
-        }
-
-        Boolean encryptServerData = (Boolean) param.get("encryptServerData");
-        if (encryptServerData == null) encryptServerData = false;
-        Boolean debug = (Boolean) param.get("debug");
-        if (debug == null) debug = false;
-        Boolean bindAppletWithMainProcess = (Boolean) param.get("bindAppletWithMainProcess");
-        if (bindAppletWithMainProcess == null) bindAppletWithMainProcess = false;
-
-        String customWebViewUserAgent = (String) param.get("customWebViewUserAgent");
-        Integer appletIntervalUpdateLimit = (Integer) param.get("appletIntervalUpdateLimit");
-        Integer maxRunningApplet = (Integer) param.get("maxRunningApplet");
-        Gson gson = new Gson();
-        List<FinStoreConfig> finStoreConfigs = null;
-        if (param.get("finStoreConfigs") != null) {
-            finStoreConfigs = new ArrayList<>();
-            List<Map<String, Object>> configs = (List<Map<String, Object>>) param.get("finStoreConfigs");
-            for (Map<String, Object> config : configs) {
-                for (String key : config.keySet()) {
-                    String sdkKey = (String) config.get("sdkKey");
-                    String sdkSecret = (String) config.get("sdkSecret");
-                    String apiUrl = (String) config.get("apiServer");
-                    String apmUrl = (String) config.get("apmServer");
-                    if (apmUrl == null) apmUrl = "";
-                    String fingerprint = (String) config.get("fingerprint");
-                    if (fingerprint == null) fingerprint = "";
-                    String encryptType = (String) config.get("cryptType");
-                    Boolean encryptServerData1 = (Boolean) config.get("encryptServerData");
-                    if (encryptServerData1 == null) encryptServerData1 = false;
-                    finStoreConfigs.add(new FinStoreConfig(sdkKey, sdkSecret, apiUrl, apmUrl, "", fingerprint, encryptType, encryptServerData1));
-                }
-            }
-        }
-        FinAppConfig.UIConfig uiConfig = new FinAppConfig.UIConfig();
-        if (param.get("uiConfig") != null) {
-            uiConfig = gson.fromJson(gson.toJson(param.get("uiConfig")), FinAppConfig.UIConfig.class);
-        }
-        uiConfig.setLoadingLayoutCls(FINMopCustomLoadingPage.class);
 
 
         FinAppConfig.Builder builder = new FinAppConfig.Builder()
                 .setSdkKey(appkey)
                 .setSdkSecret(secret)
                 .setApiUrl(apiServer)
-                .setApiPrefix(apiPrefix)
-                .setEncryptionType(cryptType)
-                .setEncryptServerData(encryptServerData)
-                .setUserId(userId)
-                .setDebugMode(debug)
-                .setDisableRequestPermissions(disablePermission)
-                .setBindAppletWithMainProcess(bindAppletWithMainProcess);
+                .setApiPrefix(apiPrefix);
 
-        if (customWebViewUserAgent != null)
-            builder.setCustomWebViewUserAgent(customWebViewUserAgent);
-        if (appletIntervalUpdateLimit != null)
-            builder.setAppletIntervalUpdateLimit(appletIntervalUpdateLimit);
-        if (maxRunningApplet != null) builder.setMaxRunningApplet(maxRunningApplet);
-        if (finStoreConfigs != null) builder.setFinStoreConfigs(finStoreConfigs);
-        if (uiConfig != null) builder.setUiConfig(uiConfig);
+        Object userId = param.get("userId");
+        if ( userId != null) {
+            builder.setUserId((String) userId);
+        }
 
         Object appletText = param.get("appletText");
         if (appletText != null) {
