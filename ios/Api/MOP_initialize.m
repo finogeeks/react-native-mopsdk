@@ -87,7 +87,7 @@
             uiconfig.navigationTitleTextAttributes = _uiConfig[@"navigationTitleTextAttributes"];
         }
         if (_uiConfig[@"progressBarColor"]) {
-            uiconfig.progressBarColor = [MOPTools colorWithRGBHex:[_uiConfig[@"progressBarColor"] intValue]];
+            uiconfig.progressBarColor = [UIColor fat_colorWithARGBHexString:_uiConfig[@"progressBarColor"]];
         }
         uiconfig.hideBackToHome = [_uiConfig[@"isHideBackHome"] boolValue];
         uiconfig.hideFeedbackMenu = [_uiConfig[@"isHideFeedbackAndComplaints"] boolValue];
@@ -110,12 +110,12 @@
             capsuleConfig.closeBtnWidth = [capsuleConfigDic[@"closeBtnWidth"] floatValue];
             capsuleConfig.closeBtnLeftMargin = [capsuleConfigDic[@"closeBtnLeftMargin"] floatValue];
             
-            capsuleConfig.capsuleBorderLightColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleBorderLightColor"] intValue]];
-            capsuleConfig.capsuleBorderDarkColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleBorderDarkColor"] intValue]];
-            capsuleConfig.capsuleBgLightColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleBgLightColor"] intValue]];
-            capsuleConfig.capsuleBgDarkColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleBgDarkColor"] intValue]];
-            capsuleConfig.capsuleDividerLightColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleDividerLightColor"] intValue]];
-            capsuleConfig.capsuleDividerDarkColor = [MOPTools colorWithRGBHex:[capsuleConfigDic[@"capsuleDividerDarkColor"] intValue]];
+            capsuleConfig.capsuleBorderLightColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleBorderLightColor"]];
+            capsuleConfig.capsuleBorderDarkColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleBorderDarkColor"]];
+            capsuleConfig.capsuleBgLightColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleBgLightColor"]];
+            capsuleConfig.capsuleBgDarkColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleBgDarkColor"]];
+            capsuleConfig.capsuleDividerLightColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleDividerLightColor"]];
+            capsuleConfig.capsuleDividerDarkColor = [UIColor fat_colorWithARGBHexString:capsuleConfigDic[@"capsuleDividerDarkColor"]];
             uiconfig.capsuleConfig = capsuleConfig;
         }
     }
