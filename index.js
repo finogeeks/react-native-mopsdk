@@ -214,6 +214,68 @@ class MopSDK {
       })
     })
   }
+
+  /**
+ * 
+ * @param {Object} params 
+ * @param {String} params.appletId 小程序id，必填
+ * @param {String} params.apiServer 小程序所属服务器地址，必填
+ * @param {String} params.sequence 小程序索引， 非必填
+ * @param {Object} params.startParams 小程序启动参数，仅支持path 和 query
+ * @param {String} params.offlineMiniprogramZipPath 离线小程序压缩包路径，可传入一个本地小程序包路径，加快首次启动速度， 非必填
+ * @param {String} params.offlineFrameworkZipPath 离线基础库压缩包路径，可传入一个基础库路径，加快首次启动速度， 非必填
+ * @param {String} params.animated 是否使用动画，非必填，默认值为true。仅iOS支持
+ * @param {String} params.transitionStyle 打开小程序时的转场动画方式
+ * @returns
+ */
+startApplet(params) {
+  return new Promise((resolve, reject) => {
+    const { appletId } = params
+    const appletIdCheck = typeCheck(appletId, 'String')
+    if (!appletIdCheck.success) {
+      reject(appletIdCheck)
+      return
+    }
+
+    MopSDK._finMopSDK.startApplet(params, (params) => {
+      params = handleCallbackData(params)
+      if (params.success) {
+        resolve(params)
+      } else {
+        reject(params)
+      }
+    })
+  })
+}
+
+/**
+ * 
+ * @param {Object} params 
+ * @param {String} params.userId 返回当前用户
+ * @returns
+ */
+ changeUserId(params) {
+  return new Promise((resolve, reject) => {
+    const { userId } = params;
+    const userIdCheck = typeCheck(userId, 'String');
+    if (!userIdCheck.success) {
+      reject(userIdCheck);
+      return;
+    }
+
+    MopSDK._finMopSDK.changeUserId(params, (params) => {
+      params = handleCallbackData(params);
+      if (params.success) {
+        resolve(params);
+      } else {
+        reject(params);
+      }
+    });
+  });
+}
+
+
+
   // 关闭小程序
   closeApplet(appletId, animated) {
     const appletIdCheck = typeCheck(appletId, 'String')
@@ -233,6 +295,9 @@ class MopSDK {
   closeAllApplets() {
     MopSDK._finMopSDK.closeAllApplets()
   }
+
+
+
   // 二维码打开小程序
   qrcodeOpenApplet(qrcode) {
     const qrcodeCheck = typeCheck(qrcode, 'String')
