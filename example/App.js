@@ -12,7 +12,11 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter } from 'react-native';
 import MopSDK, { Config, FinStoreConfig,BOOLState, UIConfig } from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
-  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });
+  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' }).then((res) => {
+    console.log('openApplet success: ', res);
+  }).catch((error) => {
+    console.log('openApplet error: ', error);
+  });
 };
 const onPressOpenDemoApplet = () => {
   MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });

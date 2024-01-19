@@ -1,4 +1,4 @@
-import {BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig } from './mop.js';
+import { BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig } from './mop.js';
 
 const handleCallbackData = (params) => {
   let result = {}
@@ -187,12 +187,14 @@ class MopSDK {
   /**
    * 
    * @param {Object} params 
-   * @param {String} params.appId
-   * @param {String} params.path
-   * @param {String} params.query
-   * @param {Number} params.sequence
-   * @param {String} params.apiServer
-   * @param {String} params.scene
+   * @param {string} params.appId 小程序id，必填
+   * @param {string} params.path
+   * @param {string} params.query
+   * @param {number} params.sequence
+   * @param {string} params.apiServer
+   * @param {string} params.scene
+   * @param {string} params.shareDepth 
+   * @param {boolean} params.isSingleProcess
    * @returns
    */
   openApplet(params) {
@@ -203,7 +205,8 @@ class MopSDK {
         reject(appIdCheck)
         return
       }
-
+      const startParams = { path: params.path, query: params.query }
+      params.startParams = startParams
       MopSDK._finMopSDK.openApplet(params, (params) => {
         params = handleCallbackData(params)
         if (params.success) {
@@ -218,61 +221,62 @@ class MopSDK {
   /**
  * 
  * @param {Object} params 
- * @param {String} params.appletId 小程序id，必填
- * @param {String} params.apiServer 小程序所属服务器地址，必填
- * @param {String} params.sequence 小程序索引， 非必填
- * @param {Object} params.startParams 小程序启动参数，仅支持path 和 query
- * @param {String} params.offlineMiniprogramZipPath 离线小程序压缩包路径，可传入一个本地小程序包路径，加快首次启动速度， 非必填
- * @param {String} params.offlineFrameworkZipPath 离线基础库压缩包路径，可传入一个基础库路径，加快首次启动速度， 非必填
- * @param {String} params.animated 是否使用动画，非必填，默认值为true。仅iOS支持
- * @param {String} params.transitionStyle 打开小程序时的转场动画方式
+ * @param {string} params.appletId 小程序id，必填
+ * @param {string} params.apiServer 小程序所属服务器地址，必填
+ * @param {number} params.sequence 小程序索引， 非必填
+ * @param {Map<string,string>} params.startParams 小程序启动参数，仅支持path 和 query
+ * @param {string} params.offlineMiniprogramZipPath 离线小程序压缩包路径，可传入一个本地小程序包路径，加快首次启动速度， 非必填
+ * @param {string} params.offlineFrameworkZipPath 离线基础库压缩包路径，可传入一个基础库路径，加快首次启动速度， 非必填
+ * @param {boolean} params.animated 是否使用动画，非必填，默认值为true,仅iOS支持
+ * @param {TranstionStyle} params.transitionStyle 打开小程序时的转场动画方式,仅iOS支持
+ * @param {boolean} params.isSingleProcess 是否使用单进程模式,非必填，默认值为false。仅Android支持
  * @returns
  */
-startApplet(params) {
-  return new Promise((resolve, reject) => {
-    const { appletId } = params
-    const appletIdCheck = typeCheck(appletId, 'String')
-    if (!appletIdCheck.success) {
-      reject(appletIdCheck)
-      return
-    }
-
-    MopSDK._finMopSDK.startApplet(params, (params) => {
-      params = handleCallbackData(params)
-      if (params.success) {
-        resolve(params)
-      } else {
-        reject(params)
+  startApplet(params) {
+    return new Promise((resolve, reject) => {
+      const { appletId } = params
+      const appletIdCheck = typeCheck(appletId, 'String')
+      if (!appletIdCheck.success) {
+        reject(appletIdCheck)
+        return
       }
+
+      MopSDK._finMopSDK.startApplet(params, (params) => {
+        params = handleCallbackData(params)
+        if (params.success) {
+          resolve(params)
+        } else {
+          reject(params)
+        }
+      })
     })
-  })
-}
+  }
 
-/**
- * 
- * @param {Object} params 
- * @param {String} params.userId 返回当前用户
- * @returns
- */
- changeUserId(params) {
-  return new Promise((resolve, reject) => {
-    const { userId } = params;
-    const userIdCheck = typeCheck(userId, 'String');
-    if (!userIdCheck.success) {
-      reject(userIdCheck);
-      return;
-    }
-
-    MopSDK._finMopSDK.changeUserId(params, (params) => {
-      params = handleCallbackData(params);
-      if (params.success) {
-        resolve(params);
-      } else {
-        reject(params);
+  /**
+   * 
+   * @param {Object} params 
+   * @param {String} params.userId 返回当前用户
+   * @returns
+   */
+  changeUserId(params) {
+    return new Promise((resolve, reject) => {
+      const { userId } = params;
+      const userIdCheck = typeCheck(userId, 'String');
+      if (!userIdCheck.success) {
+        reject(userIdCheck);
+        return;
       }
+
+      MopSDK._finMopSDK.changeUserId(params, (params) => {
+        params = handleCallbackData(params);
+        if (params.success) {
+          resolve(params);
+        } else {
+          reject(params);
+        }
+      });
     });
-  });
-}
+  }
 
 
 
@@ -296,10 +300,13 @@ startApplet(params) {
     MopSDK._finMopSDK.closeAllApplets()
   }
 
+  removeAllUsedApplets() {
+    MopSDK._finMopSDK.removeAllUsedApplets()
+  }
 
 
   // 二维码打开小程序
-  qrcodeOpenApplet(qrcode) {
+  qrcodeOpenApplet(qrcode, isSingleProcess = false) {
     const qrcodeCheck = typeCheck(qrcode, 'String')
     if (!qrcodeCheck.success) {
       console.error(qrcodeCheck.retMsg)

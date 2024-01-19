@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -35,13 +37,16 @@ import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuItem;
 import com.finogeeks.lib.applet.page.view.moremenu.MoreMenuType;
 import com.finogeeks.lib.applet.rest.model.GrayAppletVersionConfig;
 import com.finogeeks.lib.applet.sdk.api.IAppletHandler;
+import com.finogeeks.lib.applet.sdk.api.request.RemoteFinAppletRequest;
 import com.finogeeks.mop.rnsdk.util.InitUtils;
 import com.finogeeks.xlog.XLogLevel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -139,7 +144,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 .setApiPrefix(apiPrefix);
 
         Object userId = param.get("userId");
-        if ( userId != null) {
+        if (userId != null) {
             builder.setUserId((String) userId);
         }
 
@@ -276,7 +281,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
             configBuilder.setAppletDebugMode(FinAppConfig.AppletDebugMode.appletDebugModeForbidden);
         }
         configBuilder.setEnableWatermark(InitUtils.getBooleanVal(configMap, "enableWatermark", false));
-        int watermarkPriorityIndex = InitUtils.getIntVal(configMap,"watermarkPriority",0);
+        int watermarkPriorityIndex = InitUtils.getIntVal(configMap, "watermarkPriority", 0);
         if (watermarkPriorityIndex == 0) {
             configBuilder.setWatermarkPriority(FinAppConfigPriority.GLOBAL);
         } else if (watermarkPriorityIndex == 1) {
@@ -289,7 +294,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
             HashMap<String, Object> headerMap = header.toHashMap();
             configBuilder.setHeader(InitUtils.createMapFromMap(headerMap));
         }
-        int headerPriorityIndex = InitUtils.getIntVal(configMap,"headerPriority",0);
+        int headerPriorityIndex = InitUtils.getIntVal(configMap, "headerPriority", 0);
         if (headerPriorityIndex == 0) {
             configBuilder.setHeaderPriority(FinAppConfigPriority.GLOBAL);
         } else if (headerPriorityIndex == 1) {
@@ -297,19 +302,19 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         } else if (headerPriorityIndex == 2) {
             configBuilder.setHeaderPriority(FinAppConfigPriority.APPLET_FILE);
         }
-        configBuilder.setPageCountLimit(InitUtils.getIntVal(configMap,"pageCountLimit",0));
+        configBuilder.setPageCountLimit(InitUtils.getIntVal(configMap, "pageCountLimit", 0));
         ReadableArray schemes = configMap.getArray("schemes");
         if (schemes != null) {
             configBuilder.setSchemes(InitUtils.toArray(schemes));
         }
-        configBuilder.setDebugMode(InitUtils.getBooleanVal(configMap,"debug",false));
-        configBuilder.setEnableLog(InitUtils.getBooleanVal(configMap,"debug",false));
-        Integer maxRunningApplet = InitUtils.getIntVal(configMap, "maxRunningApplet" );
+        configBuilder.setDebugMode(InitUtils.getBooleanVal(configMap, "debug", false));
+        configBuilder.setEnableLog(InitUtils.getBooleanVal(configMap, "debug", false));
+        Integer maxRunningApplet = InitUtils.getIntVal(configMap, "maxRunningApplet");
         if (maxRunningApplet != null) {
             configBuilder.setMaxRunningApplet(maxRunningApplet);
         }
 
-        Integer backgroundFetchPeriod = InitUtils.getIntVal(configMap, "backgroundFetchPeriod" );
+        Integer backgroundFetchPeriod = InitUtils.getIntVal(configMap, "backgroundFetchPeriod");
         if (backgroundFetchPeriod != null) {
             configBuilder.setBackgroundFetchPeriod(backgroundFetchPeriod);
         }
@@ -318,13 +323,13 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         if (webViewMixedContentMode != null) {
             configBuilder.setWebViewMixedContentMode(webViewMixedContentMode);
         }
-        configBuilder.setBindAppletWithMainProcess(InitUtils.getBooleanVal( configMap,"bindAppletWithMainProcess",false));
-        String killAppletProcessNotice = InitUtils.getStringVal(configMap,"killAppletProcessNotice");
+        configBuilder.setBindAppletWithMainProcess(InitUtils.getBooleanVal(configMap, "bindAppletWithMainProcess", false));
+        String killAppletProcessNotice = InitUtils.getStringVal(configMap, "killAppletProcessNotice");
         if (killAppletProcessNotice != null) {
             configBuilder.setKillAppletProcessNotice(killAppletProcessNotice);
         }
         Integer minAndroidSdkVersion = InitUtils.getIntVal(configMap, "minAndroidSdkVersion");
-        if(minAndroidSdkVersion!=null){
+        if (minAndroidSdkVersion != null) {
             configBuilder.setMinAndroidSdkVersion(minAndroidSdkVersion);
         }
         Boolean enableScreenShot = InitUtils.getBooleanVal(configMap, "enableScreenShot");
@@ -370,7 +375,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         }
         configBuilder.setEnableJ2V8(InitUtils.getBooleanVal(configMap, "enableJ2V8", false));
 
-        String localeLanguage = InitUtils.getStringVal(configMap,"localeLanguage");
+        String localeLanguage = InitUtils.getStringVal(configMap, "localeLanguage");
         if (!TextUtils.isEmpty(localeLanguage)) {
             if (localeLanguage.contains("_")) {
                 String[] locales = localeLanguage.split("_");
@@ -439,29 +444,36 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
 
     @ReactMethod
-    public void openApplet(ReadableMap map, final Callback callback) {
-        Map<String, Object> param = map.toHashMap();
-        if (param.get("appId") == null) {
-            callback.invoke(fail("appId不能为空"));
+    public void openApplet(ReadableMap params, final Callback callback) {
+        Log.d(TAG, "openApplet:params:" + params);
+        String appId = InitUtils.getStringVal(params, "appId");
+        if (appId == null) {
+            callback.invoke(fail("appId is not null"));
             return;
         }
-        Log.d(TAG, "openApplet:params:" + param);
-        String appId = String.valueOf(param.get("appId"));
-        Integer sequence = (Integer) param.get("sequence");
-        String apiServer = (String) param.get("apiServer");
-
-        if (apiServer == null) {
-            apiServer = "";
+        Integer sequence = InitUtils.getIntVal(params, "sequence");
+        String apiServer = InitUtils.getStringVal(params, "apiServer");
+        Boolean isSingleProcess = InitUtils.getBooleanVal(params, "isSingleProcess");
+        ReadableMap startParams = params.getMap("startParams");
+        RemoteFinAppletRequest request;
+        if (TextUtils.isEmpty(apiServer)) {
+            request = IFinAppletRequest.Companion.fromAppId(appId);
+        } else {
+            request = IFinAppletRequest.Companion.fromAppId(apiServer, appId);
         }
-        Map<String, String> startParams = new HashMap<>();
-        if (param.get("params") != null) {
-            startParams = (Map<String, String>) param.get("params");
+        if (sequence != null) {
+            request.setSequence(sequence);
         }
-
+        if (startParams != null) {
+            request.setStartParams(InitUtils.createMapFromMap(startParams.toHashMap()));
+        }
+        if (Boolean.TRUE.equals(isSingleProcess)) {
+            request.setProcessMode(IFinAppletRequest.ProcessMode.SINGLE);
+        } else {
+            request.setProcessMode(IFinAppletRequest.ProcessMode.MULTI);
+        }
         FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
-                IFinAppletRequest.Companion.fromAppId(apiServer, appId)
-                        .setSequence(sequence)
-                        .setStartParams(startParams),
+                request,
                 new FinCallback<String>() {
                     @Override
                     public void onSuccess(String s) {
@@ -481,6 +493,73 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void startApplet(ReadableMap params, final Callback callback) {
+        Log.d(TAG, "startApplet:params:" + params);
+        String appletId = InitUtils.getStringVal(params, "appletId");
+        if (appletId == null) {
+            callback.invoke(fail("appletId is not null"));
+            return;
+        }
+        Integer sequence = InitUtils.getIntVal(params, "sequence");
+        String apiServer = InitUtils.getStringVal(params, "apiServer");
+        Boolean isSingleProcess = InitUtils.getBooleanVal(params, "isSingleProcess");
+        String offlineMiniprogramZipPath = InitUtils.getStringVal(params, "offlineMiniprogramZipPath");
+        String offlineFrameworkZipPath = InitUtils.getStringVal(params, "offlineFrameworkZipPath");
+        ReadableMap startParams = params.getMap("startParams");
+        RemoteFinAppletRequest request;
+        if (TextUtils.isEmpty(apiServer)) {
+            request = IFinAppletRequest.Companion.fromAppId(appletId);
+        } else {
+            request = IFinAppletRequest.Companion.fromAppId(apiServer, appletId);
+        }
+        if (sequence != null) {
+            request.setSequence(sequence);
+        }
+        if (startParams != null) {
+            request.setStartParams(InitUtils.createMapFromMap(startParams.toHashMap()));
+        }
+        if (Boolean.TRUE.equals(isSingleProcess)) {
+            request.setProcessMode(IFinAppletRequest.ProcessMode.SINGLE);
+        } else {
+            request.setProcessMode(IFinAppletRequest.ProcessMode.MULTI);
+        }
+        request.setOfflineParams(offlineFrameworkZipPath, offlineMiniprogramZipPath);
+        FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
+                request,
+                new FinCallback<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        callback.invoke(success(null));
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        callback.invoke(fail(s));
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                });
+
+
+    }
+
+    @ReactMethod
+    public void changeUserId(ReadableMap params, final Callback callback) {
+        Log.d(TAG, "changeUserId:params:" + params);
+        String userId = InitUtils.getStringVal(params, "userId");
+        FinAppConfig finAppConfig = FinAppClient.INSTANCE.getFinAppConfig();
+        if (finAppConfig != null) {
+            finAppConfig.setUserId(userId);
+            callback.invoke(success(null));
+        } else {
+            callback.invoke(fail("sdk not initilized"));
+        }
+    }
+
+    @ReactMethod
     public void closeApplet(ReadableMap params) {
         Map<String, Object> param = params.toHashMap();
         if (param.containsKey("appletId") && param.get("appletId") instanceof String) {
@@ -497,26 +576,42 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeAllUsedApplets() {
+        FinAppClient.INSTANCE.getAppletApiManager().removeAllUsedApplets();
+        Log.d(TAG, "closeAllApplets");
+    }
+
+
+    @ReactMethod
     public void qrcodeOpenApplet(ReadableMap params) {
-        Log.d(TAG, "qrcodeOpenApplet");
-        Map<String, Object> param = params.toHashMap();
-        String qrcode = String.valueOf(param.get("qrcode"));
-        FinAppClient.INSTANCE.getAppletApiManager().startAppletByQrcode(reactContext, qrcode, new FinCallback<String>() {
-            @Override
-            public void onSuccess(String s) {
-                Log.d(TAG, "qrcodeOpenApplet success");
-            }
+        Log.d(TAG, "qrcodeOpenApplet:" + params);
+        String qrcode = InitUtils.getStringVal(params, "qrcode", "");
+        Boolean isSingleProcess = InitUtils.getBooleanVal(params, "isSingleProcess");
+        IFinAppletRequest.ProcessMode processMode;
+        if (Boolean.TRUE.equals(isSingleProcess)) {
+            processMode = IFinAppletRequest.ProcessMode.SINGLE;
+        } else {
+            processMode = IFinAppletRequest.ProcessMode.MULTI;
+        }
+        FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
+                IFinAppletRequest.Companion
+                        .fromQrCode(qrcode)
+                        .setProcessMode(processMode), new FinCallback<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.d(TAG, "qrcodeOpenApplet success");
+                    }
 
-            @Override
-            public void onError(int i, String s) {
-                Log.d(TAG, "qrcodeOpenApplet:" + s);
-            }
+                    @Override
+                    public void onError(int i, String s) {
+                        Log.d(TAG, "qrcodeOpenApplet:" + s);
+                    }
 
-            @Override
-            public void onProgress(int i, String s) {
+                    @Override
+                    public void onProgress(int i, String s) {
 
-            }
-        });
+                    }
+                });
     }
 
     @ReactMethod
