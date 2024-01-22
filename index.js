@@ -188,13 +188,13 @@ class MopSDK {
    * 
    * @param {Object} params 
    * @param {string} params.appId 小程序id，必填
-   * @param {string} params.path
-   * @param {string} params.query
-   * @param {number} params.sequence
-   * @param {string} params.apiServer
-   * @param {string} params.scene
-   * @param {string} params.shareDepth 
-   * @param {boolean} params.isSingleProcess
+   * @param {string} params.path 小程序页面路径
+   * @param {string} params.query 传给页面的 query 参数
+   * @param {number} params.sequence 小程序索引， 非必填
+   * @param {string} params.apiServer 小程序所属服务器地址
+   * @param {string} params.scene 进入小程序的场景值
+   * @param {string} params.shareDepth  分享层级
+   * @param {boolean} params.isSingleProcess 是否使用单进程模式,非必填，默认值为false。仅Android支持
    * @returns
    */
   openApplet(params) {
