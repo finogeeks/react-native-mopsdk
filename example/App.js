@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter } from 'react-native';
-import MopSDK, { Config, FinStoreConfig,BOOLState, UIConfig } from 'react-native-mopsdk';
+import MopSDK, { Config, FinStoreConfig,BOOLState, LanguageType, UIConfig } from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
   MopSDK.openApplet({ appId: '64c23309c533620001a1971e' }).then((res) => {
     console.log('openApplet success: ', res);
@@ -44,7 +44,7 @@ export default class App extends Component<{}> {
       "https://api.finclip.com");
 
     let finStoreConfigs = [finStoreConfigA];
-    let config = new Config(finStoreConfigs,{userId:"123456789",debug:true,appletDebugMode:BOOLState.BOOLStateTrue}) ;
+    let config = new Config(finStoreConfigs,{language:LanguageType.Chinese,userId:"123456789",debug:true,appletDebugMode:BOOLState.BOOLStateTrue}) ;
     let uiConfig = new UIConfig({isHideClearCacheMenu:true});
     let params = {
       config: config,
