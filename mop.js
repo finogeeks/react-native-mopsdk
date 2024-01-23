@@ -63,14 +63,14 @@ class FinStoreConfig {
    * @param {string} options.cryptType - 网络接口加密类型，默认为MD5 国密SM
    * @param {string} options.fingerprint - SDK指纹 证联环境(https://open.fdep.cn/) 时必填，其他环境的不用填
    * @param {boolean} options.encryptServerData - 是否需要接口加密验证（初始化多服务器时使用）默认为不开启，当设置为true时开启，接口返回加密数据并处理
-   * @param {boolean} options.enablePreloadFramework - 是否开启预加载基础库
+   * @param {boolean} options.enablePreloadFramework - 是否开启预加载基础库,默认开启
    */
   constructor(sdkKey, sdkSecret, apiServer, {
     apmServer = null,
     cryptType = "MD5",
     fingerprint = null,
     encryptServerData = false,
-    enablePreloadFramework = false
+    enablePreloadFramework = true
   } = {}) {
     this.sdkKey = sdkKey;
     this.sdkSecret = sdkSecret;
