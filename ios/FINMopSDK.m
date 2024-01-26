@@ -62,6 +62,15 @@ RCT_EXPORT_METHOD(initialize:(NSDictionary *)param callback:(RCTResponseSenderBl
     });
 }
 
+RCT_EXPORT_METHOD(initSDK:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"initSDK param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"initSDK" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
 RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
     NSLog(@"openApplet param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -260,6 +269,51 @@ RCT_EXPORT_METHOD(smsign:(NSDictionary *)param callback:(RCTResponseSenderBlock)
     NSLog(@"smsign param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{
         [MopPlugin handleMethod:@"smsign" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
+RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"startApplet param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"startApplet" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
+RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"removeAllUsedApplets param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"removeAllUsedApplets" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
+RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"changeUserId param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"changeUserId" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
+RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"AppletDelegate param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"AppletDelegate" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
+RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"ButtonOpenTypeDelegate param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"ButtonOpenTypeDelegate" arguments:param mopSDK:self result:^(NSString *result) {
             callback(@[result]);
         }];
     });

@@ -76,6 +76,57 @@ const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
   })
 
 ```
+## 🔨 使用方法
+```javascript
+import MopSDK from 'react-native-mopsdk';
+import { NativeModules, NativeEventEmitter } from 'react-native';
+
+/**
+ * @description Initialize the SDK with specific configurations
+ * @param {Object} params - Configuration parameters
+ */
+MopSDK.initSDK = function(params) {
+  return new Promise((resolve, reject) => {
+    // 这里假设 params 中已经包含了 config 和 uiConfig
+    let { config, uiConfig } = params;
+
+    // 确保 config 和 uiConfig 是有效的对象
+    if (!config || typeof config !== 'object' || !uiConfig || typeof uiConfig !== 'object') {
+      reject(new Error('Invalid config or uiConfig'));
+      return;
+    }
+
+    // 调用原生模块的 initSDK 方法
+    NativeModules.FINMopSDK.initSDK({ config, uiConfig }).then(res => {
+      console.log('SDK 初始化成功');
+      resolve(res);
+    }).catch(err => {
+      console.error('SDK 初始化失败', err);
+      reject(err);
+    });
+  });
+};
+
+// 使用示例
+const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
+MopSDK.initSDK({
+  config: {
+    appkey: '您的appkey',
+    secret: '您的secret',
+    apiServer: 'https://api.finclip.com',
+    apiPrefix: '/api/v1/mop/',
+    // 其他相关的配置项
+  },
+  uiConfig: {
+    // UI 相关配置
+  }
+}).then(res => {
+  console.log('初始化成功');
+}).catch(err => {
+  console.log('初始化失败', err);
+});
+
+```
 
 ## 📱 DEMO
 [点击这里](https://github.com/finogeeks/finclip-react-native-demo) 查看 React Native Demo

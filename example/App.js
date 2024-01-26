@@ -9,21 +9,25 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
-import MopSDK from 'react-native-mopsdk';
+import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter } from 'react-native';
+import MopSDK, { Config, FinStoreConfig,BOOLState, LanguageType, UIConfig } from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
-  MopSDK.openApplet({appId: '5ea03fa563cb900001d73863'});
+  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' }).then((res) => {
+    console.log('openApplet success: ', res);
+  }).catch((error) => {
+    console.log('openApplet error: ', error);
+  });
 };
 const onPressOpenDemoApplet = () => {
-  MopSDK.openApplet({appId: '5ea0401463cb900001d73865'});
+  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });
 };
 const onPressOpenProfileApplet = () => {
-   MopSDK.registerAppletHandler({
-     getCustomMenus(appId){
-       console.log("getCustomMenus")
-        return []
-     }
-   })
+  MopSDK.registerAppletHandler({
+    getCustomMenus(appId) {
+      console.log("getCustomMenus")
+      return []
+    }
+  })
 };
 export default class App extends Component<{}> {
   state = {
@@ -31,14 +35,25 @@ export default class App extends Component<{}> {
     message: '--',
   };
   componentDidMount() {
-    MopSDK.initialize(
-      {
-        appkey: '22LyZEib0gLTQdU3MUauASlb4KFRNRajt4RmY6UDSucA',
-        secret: 'c5cc7a8c14a2b04a',
-        apiServer: 'https://mp.finogeeks.com',
-        apiPrefix: '/api/v1/mop',
-      }
-    ).then((res) => {
+
+    const eventEmitter = new NativeEventEmitter(NativeModules.FINMopSDK);
+
+    let finStoreConfigA = new FinStoreConfig(
+      "22LyZEib0gLTQdU3MUauATBwgfnTCJjdr7FCnywmAEM=",
+      "bdfd76cae24d4313",
+      "https://api.finclip.com");
+
+    let finStoreConfigs = [finStoreConfigA];
+    let config = new Config(finStoreConfigs,{language:LanguageType.Chinese,userId:"123456789",debug:true,appletDebugMode:BOOLState.BOOLStateTrue}) ;
+    let uiConfig = new UIConfig({isHideClearCacheMenu:true});
+    let params = {
+      config: config,
+      uiConfig: uiConfig,
+      finMopSDK: NativeModules.FINMopSDK,
+      nativeEventEmitter: eventEmitter
+    }
+
+    MopSDK.initSDK(params).then((res) => {
       console.log('message: ', res);
       const s = JSON.stringify(res);
       this.setState({
@@ -46,7 +61,7 @@ export default class App extends Component<{}> {
         message: s,
       });
     }).catch((error) => {
-      console.log('error: ', error);
+      console.log('init error: ', error);
       const s = 'initialize fail'
       this.setState({
         status: 'native callback received',

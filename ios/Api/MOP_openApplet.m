@@ -14,24 +14,31 @@
 - (void)setupApiWithSuccess:(void (^)(NSDictionary<NSString *,id> * _Nonnull))success failure:(void (^)(id _Nullable))failure cancel:(void (^)(void))cancel {
     UIViewController *currentVC = [MOPTools topViewController];
     // 打开小程序
-    if (self.sequence == nil) {
-        [[FATClient sharedClient] startRemoteApplet:self.appId startParams:self.params InParentViewController:currentVC completion:^(BOOL result, NSError *error) {
-            NSLog(@"result:%d---error:%@", result, error);
-            if (result){
-                success(@{});
-            } else {
-                failure(error.description);
-            }
-        }];
-    } else {
-        [[FATClient sharedClient] startRemoteApplet:self.appId sequence:self.sequence startParams:self.params InParentViewController:currentVC transitionStyle:FATTranstionStyleUp animated:YES completion:^(BOOL result, NSError *error) {
-            NSLog(@"result:%d---error:%@", result, error);
-            if (result){
-                success(@{});
-            } else {
-                failure(error.description);
-            }
-        }];
+     if (self.appId == NULL) {
+        failure(@"appId不能为空");
+        return;
     }
+    FATAppletRequest *request = [[FATAppletRequest alloc] init];
+    request.appletId = self.appId;
+    if (self.apiServer) {
+        request.apiServer = self.apiServer;
+    }
+    if (self.sequence) {
+        request.sequence = self.sequence;
+    }
+    if (self.params) {
+        request.startParams = self.params;
+    }
+    [[FATClient sharedClient] startAppletWithRequest:request InParentViewController:currentVC completion:^(BOOL result, FATError *error) {
+        NSLog(@"result:%d---error:%@", result, error);
+        
+        if (result){
+            success(@{});
+        } else {
+            failure(error.description);
+        }
+    } closeCompletion:^{
+            
+    }];
 }
 @end

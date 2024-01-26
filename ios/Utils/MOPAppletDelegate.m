@@ -68,7 +68,7 @@
         userInfo = result;
     }];
     CFRunLoopRun();
-    return @{@"nickName": userInfo[@"nickName"], @"avatarUrl": userInfo[@"avatarUrl"]};
+    return userInfo;
 }
 
 - (NSArray<id<FATAppletMenuProtocol>> *)customMenusInApplet:(FATAppletInfo *)appletInfo atPath:(NSString *)path {
