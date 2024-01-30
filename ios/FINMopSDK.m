@@ -274,7 +274,7 @@ RCT_EXPORT_METHOD(smsign:(NSDictionary *)param callback:(RCTResponseSenderBlock)
     });
 }
 
-RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(startApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
     NSLog(@"startApplet param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{
         [MopPlugin handleMethod:@"startApplet" arguments:param mopSDK:self result:^(NSString *result) {
@@ -283,7 +283,7 @@ RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBl
     });
 }
 
-RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(removeAllUsedApplets:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
     NSLog(@"removeAllUsedApplets param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{
         [MopPlugin handleMethod:@"removeAllUsedApplets" arguments:param mopSDK:self result:^(NSString *result) {
@@ -292,28 +292,10 @@ RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBl
     });
 }
 
-RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(changeUserId:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
     NSLog(@"changeUserId param: %@", param);
     dispatch_async(dispatch_get_main_queue(), ^{
         [MopPlugin handleMethod:@"changeUserId" arguments:param mopSDK:self result:^(NSString *result) {
-            callback(@[result]);
-        }];
-    });
-}
-
-RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
-    NSLog(@"AppletDelegate param: %@", param);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MopPlugin handleMethod:@"AppletDelegate" arguments:param mopSDK:self result:^(NSString *result) {
-            callback(@[result]);
-        }];
-    });
-}
-
-RCT_EXPORT_METHOD(openApplet:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
-    NSLog(@"ButtonOpenTypeDelegate param: %@", param);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [MopPlugin handleMethod:@"ButtonOpenTypeDelegate" arguments:param mopSDK:self result:^(NSString *result) {
             callback(@[result]);
         }];
     });
