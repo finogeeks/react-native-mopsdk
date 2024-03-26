@@ -7,7 +7,10 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
+import com.facebook.react.flipper.ReactNativeFlipper;
 import com.facebook.soloader.SoLoader;
+import com.finogeeks.finclip.demo.BuildConfig;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
