@@ -12,6 +12,9 @@ target 'example' do
     :hermes_enabled => false
   )
 
+  #pod 'react-native-mopsdk', :path => '../node_modules/react-native-mopsdk'
+
+
   target 'exampleTests' do
     inherit! :complete
     # Pods for testing
