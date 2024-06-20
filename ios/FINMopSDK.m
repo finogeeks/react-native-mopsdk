@@ -144,6 +144,16 @@ RCT_EXPORT_METHOD(finishRunningApplet:(NSDictionary *)param) {
     });
 }
 
+RCT_EXPORT_METHOD(finishAllRunningApplets) {
+    NSDictionary *param = @{};
+    NSLog(@"finishAllRunningApplets param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"finishAllRunningApplets" arguments:param mopSDK:self result:^(NSString *result) {
+//            callback(@[result]);
+        }];
+    });
+}
+
 RCT_EXPORT_METHOD(clearApplets) {
     NSDictionary *param = @{};
     NSLog(@"clearApplets param: %@", param);

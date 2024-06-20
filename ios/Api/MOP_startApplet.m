@@ -25,7 +25,8 @@
     request.offlineMiniprogramZipPath = self.offlineMiniprogramZipPath;
     request.offlineFrameworkZipPath = self.offlineFrameworkZipPath;
     request.animated = [self.animated boolValue];
-    request.transitionStyle = [self.transitionStyle intValue];
+    request.transitionStyle = [self.transitionStyle integerValue];
+    request.reLaunchMode = [self.reLaunchMode integerValue];
 
     // 启动小程序
     [[FATClient sharedClient] startAppletWithRequest:request InParentViewController:currentVC completion:^(BOOL result, NSError *error) {

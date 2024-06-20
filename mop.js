@@ -16,6 +16,17 @@ const BOOLState = {
   BOOLStateForbidden: 3
 };
 
+const FCReLaunchMode = {
+  // 只要有启动参数，就会执行reLaunch
+  ParamsExist: 0,
+  // 有启动参数并且启动参数与上次不同时，才执行reLaunch
+  OnlyParamsDiff: 1,
+  // 每次热启动，都执行reLaunch
+  Always: 2,
+  // 每次热启动均不执行reLaunch，直接复用上次的页面栈
+  Never: 3
+};
+
 const ConfigPriority = {
   // 全局配置优先
   ConfigGlobalPriority: 0,
@@ -558,4 +569,4 @@ class UIConfig {
   }
 }
 
-export { BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };
+export { BOOLState, ConfigPriority, LogLevel, FCReLaunchMode, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };

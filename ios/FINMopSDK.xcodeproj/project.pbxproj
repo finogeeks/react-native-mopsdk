@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		371FE1A72B31A9CC000D0A57 /* Mop_LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */; };
+		37A70A452C230CBC002DDD95 /* MOP_startApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A412C230CBB002DDD95 /* MOP_startApplet.m */; };
+		37A70A462C230CBC002DDD95 /* MOP_finishAllRunningApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A422C230CBC002DDD95 /* MOP_finishAllRunningApplets.m */; };
+		37A70A472C230CBC002DDD95 /* MOP_removeAllUsedApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A442C230CBC002DDD95 /* MOP_removeAllUsedApplets.m */; };
 		A00B188927ED719B00ADA24C /* MOPAppletDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */; };
 		A00B189427ED7AF800ADA24C /* MopCustomMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */; };
 		A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */; };
@@ -68,6 +71,12 @@
 		134814201AA4EA6300B7C361 /* libFINMopSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFINMopSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		371FE1A52B31A9CC000D0A57 /* Mop_LoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mop_LoadingView.h; sourceTree = "<group>"; };
 		371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Mop_LoadingView.m; sourceTree = "<group>"; };
+		37A70A3E2C230CBB002DDD95 /* MOP_removeAllUsedApplets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_removeAllUsedApplets.h; sourceTree = "<group>"; };
+		37A70A402C230CBB002DDD95 /* MOP_startApplet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_startApplet.h; sourceTree = "<group>"; };
+		37A70A412C230CBB002DDD95 /* MOP_startApplet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_startApplet.m; sourceTree = "<group>"; };
+		37A70A422C230CBC002DDD95 /* MOP_finishAllRunningApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_finishAllRunningApplets.m; sourceTree = "<group>"; };
+		37A70A432C230CBC002DDD95 /* MOP_finishAllRunningApplets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_finishAllRunningApplets.h; sourceTree = "<group>"; };
+		37A70A442C230CBC002DDD95 /* MOP_removeAllUsedApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_removeAllUsedApplets.m; sourceTree = "<group>"; };
 		A00B188727ED719B00ADA24C /* MOPAppletDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPAppletDelegate.h; sourceTree = "<group>"; };
 		A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPAppletDelegate.m; sourceTree = "<group>"; };
 		A00B189227ED7AF800ADA24C /* MopCustomMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MopCustomMenuModel.h; sourceTree = "<group>"; };
@@ -216,6 +225,12 @@
 		A092BD8127EC7F8A001D67D1 /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				37A70A432C230CBC002DDD95 /* MOP_finishAllRunningApplets.h */,
+				37A70A422C230CBC002DDD95 /* MOP_finishAllRunningApplets.m */,
+				37A70A3E2C230CBB002DDD95 /* MOP_removeAllUsedApplets.h */,
+				37A70A442C230CBC002DDD95 /* MOP_removeAllUsedApplets.m */,
+				37A70A402C230CBB002DDD95 /* MOP_startApplet.h */,
+				37A70A412C230CBB002DDD95 /* MOP_startApplet.m */,
 				A05C1FC12806B34B00BAD9FD /* MOP_addWebExtentionApi.h */,
 				A05C1FC02806B34B00BAD9FD /* MOP_addWebExtentionApi.m */,
 				A092BD9727EC7F8A001D67D1 /* MOP_callJS.h */,
@@ -350,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */,
+				37A70A472C230CBC002DDD95 /* MOP_removeAllUsedApplets.m in Sources */,
 				A092BDBB27EC7F8A001D67D1 /* MOP_currentApplet.m in Sources */,
 				A092BDBF27EC7F8A001D67D1 /* MOP_showBotomSheetModel.m in Sources */,
 				A092BDC727EC7F8A001D67D1 /* MOP_sendCustomEvent.m in Sources */,
@@ -367,7 +383,9 @@
 				A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */,
 				371FE1A72B31A9CC000D0A57 /* Mop_LoadingView.m in Sources */,
 				A092BDB727EC7F8A001D67D1 /* MOP_registerAppletHandler.m in Sources */,
+				37A70A462C230CBC002DDD95 /* MOP_finishAllRunningApplets.m in Sources */,
 				A092BDB627EC7F8A001D67D1 /* MOP_removeApplet.m in Sources */,
+				37A70A452C230CBC002DDD95 /* MOP_startApplet.m in Sources */,
 				A05C1FC22806B34C00BAD9FD /* MOP_addWebExtentionApi.m in Sources */,
 				A092BDC027EC7F8A001D67D1 /* MOP_scanOpenApplet.m in Sources */,
 				A092BDB227EC7F8A001D67D1 /* MopPlugin.m in Sources */,

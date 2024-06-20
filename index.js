@@ -1,4 +1,4 @@
-import { BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig } from './mop.js';
+import { BOOLState, ConfigPriority, LogLevel, FCReLaunchMode, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig } from './mop.js';
 
 const handleCallbackData = (params) => {
   let result = {}
@@ -218,7 +218,7 @@ class MopSDK {
     })
   }
 
-  /**
+/**
  * 
  * @param {Object} params 
  * @param {string} params.appletId 小程序id，必填
@@ -230,6 +230,7 @@ class MopSDK {
  * @param {boolean} params.animated 是否使用动画，非必填，默认值为true,仅iOS支持
  * @param {TranstionStyle} params.transitionStyle 打开小程序时的转场动画方式,仅iOS支持
  * @param {boolean} params.isSingleProcess 是否使用单进程模式,非必填，默认值为false。仅Android支持
+ * @param {FCRelaunchMode} params.reLaunchMode 执行reLaunch的场景
  * @returns
  */
   startApplet(params) {
@@ -417,6 +418,12 @@ class MopSDK {
     }
     MopSDK._finMopSDK.finishRunningApplet({ appletId, animated })
   }
+
+  // 结束所有在运行的小程序
+  finishAllRunningApplets() {
+    MopSDK._finMopSDK.finishAllRunningApplets()
+  }
+
   // 设置小程序切换动画 安卓
   setActivityTransitionAnim(anim) {
     MopSDK._finMopSDK.setActivityTransitionAnim({ anim })
@@ -425,5 +432,5 @@ class MopSDK {
 
 
 export default new MopSDK();
-export { BOOLState, ConfigPriority, LogLevel, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };
+export { BOOLState, ConfigPriority, LogLevel, FCReLaunchMode, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };
 

@@ -7,6 +7,7 @@
 @implementation MopPlugin
 
 + (void)handleMethod:(NSString *)method arguments:(NSDictionary *)arguments mopSDK:(FINMopSDK *)mopSDK result:(MopBlock)result {
+  NSLog(@"method:%@, param:%@", method, arguments);
   if ([@"getPlatformVersion" isEqualToString:method]) {
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   } else if ([@"getAppletInfo" isEqualToString:method]) {

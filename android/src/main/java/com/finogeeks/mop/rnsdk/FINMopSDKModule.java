@@ -523,6 +523,18 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         } else {
             request.setProcessMode(IFinAppletRequest.ProcessMode.MULTI);
         }
+        
+        Integer reLaunchMode = InitUtils.getIntVal(params, key:"reLaunchMode", defaultValue:0);
+        // 默认为有启动参数，就触发reLaunch
+        IFinAppletRequest.ReLaunchMode mode = IFinAppletRequest.ReLaunchMode.PARAMS_EXIST;
+        if (reLaunchMode == 1) {
+            mode = IFinAppletRequest.ReLaunchMode.ONLY_PARAMS_DIFF;
+        } else if (reLaunchMode == 2) {
+            mode = IFinAppletRequest.ReLaunchMode.ALWAYS;
+        } else if (reLaunchMode == 3) {
+            mode = IFinAppletRequest.ReLaunchMode.NEVER;
+        }  
+        request.setReLaunchMode(mode);
         request.setOfflineParams(offlineFrameworkZipPath, offlineMiniprogramZipPath);
         FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
                 request,
@@ -581,6 +593,21 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         Log.d(TAG, "closeAllApplets");
     }
 
+    @ReactMethod
+    public void finishRunningApplet(ReadableMap params) {
+        Map<String, Object> param = params.toHashMap();
+        Log.d(TAG, "finishRunningApplet");
+        if (param.containsKey("appletId") && param.get("appletId") instanceof String) {
+            String appId = (String) param.get("appletId");
+            FinAppClient.INSTANCE.getAppletApiManager().finishRunningApplet(appId);
+        }
+    }
+
+    @ReactMethod
+    public void finishAllRunningApplets() {
+        Log.d(TAG, "finishAllRunningApplets");
+        FinAppClient.INSTANCE.getAppletApiManager().finishAllRunningApplets();
+    }
 
     @ReactMethod
     public void qrcodeOpenApplet(ReadableMap params) {
@@ -917,16 +944,6 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         Log.d(TAG, "sendCustomEvent:" + appId);
         if (appId != null) {
             FinAppClient.INSTANCE.getAppletApiManager().sendCustomEvent(appId, eventData == null ? "" : new Gson().toJson(eventData));
-        }
-    }
-
-    @ReactMethod
-    public void finishRunningApplet(ReadableMap params) {
-        Map<String, Object> param = params.toHashMap();
-        Log.d(TAG, "finishRunningApplet");
-        if (param.containsKey("appletId") && param.get("appletId") instanceof String) {
-            String appId = (String) param.get("appletId");
-            FinAppClient.INSTANCE.getAppletApiManager().finishRunningApplet(appId);
         }
     }
 

@@ -10,18 +10,23 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Button, NativeModules, NativeEventEmitter } from 'react-native';
-import MopSDK, { Config, FinStoreConfig,BOOLState, LanguageType, UIConfig } from 'react-native-mopsdk';
+import MopSDK, { Config, FinStoreConfig, BOOLState, LanguageType, FCReLaunchMode, UIConfig } from 'react-native-mopsdk';
 const onPressOpenCanvasApplet = () => {
-  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' }).then((res) => {
+  MopSDK.openApplet({ appId: '5facb3a52dcbff00017469bd' }).then((res) => {
     console.log('openApplet success: ', res);
   }).catch((error) => {
     console.log('openApplet error: ', error);
   });
 };
 const onPressOpenDemoApplet = () => {
-  MopSDK.openApplet({ appId: '64c23309c533620001a1971e' });
+  // MopSDK.openApplet({ appId: '5f72e3559a6a7900019b5baa' });
+  MopSDK.startApplet({appletId:'64c23309c533620001a1971e', startParams:{'query':'abcd'}, reLaunchMode: FCReLaunchMode.Never})
 };
-const onPressOpenProfileApplet = () => {
+const onPressOpenTestApplet = () => {
+  MopSDK.openApplet({ appId: '5f17f457297b540001e06ebb' });
+};
+
+const onPressCustomMenu = () => {
   MopSDK.registerAppletHandler({
     getCustomMenus(appId) {
       console.log("getCustomMenus")
@@ -29,6 +34,10 @@ const onPressOpenProfileApplet = () => {
     }
   })
 };
+
+const onPressFinishAll = () => {
+  MopSDK.finishAllRunningApplets();
+}
 export default class App extends Component<{}> {
   state = {
     status: 'starting',
@@ -89,8 +98,20 @@ export default class App extends Component<{}> {
           accessibilityLabel="Learn more about this purple button"
         />
         <Button
-          onPress={onPressOpenProfileApplet}
-          title="打开智能对账单小程序"
+          onPress={onPressOpenTestApplet}
+          title="打开测试小程序"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressFinishAll}
+          title="结束所有小程序"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressCustomMenu}
+          title="自定义菜单"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />

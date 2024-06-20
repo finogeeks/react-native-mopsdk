@@ -10,9 +10,9 @@ PODS:
     - React-Core (= 0.67.4)
     - React-jsi (= 0.67.4)
     - ReactCommon/turbomodule/core (= 0.67.4)
-  - FinApplet (2.43.11)
-  - FinAppletExt (2.43.11):
-    - FinApplet (= 2.43.11)
+  - FinApplet (2.44.9)
+  - FinAppletExt (2.44.9):
+    - FinApplet (= 2.44.9)
   - Flipper (0.99.0):
     - Flipper-Folly (~> 2.6)
     - Flipper-RSocket (~> 1.4)
@@ -275,9 +275,9 @@ PODS:
   - React-jsinspector (0.67.4)
   - React-logger (0.67.4):
     - glog
-  - react-native-mopsdk (2.0.5):
-    - FinApplet (= 2.43.11)
-    - FinAppletExt (= 2.43.11)
+  - react-native-mopsdk (2.0.6):
+    - FinApplet (= 2.44.9)
+    - FinAppletExt (= 2.44.9)
     - React
   - React-perflogger (0.67.4)
   - React-RCTActionSheet (0.67.4):
@@ -494,8 +494,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: f7b0632c6437e312acf6349288d9aa4cb6d59030
   FBReactNativeSpec: 0f4e1f4cfeace095694436e7c7fcc5bf4b03a0ff
-  FinApplet: 963d24e7e7882df995787fc36e4f3e8821c06a3d
-  FinAppletExt: 00a9dd55133104599c67f55e0fa202fb045edc8f
+  FinApplet: 83573934d556a75aab59e303081ece7f64cdbbae
+  FinAppletExt: 95b8464aea5e81fa244a7bbb6de074c30d5a2793
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
@@ -521,7 +521,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: cbdf37cebdc4f5d8b3d0bf5ccaa6147fd9de9f3d
   React-jsinspector: f4775ea9118cbe1f72b834f0f842baa7a99508d8
   React-logger: a1f028f6d8639a3f364ef80419e5e862e1115250
-  react-native-mopsdk: ad1f182842c2eff9c7ab5ecc1827c63c4760fd54
+  react-native-mopsdk: 2889041c733650e300847a0426a7e317d45232cd
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
   React-RCTActionSheet: 59f35c4029e0b532fc42114241a06e170b7431a2
   React-RCTAnimation: aae4f4bed122e78bdab72f7118d291d70a932ce2
