@@ -524,7 +524,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
             request.setProcessMode(IFinAppletRequest.ProcessMode.MULTI);
         }
         
-        Integer reLaunchMode = InitUtils.getIntVal(params, key:"reLaunchMode", defaultValue:0);
+        Integer reLaunchMode = InitUtils.getIntVal(params, "reLaunchMode", 0);
         // 默认为有启动参数，就触发reLaunch
         IFinAppletRequest.ReLaunchMode mode = IFinAppletRequest.ReLaunchMode.PARAMS_EXIST;
         if (reLaunchMode == 1) {
