@@ -620,10 +620,21 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         } else {
             processMode = IFinAppletRequest.ProcessMode.MULTI;
         }
+        Integer reLaunchMode = InitUtils.getIntVal(params, "reLaunchMode", 0);
+        // 默认为有启动参数，就触发reLaunch
+        IFinAppletRequest.ReLaunchMode mode = IFinAppletRequest.ReLaunchMode.PARAMS_EXIST;
+        if (reLaunchMode == 1) {
+            mode = IFinAppletRequest.ReLaunchMode.ONLY_PARAMS_DIFF;
+        } else if (reLaunchMode == 2) {
+            mode = IFinAppletRequest.ReLaunchMode.ALWAYS;
+        } else if (reLaunchMode == 3) {
+            mode = IFinAppletRequest.ReLaunchMode.NEVER;
+        }  
         FinAppClient.INSTANCE.getAppletApiManager().startApplet(reactContext,
                 IFinAppletRequest.Companion
                         .fromQrCode(qrcode)
-                        .setProcessMode(processMode), new FinCallback<String>() {
+                        .setProcessMode(processMode)
+                        .setReLaunchMode(mode), new FinCallback<String>() {
                     @Override
                     public void onSuccess(String s) {
                         Log.d(TAG, "qrcodeOpenApplet success");

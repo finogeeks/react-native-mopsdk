@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) NSString *qrcode;
 
+@property (nonatomic,copy) NSString *reLaunchMode;
+
 @end
 
 NS_ASSUME_NONNULL_END

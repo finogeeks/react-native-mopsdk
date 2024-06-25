@@ -306,14 +306,20 @@ class MopSDK {
   }
 
 
-  // 二维码打开小程序
-  qrcodeOpenApplet(qrcode, isSingleProcess = false) {
+  /**
+ * 二维码打开小程序
+ * @param {string} qrcode 二维码内容，必填
+ * @param {boolean} isSingleProcess 是否使用单进程模式,非必填，默认值为false。仅Android支持
+ * @param {FCRelaunchMode} reLaunchMode 执行reLaunch的场景
+ * @returns
+ */
+  qrcodeOpenApplet(qrcode, isSingleProcess = false, reLaunchMode = FCReLaunchMode.ParamsExist) {
     const qrcodeCheck = typeCheck(qrcode, 'String')
     if (!qrcodeCheck.success) {
       console.error(qrcodeCheck.retMsg)
       return
     }
-    MopSDK._finMopSDK.qrcodeOpenApplet({ qrcode })
+    MopSDK._finMopSDK.qrcodeOpenApplet({ qrcode, isSingleProcess, reLaunchMode })
   }
   // 获取当前正在使用的小程序信息
   currentApplet() {
