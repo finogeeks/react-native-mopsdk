@@ -701,7 +701,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.finogeeks.mop.rnexample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.finogeeks.finclip.demo;
 				PRODUCT_NAME = example;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = wild_all;
