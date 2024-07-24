@@ -100,6 +100,8 @@ class Config {
   * @param {Array<FinStoreConfig>} finStoreConfigs - 要初始化的服务器配置对象列表
   * @param {Object} options - 可选参数
   * @param {string} options.userId - 当前用户id，对应管理后台的用户管理->成员管理->用户id。 若体验版本配置了体验成员，则需要设置正确的userId才能具备打开小程序的权限。登录/切换用户/退出登录时，需要修改此值。小程序缓存信息会存储在以userId命名的不同目录下。  
+  * @param {string} options.channel - 渠道标识，如果不设置，默认为bundleId。该参数用于实现标准版本的login接口。
+  * @param {string} options.phone - 手机号或手机号对应的token，默认为null。该参数用于实现标准版本的getPhoneNumber。 
   * @param {string} options.productIdentification - 产品的标识，非必传，默认为存储目录里的finclip，finogeeks和userAgent里的finogeeks
   * @param {boolean} options.disableRequestPermissions - 是否不让SDK申请权限;如果设置为true，则SDK内使用权限的api，不会主动申请权限
   * @param {boolean} options.appletAutoAuthorize - 小程序自动申请授权;如果设置为true，则小程序申请权限时不会弹出用户确认提示框
@@ -143,6 +145,8 @@ class Config {
   */
   constructor(finStoreConfigs, {
     userId = null,
+    channel = null,
+    phone = null,
     productIdentification = null,
     disableRequestPermissions = false,
     appletAutoAuthorize = false,
@@ -186,6 +190,8 @@ class Config {
   } = {}) {
     this.finStoreConfigs = finStoreConfigs;
     this.userId = userId;
+    this.channel = channel;
+    this.phone = phone;
     this.productIdentification = productIdentification;
     this.disableRequestPermissions = disableRequestPermissions;
     this.appletAutoAuthorize = appletAutoAuthorize;

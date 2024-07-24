@@ -253,6 +253,15 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         if (userId != null) {
             configBuilder.setUserId(userId);
         }
+        String channel = InitUtils.getStringVal(configMap, "channel");
+        if (channel != null) {
+            configBuilder.setChannel(channel);
+        }
+        String phone = InitUtils.getStringVal(configMap, "phone");
+        if (phone != null) {
+            configBuilder.setPhone(phone);
+        }
+
         String productIdentification = InitUtils.getStringVal(configMap, "productIdentification");
         if (productIdentification != null) {
             configBuilder.setProductIdentification(productIdentification);
