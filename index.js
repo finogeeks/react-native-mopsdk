@@ -52,7 +52,6 @@ class MopSDK {
       const handler = MopSDK._extensionApis[apiName]
       if (handler !== null) {
         const res = await handler(event.params)
-        console.warn("CUSTOM API 调用的结果", res)
         MopSDK._finMopSDK.eventReminderCallback(apiName, res, event.callbackId)
       }
     } else if (event.apiName.startsWith(webExtensionApiPrefix)) {
@@ -60,7 +59,6 @@ class MopSDK {
       const handler = MopSDK._webExtensionApis[apiName]
       if (handler !== null) {
         const res = await handler(event.params)
-        console.warn("WEB CUSTOM API 调用的结果", res)
         MopSDK._finMopSDK.eventReminderCallback(apiName, res, event.callbackId)
       }
     }
@@ -376,6 +374,7 @@ class MopSDK {
     MopSDK._finMopSDK.addWebExtentionApi({ name })
   }
 
+  // 注册异步api
   registerExtensionApi(name, handler) {
     MopSDK._extensionApis[name] = handler;
     MopSDK._finMopSDK.registerExtensionApi({ name })

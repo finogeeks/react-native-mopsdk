@@ -46,13 +46,31 @@
 
 这就是 FinClip ，就是有这么多不可思议！
 
-## ⚙️ 配置环境
+## ⚙️ NPM 安装
 
 `$ npm install react-native-mopsdk --save`
 
-## 🖥 自动安装
+## 🖥 ios 集成
 
-`$ react-native link react-native-mopsdk`
+`$ cd ios && pod install`
+
+## 🤖 android 集成
+```javascript
+// 在 android/build.gradle 文件中添加
+allprojects {
+      repositories {
+          ...
+          // finclip 小程序相关
+          maven {
+              url "https://gradle.finogeeks.club/repository/applet/"
+              credentials {
+                  username "applet"
+                  password "123321"
+              }
+          }
+      }
+}
+```
 
 ## 🔨 使用方法
 ```javascript
