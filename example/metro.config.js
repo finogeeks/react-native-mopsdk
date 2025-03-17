@@ -10,25 +10,46 @@
 // see also this discussion:
 // https://github.com/brodybits/create-react-native-module/issues/232
 
-const path = require("path");
-const watchFolders = [
-  //Relative path to packages directory because I'm in yarn workpspaces
-  path.resolve(__dirname + "/../.."),
-];
+const path = require('path');
+const exclusionList = require('metro-config/src/defaults/exclusionList');
+const pak = require('../package.json');
+
+const root = path.resolve(__dirname, '..');
+
+const modules = Object.keys({
+  ...pak.peerDependencies,
+});
+
+// Simple escape function instead of using escape-string-regexp
+const escapeStringForRegexp = (string) =>
+  string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+
 module.exports = {
+  projectRoot: __dirname,
+  watchFolders: [root],
+
+  // We need to make sure that only one version is loaded for peerDependencies
+  // So we block them at the root, and alias them to the versions in example's node_modules
   resolver: {
-    extraNodeModules: new Proxy(
-      {},
-      { get: (_, name) => path.resolve('.', 'node_modules', name) }
-    )
+    blacklistRE: exclusionList(
+      modules.map(
+        (m) =>
+          new RegExp(`^${escapeStringForRegexp(path.join(root, 'node_modules', m))}\\/.*$`)
+      )
+    ),
+
+    extraNodeModules: modules.reduce((acc, name) => {
+      acc[name] = path.join(__dirname, 'node_modules', name);
+      return acc;
+    }, {}),
   },
+
   transformer: {
     getTransformOptions: async () => ({
       transform: {
-        // this defeats the RCTDeviceEventEmitter is not a registered callable module
+        experimentalImportSupport: false,
         inlineRequires: true,
       },
     }),
   },
-  watchFolders,
 };

@@ -10,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "escape-string-regexp": "^5.0.0",
+    "metro-config": "^0.82.0",
     "react": "17.0.2",
     "react-native": "0.67.4",
     "react-native-mopsdk": "file:.."
