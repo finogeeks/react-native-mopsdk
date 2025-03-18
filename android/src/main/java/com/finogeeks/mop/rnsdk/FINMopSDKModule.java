@@ -1088,7 +1088,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getBindApplets(ReadableMap params, final Callback callback) {
         String apiServer = InitUtils.getStringVal(params, "apiServer");
-        String appClass = InitUtils.getStringVal(params, "appClass");
+        String appClass = InitUtils.getStringVal(params, "appClass", "");
         int appStatusNumber = InitUtils.getIntVal(params, "appStatus", 0);
         boolean containForbiddenApp = InitUtils.getBooleanVal(params, "containForbiddenApp", false);
         int pageNo = InitUtils.getIntVal(params, "pageNo", 1);
