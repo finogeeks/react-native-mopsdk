@@ -161,7 +161,14 @@ export default class App extends Component<{}> {
       "https://api.finclip.com");
 
     let finStoreConfigs = [finStoreConfigA];
-    let config = new Config(finStoreConfigs,{language:LanguageType.Chinese,userId:"123456789",debug:true,appletDebugMode:BOOLState.BOOLStateTrue}) ;
+    let config = new Config(finStoreConfigs,
+      {language:LanguageType.Chinese,
+      userId:"123456",
+      channel:"finclip_channel",
+      phone:"13012345678",
+      debug:true,
+      appletDebugMode:BOOLState.BOOLStateTrue}
+    ) ;
     let uiConfig = new UIConfig({isHideClearCacheMenu:true});
     let params = {
       config: config,
