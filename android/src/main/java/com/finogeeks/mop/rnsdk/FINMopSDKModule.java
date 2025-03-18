@@ -1081,4 +1081,38 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void getBindApplets(ReadableMap params, final Callback callback) {
+        Map<String, Object> param = params.toHashMap();
+        String apiServer = (String) param.get("apiServer");
+        String appClass = (String) param.get("appClass") ?: "";
+        int appStatus = (int) param.get("appStatus")
+
+        String apiServer = InitUtils.getStringVal(params, "apiServer");
+        String appClass = InitUtils.getStringVal(params, "appClass");
+        int appStatus = InitUtils.getIntVal(params, "appStatus", 0);
+        boolean containForbiddenApp = InitUtils.getBooleanVal(params, "containForbiddenApp", false);
+        int pageNo = InitUtils.getIntVal(params, "pageNo", 1);
+        int pageSize = InitUtils.getIntVal(params, "pageSize", 20);
+
+        FetchBindAppletRequest request = FetchBindAppletRequest(apiServer, appClass, appStatus, containForbiddenApp, pageNo, pageSize)
+        FinAppClient.INSTANCE.getAppletApiManager().getBindApplets(
+            request, new FinCallback<String>() {
+                @Override
+                public void onSuccess(String s) {
+                    Log.d(TAG, "getBindApplets success");
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    Log.d(TAG, "getBindApplets fail:" + s);
+                }
+
+                @Override
+                public void onProgress(int i, String s) {
+
+                }
+            })
+    }
+
 }

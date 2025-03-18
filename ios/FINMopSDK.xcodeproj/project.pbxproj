@@ -11,6 +11,7 @@
 		37A70A452C230CBC002DDD95 /* MOP_startApplet.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A412C230CBB002DDD95 /* MOP_startApplet.m */; };
 		37A70A462C230CBC002DDD95 /* MOP_finishAllRunningApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A422C230CBC002DDD95 /* MOP_finishAllRunningApplets.m */; };
 		37A70A472C230CBC002DDD95 /* MOP_removeAllUsedApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A70A442C230CBC002DDD95 /* MOP_removeAllUsedApplets.m */; };
+		37B529FF2D890AE9002173ED /* MOP_getBindApplets.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B529FE2D890AE9002173ED /* MOP_getBindApplets.m */; };
 		A00B188927ED719B00ADA24C /* MOPAppletDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */; };
 		A00B189427ED7AF800ADA24C /* MopCustomMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A00B189327ED7AF800ADA24C /* MopCustomMenuModel.m */; };
 		A05C1FBF2804236E00BAD9FD /* FINMopSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = A05C1FBD2804236E00BAD9FD /* FINMopSDK.m */; };
@@ -77,6 +78,8 @@
 		37A70A422C230CBC002DDD95 /* MOP_finishAllRunningApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_finishAllRunningApplets.m; sourceTree = "<group>"; };
 		37A70A432C230CBC002DDD95 /* MOP_finishAllRunningApplets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOP_finishAllRunningApplets.h; sourceTree = "<group>"; };
 		37A70A442C230CBC002DDD95 /* MOP_removeAllUsedApplets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOP_removeAllUsedApplets.m; sourceTree = "<group>"; };
+		37B529FD2D890AE9002173ED /* MOP_getBindApplets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MOP_getBindApplets.h; sourceTree = "<group>"; };
+		37B529FE2D890AE9002173ED /* MOP_getBindApplets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MOP_getBindApplets.m; sourceTree = "<group>"; };
 		A00B188727ED719B00ADA24C /* MOPAppletDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MOPAppletDelegate.h; sourceTree = "<group>"; };
 		A00B188827ED719B00ADA24C /* MOPAppletDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MOPAppletDelegate.m; sourceTree = "<group>"; };
 		A00B189227ED7AF800ADA24C /* MopCustomMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MopCustomMenuModel.h; sourceTree = "<group>"; };
@@ -279,6 +282,8 @@
 				A092BDA527EC7F8A001D67D1 /* MOP_webViewBounces.m */,
 				371FE1A52B31A9CC000D0A57 /* Mop_LoadingView.h */,
 				371FE1A62B31A9CC000D0A57 /* Mop_LoadingView.m */,
+				37B529FD2D890AE9002173ED /* MOP_getBindApplets.h */,
+				37B529FE2D890AE9002173ED /* MOP_getBindApplets.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 				A092BDCA27EC7F8A001D67D1 /* MOP_setFinStoreConfigs.m in Sources */,
 				371FE1A72B31A9CC000D0A57 /* Mop_LoadingView.m in Sources */,
 				A092BDB727EC7F8A001D67D1 /* MOP_registerAppletHandler.m in Sources */,
+				37B529FF2D890AE9002173ED /* MOP_getBindApplets.m in Sources */,
 				37A70A462C230CBC002DDD95 /* MOP_finishAllRunningApplets.m in Sources */,
 				A092BDB627EC7F8A001D67D1 /* MOP_removeApplet.m in Sources */,
 				37A70A452C230CBC002DDD95 /* MOP_startApplet.m in Sources */,
