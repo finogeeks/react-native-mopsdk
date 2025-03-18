@@ -1083,36 +1083,55 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getBindApplets(ReadableMap params, final Callback callback) {
-        Map<String, Object> param = params.toHashMap();
-        String apiServer = (String) param.get("apiServer");
-        String appClass = (String) param.get("appClass") ?: "";
-        int appStatus = (int) param.get("appStatus")
-
         String apiServer = InitUtils.getStringVal(params, "apiServer");
         String appClass = InitUtils.getStringVal(params, "appClass");
-        int appStatus = InitUtils.getIntVal(params, "appStatus", 0);
+        int appStatusNumber = InitUtils.getIntVal(params, "appStatus", 0);
         boolean containForbiddenApp = InitUtils.getBooleanVal(params, "containForbiddenApp", false);
         int pageNo = InitUtils.getIntVal(params, "pageNo", 1);
         int pageSize = InitUtils.getIntVal(params, "pageSize", 20);
 
-        FetchBindAppletRequest request = FetchBindAppletRequest(apiServer, appClass, appStatus, containForbiddenApp, pageNo, pageSize)
+        AppletStatus appStatus = InitUtils.intToAppletStatus(appStatusNumber);
+
+        FetchBindAppletRequest request = new FetchBindAppletRequest(apiServer, appClass, appStatus, containForbiddenApp, pageNo, pageSize);
         FinAppClient.INSTANCE.getAppletApiManager().getBindApplets(
-            request, new FinCallback<String>() {
-                @Override
-                public void onSuccess(String s) {
-                    Log.d(TAG, "getBindApplets success");
-                }
+                request, new FinCallback<FetchBindAppletResponse>() {
+                    @Override
+                    public void onSuccess(FetchBindAppletResponse fetchBindAppletResponse) {
+                        int total = fetchBindAppletResponse.getTotal();
+                        List<FetchBindAppletInfo> items = fetchBindAppletResponse.getItems();
 
-                @Override
-                public void onError(int i, String s) {
-                    Log.d(TAG, "getBindApplets fail:" + s);
-                }
+                        // 将 FetchBindAppletInfo 对象转换为 Map 数组
+                        List<Map<String, Object>> itemMaps = new ArrayList<>();
+                        for (FetchBindAppletInfo info : items) {
+                            Map<String, Object> itemMap = new HashMap<>();
+                            itemMap.put("apiServer", info.getApiServer());
+                            itemMap.put("miniAppId", info.getMiniAppId());
+                            itemMap.put("name", info.getName());
+                            itemMap.put("logo", info.getLogo());
+                            itemMap.put("appClass", info.getAppClass());
+                            itemMap.put("displayStatus", info.getDisplayStatus() != null ? info.getDisplayStatus().ordinal() : null);
+                            itemMap.put("isForbidden", info.isForbidden());
+                            itemMap.put("desc", info.getDesc());
+                            itemMap.put("detailDesc", info.getDetailDesc());
+                            itemMaps.add(itemMap);
+                        }
 
-                @Override
-                public void onProgress(int i, String s) {
+                        Map<String, Object> res = new HashMap<>();
+                        res.put("total", total);
+                        res.put("items", itemMaps);
+                        callback.invoke(success(res));
+                    }
 
-                }
-            })
+                    @Override
+                    public void onError(int i, String s) {
+                        callback.invoke(fail(s));
+                    }
+
+                    @Override
+                    public void onProgress(int i, String s) {
+
+                    }
+                });
     }
 
 }
