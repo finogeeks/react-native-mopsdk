@@ -140,6 +140,14 @@ const onPressOpenAppletByQRCode = (qrcode, selectedOption) => {
   MopSDK.qrcodeOpenApplet(qrcode, false, mode)
 }
 
+const onPressGetBindApplets = () => {
+  MopSDK.getBindApplets({apiServer:"https://api.finclip.com", pageNo:1, pageSize:20}).then((res) => {
+    console.log('getBindApplets success: ', res);
+  }).catch((error) => {
+    console.error('getBindApplets error: ', error);
+  })
+}
+
 export default class App extends Component<{}> {
 
   state = {
@@ -243,6 +251,12 @@ export default class App extends Component<{}> {
         <Button
           onPress={onPressCustomMenu}
           title="自定义菜单"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressGetBindApplets}
+          title="获取绑定的小程序列表"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />

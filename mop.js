@@ -575,4 +575,41 @@ class UIConfig {
   }
 }
 
+class FATFetchBindApplet {
+  /**
+   * @param {Object} options - 可选参数
+   * @param {string} options.apiServer - 小程序服务器地址
+   * @param {string} options.miniAppId - 小程序id
+   * @param {string} options.name - 小程序名称
+   * @param {string} options.logo - 小程序logo
+   * @param {string} options.appClass - 小程序分类
+   * @param {number} options.displayStatus - 小程序状态类型，枚举值。0:所有；1：已上架的；2：未上架的；3：已下架的
+   * @param {boolean} options.isForbidden - 是否被禁用
+   * @param {string} options.desc - 小程序简介
+   * @param {string} options.detailDesc - 小程序详细描述
+   * 
+   */
+  constructor({
+    apiServer,
+    miniAppId,
+    name,
+    logo,
+    appClass,
+    displayStatus,
+    isForbidden,
+    desc,
+    detailDesc
+  }) {
+    this.apiServer = apiServer;
+    this.miniAppId = miniAppId;
+    this.name = name;
+    this.logo = logo;
+    this.appClass = appClass;
+    this.displayStatus = displayStatus;
+    this.isForbidden = isForbidden;
+    this.desc = desc;
+    this.detailDesc = detailDesc;
+  }
+}
+
 export { BOOLState, ConfigPriority, LogLevel, FCReLaunchMode, LanguageType, FinStoreConfig, Config, CapsuleConfig, NavHomeConfig, FloatWindowConfig, AuthButtonConfig, AuthViewConfig, UIConfig };

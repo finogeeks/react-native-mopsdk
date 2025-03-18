@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.finogeeks.lib.applet.client.FinAppConfig;
 import com.finogeeks.lib.applet.client.FinAppConfigPriority;
+import com.finogeeks.lib.applet.sdk.model.AppletStatus;
 import com.finogeeks.lib.applet.utils.ColorUtil;
 
 import java.util.HashMap;
@@ -514,5 +515,18 @@ public class InitUtils {
             return clazz.cast(array.getString(index));
         }
         return defaultValue;
+    }
+
+    public static AppletStatus intToAppletStatus(int statusNumber) {
+        switch (statusNumber) {
+            case 1:
+                return AppletStatus.LISTED;
+            case 2:
+                return AppletStatus.UNLISTED;
+            case 3:
+                return AppletStatus.DELISTED;
+            default:
+                return AppletStatus.ALL;
+        }
     }
 }

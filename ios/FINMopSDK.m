@@ -311,4 +311,13 @@ RCT_EXPORT_METHOD(changeUserId:(NSDictionary *)param callback:(RCTResponseSender
     });
 }
 
+RCT_EXPORT_METHOD(getBindApplets:(NSDictionary *)param callback:(RCTResponseSenderBlock)callback) {
+    NSLog(@"getBindApplets param: %@", param);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MopPlugin handleMethod:@"getBindApplets" arguments:param mopSDK:self result:^(NSString *result) {
+            callback(@[result]);
+        }];
+    });
+}
+
 @end

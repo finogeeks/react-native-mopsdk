@@ -434,6 +434,41 @@ class MopSDK {
   setActivityTransitionAnim(anim) {
     MopSDK._finMopSDK.setActivityTransitionAnim({ anim })
   }
+
+  // 获取绑定的小程序列表
+
+
+  /**
+   * 
+   * @param {Object} params 
+   * @param {string} params.apiServer 服务器地址，必填
+   * @param {string} params.appClass 小程序的分类，默认为''
+   * @param {number} params.appStatus 小程序状态类型，枚举值。0:所有；1：已上架的；2：未上架的；3：已下架的
+   * @param {boolean} params.containForbiddenApp 查询结果是否包含被禁用的小程序，默认为false
+   * @param {number} params.pageNo 分页查询的页码，默认为1
+   * @param {number} params.pageSize 分页的大小，默认为20
+   * @returns
+   */
+  getBindApplets(params) {
+    return new Promise((resolve, reject) => {
+      const { apiServer } = params
+      const apiServerCheck = typeCheck(apiServer, 'String')
+      if (!apiServerCheck.success) {
+        reject(apiServerCheck)
+        return
+      }
+
+      MopSDK._finMopSDK.getBindApplets(params, (result) => {
+        result = handleCallbackData(result)
+        if (result.success) {
+          resolve(result)
+        } else {
+          reject(result)
+        }
+      })
+    })
+  }
+
 }
 
 
