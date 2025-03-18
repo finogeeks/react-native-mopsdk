@@ -275,7 +275,7 @@ PODS:
   - React-jsinspector (0.67.4)
   - React-logger (0.67.4):
     - glog
-  - react-native-mopsdk (2.0.7):
+  - react-native-mopsdk (2.0.8):
     - FinApplet (= 2.47.5)
     - FinAppletExt (= 2.47.5)
     - React
@@ -521,7 +521,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: cbdf37cebdc4f5d8b3d0bf5ccaa6147fd9de9f3d
   React-jsinspector: f4775ea9118cbe1f72b834f0f842baa7a99508d8
   React-logger: a1f028f6d8639a3f364ef80419e5e862e1115250
-  react-native-mopsdk: 858e7730813f260b55a43142a4d7e42a8b609562
+  react-native-mopsdk: 7ce033dd83afb80d000e8e8a70dd8ed1adfce983
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
   React-RCTActionSheet: 59f35c4029e0b532fc42114241a06e170b7431a2
   React-RCTAnimation: aae4f4bed122e78bdab72f7118d291d70a932ce2
