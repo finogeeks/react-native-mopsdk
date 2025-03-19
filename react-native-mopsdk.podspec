@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.dependency "React"
   # ...
   # s.dependency "..."
-  s.dependency "FinApplet", "2.47.5"
-  s.dependency "FinAppletExt", "2.47.5"
+  s.dependency "FinApplet", "2.47.7"
+  s.dependency "FinAppletExt", "2.47.7"
 end
 
