@@ -1115,18 +1115,20 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
                         // 将 FetchBindAppletInfo 对象转换为 Map 数组
                         List<Map<String, Object>> itemMaps = new ArrayList<>();
-                        for (FetchBindAppletInfo info : items) {
-                            Map<String, Object> itemMap = new HashMap<>();
-                            itemMap.put("apiServer", info.getApiServer());
-                            itemMap.put("miniAppId", info.getMiniAppId());
-                            itemMap.put("name", info.getName());
-                            itemMap.put("logo", info.getLogo());
-                            itemMap.put("appClass", info.getAppClass());
-                            itemMap.put("displayStatus", info.getDisplayStatus() != null ? info.getDisplayStatus().ordinal() : null);
-                            itemMap.put("isForbidden", info.isForbidden());
-                            itemMap.put("desc", info.getDesc());
-                            itemMap.put("detailDesc", info.getDetailDesc());
-                            itemMaps.add(itemMap);
+                        if (items != null && items.size() > 0) {
+                            for (FetchBindAppletInfo info : items) {
+                                Map<String, Object> itemMap = new HashMap<>();
+                                itemMap.put("apiServer", info.getApiServer());
+                                itemMap.put("miniAppId", info.getMiniAppId());
+                                itemMap.put("name", info.getName());
+                                itemMap.put("logo", info.getLogo());
+                                itemMap.put("appClass", info.getAppClass());
+                                itemMap.put("displayStatus", info.getDisplayStatus() != null ? info.getDisplayStatus().ordinal() : null);
+                                itemMap.put("isForbidden", info.isForbidden());
+                                itemMap.put("desc", info.getDesc());
+                                itemMap.put("detailDesc", info.getDetailDesc());
+                                itemMaps.add(itemMap);
+                            }
                         }
 
                         Map<String, Object> res = new HashMap<>();
