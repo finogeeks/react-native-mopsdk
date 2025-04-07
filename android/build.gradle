@@ -104,8 +104,8 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:"+REACT_NATIVE_VERSION  // From node_modules
-    implementation 'com.finogeeks.lib:finapplet:2.47.9'
-    implementation 'com.finogeeks.mop:plugins:2.47.9'
+    implementation 'com.finogeeks.lib:finapplet:2.47.11'
+    implementation 'com.finogeeks.mop:plugins:2.47.11'
 }
 
 def configureReactNativePom(def pom) {
