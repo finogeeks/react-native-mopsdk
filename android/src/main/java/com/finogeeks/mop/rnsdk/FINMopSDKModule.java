@@ -109,10 +109,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void eventReminderCallback(String apiName, Dynamic result, String callbackId) {
+        ReadableMap map = result.asMap();
         Log.d(TAG, "eventReminderCallback," + apiName + "," + result);
         FinCallback callback = callbacks.get(callbackId);
         if (callback != null) {
-            callback.onSuccess(result);
+            callback.onSuccess(map);
             callbacks.remove(callbackId);
         }
     }
@@ -1007,12 +1008,13 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 Log.d("MopPlugin", "invoke extensionApi:" + s + ",params:" + jsonObject);
                 Map params = new Gson().fromJson(jsonObject.toString(), HashMap.class);
                 handler.post(() -> {
-                    sendEvent("extensionApi:" + name, params, new FinCallback<Dynamic>() {
+                    sendEvent("extensionApi:" + name, params, new FinCallback<ReadableMap>() {
                         @Override
-                        public void onSuccess(Dynamic o) {
+                        public void onSuccess(ReadableMap o) {
+                            Log.d(TAG, "o.asMap():" + o);
                             String json = null;
-                            if (o != null && o.asMap() != null) {
-                                json = new Gson().toJson(o.asMap().toHashMap());
+                            if (o != null && o != null) {
+                                json = new Gson().toJson(o.toHashMap());
                             }
                             Log.d(TAG, "channel invokeMethod:" + name
                                     + " success, result=" + o + ", json=" + json);
