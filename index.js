@@ -342,6 +342,7 @@ class MopSDK {
   registerAppletHandler(handler) {
     MopSDK._extensionApis['forwardApplet'] = (params) => {
       handler.forwardApplet(params)
+      return {}
     }
 
     MopSDK._extensionApis['getUserInfo'] = (params) => {

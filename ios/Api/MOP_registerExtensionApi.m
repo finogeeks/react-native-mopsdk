@@ -22,22 +22,41 @@
             @"params": param,
             @"callbackId": [self.mopSDK callbackId]
         };
-        [self.mopSDK sendEventWithName:kMopEventReminder body:body callback:^(id  _Nullable result) {
-            // 判断回调是否为失败
-            BOOL hasError = [[result allKeys] containsObject:@"errMsg"];
-            if (hasError) {
-                NSString *errMsg = result[@"errMsg"];
-                NSString *errPrefix = [NSString stringWithFormat:@"%@:fail", self.name];
-                BOOL isFail = [errMsg hasPrefix:errPrefix];
-                if (isFail) {
-                    NSLog(@"extensionApi reslut:fail");
-                    callback(FATExtensionCodeFailure,nil);
-                    return;
-                }
+        [self.mopSDK sendEventWithName:kMopEventReminder body:body callback:^(id  _Nullable result) { 
+            // 如果不是字典类型，按照默认按照成功处理
+            if (![result isKindOfClass:[NSDictionary class]]) {
+                callback(FATExtensionCodeSuccess, @{});
+                return;
             }
-            // 其他的按成功处理
+            
+            NSString *errMsg = result[@"errMsg"];
+            // errMsg 不是字符串类型，也默认按照成功处理
+            if (![errMsg isKindOfClass:[NSString class]]) {
+                errMsg = [NSString stringWithFormat:@"%@:ok", apiName];
+            }
+            
+            NSString *errPrefix = [NSString stringWithFormat:@"%@:fail", apiName];
+            BOOL isFail = [errMsg hasPrefix:errPrefix];
+            if (isFail) {
+                NSLog(@"extensionApi reslut:fail");
+                callback(FATExtensionCodeFailure,@{@"errMsg": errMsg});
+                return;
+            }
+            
+            // 剩下的就是成功的情况
             NSLog(@"extensionApi callback:%@",result);
-            callback(FATExtensionCodeSuccess,@{@"data": result[@"data"]});
+            id data = result[@"data"];
+            if (!data) {
+                callback(FATExtensionCodeSuccess, @{});
+                return;
+            }
+            if ([NSJSONSerialization isValidJSONObject:data]) {
+                callback(FATExtensionCodeSuccess,@{@"data": data});
+                return;
+            }
+           
+            // data 不能序列化的情况
+            callback(FATExtensionCodeFailure,@{@"errMsg": [NSString stringWithFormat:@"%@:fail data can't serialize"]});
         }];
     }];
     success(@{});

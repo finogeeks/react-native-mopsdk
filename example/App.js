@@ -155,7 +155,7 @@ export default class App extends Component<{}> {
     message: '--',
     path: '',
     query: 'key1=value1&age=20',
-    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-78d53c04618315e7--',
+    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-eaa465ed8b53d181--',
     selectedOption: 'ParamExist'
   };
 
@@ -200,6 +200,62 @@ export default class App extends Component<{}> {
         message: s,
       });
     })
+
+    MopSDK.registerExtensionApi('presentNativePage', function (params) {
+      console.log(params);
+      // 自己实现相关返回值逻辑
+      return true;
+    });
+
+    const handler = {
+      forwardApplet(params) {
+      // 转发小程序
+      var appletInfo = params.appletInfo;	
+      var appId = appletInfo.appId;
+      },
+      getUserInfo(params) {
+        // 获取用户信息
+        return {
+          name: 'jimmy',
+          nickName: 'jimmy chung',
+          avatarUrl: 'http://xxx.jpg',
+        };
+      },
+      getCustomMenus(appId) {
+        // 点击菜单
+        let list = [
+          {
+            menuId: 'menuid1',
+            image: 'image',
+            title: 'title',
+            type: 'type',
+            foo: 'foo',
+          },
+          {
+            menuId: 'menuid2',
+            image: 'image',
+            title: 'title',
+            type: 'type',
+            foo: 'foo',
+          },
+        ];
+        return list;
+      },
+      onCustomMenuClick(appId,path,menuId,appInfo) {
+        // 点击自定义菜单
+        console.log('onCustomMenuClick');
+      },
+      appletDidOpen(appId) {
+        // 小程序打开后（仅 iOS)
+        console.log('appletDidOpen', params);
+        return params;
+      },
+    };
+
+    /**
+     * @param {Object} handler 包含上述几个事件处理函数
+     **/
+    MopSDK.registerAppletHandler(handler);
   };
 
   handleSelectOption = (option) => {
