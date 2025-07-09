@@ -155,7 +155,7 @@ export default class App extends Component<{}> {
     message: '--',
     path: '',
     query: 'key1=value1&age=20',
-    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-eaa465ed8b53d181--',
+    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-1f7ee0bd12649437--',
     selectedOption: 'ParamExist'
   };
 
@@ -204,7 +204,10 @@ export default class App extends Component<{}> {
     MopSDK.registerExtensionApi('presentNativePage', function (params) {
       console.log(params);
       // 自己实现相关返回值逻辑
-      return true;
+      return {
+        "errMsg":"presentNativePage:ok",
+        "key":"data"
+      };
     });
 
     const handler = {
