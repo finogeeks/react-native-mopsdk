@@ -918,8 +918,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                         @Override
                         public void onSuccess(Dynamic o) {
                             String json = null;
-                            if (o != null && o.asMap() != null) {
-                                json = new Gson().toJson(o.asMap().toHashMap());
+                            if (o != null) {
+                                ReadableMap map = o.asMap();
+                                if (map != null) {
+                                    json = new Gson().toJson(map.toHashMap());
+                                }
                             }
                             Log.d(TAG, "channel invokeMethod:" + name
                                     + " success, result=" + o + ", json=" + json);
@@ -1011,8 +1014,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                         @Override
                         public void onSuccess(Dynamic o) {
                             String json = null;
-                            if (o != null && o.asMap() != null) {
-                                json = new Gson().toJson(o.asMap().toHashMap());
+                            if (o != null) {
+                                ReadableMap map = o.asMap();
+                                if (map != null) {
+                                    json = new Gson().toJson(map.toHashMap());
+                                }
                             }
                             Log.d(TAG, "channel invokeMethod:" + name
                                     + " success, result=" + o + ", json=" + json);
