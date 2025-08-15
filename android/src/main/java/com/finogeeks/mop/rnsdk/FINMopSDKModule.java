@@ -945,7 +945,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                             if (o != null) {
                                 ReadableMap map = o.asMap();
                                 if (map != null) {
-                                    json =  new Gson().toJson(map.toHashMap);
+                                    json =  new Gson().toJson(map.toHashMap());
                                 }
                             }
                             Log.d(TAG, "channel invokeMethod:" + name
@@ -1041,7 +1041,7 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                             if (o != null) {
                                 ReadableMap map = o.asMap();
                                 if (map != null) {
-                                    json =  new Gson().toJson(map.toHashMap);
+                                    json =  new Gson().toJson(map.toHashMap());
                                 }
                             }
                             Log.d(TAG, "channel invokeMethod:" + name
