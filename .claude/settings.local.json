@@ -4,7 +4,8 @@
       "Bash(npm ls:*)",
       "Bash(npm install:*)",
       "Bash(./gradlew:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(npx react-native start:*)"
     ],
     "deny": [],
     "ask": []
