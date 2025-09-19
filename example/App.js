@@ -14,12 +14,12 @@ import MopSDK, { Config, FinStoreConfig, BOOLState, LanguageType, FCReLaunchMode
 
 const CustomRadioButton = ({onSelectOption}) => {
   const [selectedOption, setSelectedOption] = useState(null);
-  
+
   const options = ['ParamExist', 'OnlyParamDiff', 'Always', 'Never'];
 
   const handleSelectOption = (option) => {
     setSelectedOption(option);
-    onSelectOption(option); 
+    onSelectOption(option);
   };
 
   return (
@@ -43,13 +43,45 @@ const CustomRadioButton = ({onSelectOption}) => {
   );
 };
 
+const SingleProcessRadioButton = ({onSelectSingleProcess, selectedSingleProcess}) => {
+  const options = [
+    { label: '单进程', value: true },
+    { label: '多进程', value: false }
+  ];
+
+  const handleSelectOption = (value) => {
+    onSelectSingleProcess(value);
+  };
+
+  return (
+    <View style={styles.singleProcessContainer}>
+      <Text style={styles.singleProcessTitle}>进程模式：</Text>
+      <View style={styles.singleProcessOptions}>
+        {options.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.singleProcessOption}
+            onPress={() => handleSelectOption(option.value)}
+          >
+            <View style={styles.radioButton}>
+              {selectedSingleProcess === option.value && <View style={styles.radioButtonSelected} />}
+            </View>
+            <Text style={styles.optionText}>{option.label}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
+  );
+};
+
 const options = ['ParamExist', 'OnlyParamDiff', 'Always', 'Never'];
 
-const onPressOpenCanvasApplet = (path, query, selectedOption) => {
+const onPressOpenCanvasApplet = (path, query, selectedOption, isSingleProcess) => {
   console.log('path:', path);
   console.log('query:', query);
   console.log('Selected Option:', selectedOption);
-  
+  console.log('isSingleProcess:', isSingleProcess);
+
   let startParams = {};
 
   // 如果 path 不为空，则将其作为 startParams 的一部分
@@ -61,20 +93,21 @@ const onPressOpenCanvasApplet = (path, query, selectedOption) => {
   if (query.trim() !== '') {
     startParams['query'] = query.trim();
   }
-  
+
   let mode = options.indexOf(selectedOption)
-  MopSDK.startApplet({appletId:'5facb3a52dcbff00017469bd', startParams:startParams, reLaunchMode: mode}).then((res) => {
+  MopSDK.startApplet({appletId:'5facb3a52dcbff00017469bd', startParams:startParams, reLaunchMode: mode, isSingleProcess: isSingleProcess}).then((res) => {
     console.log('startApplet success: ', res);
   }).catch((error) => {
     console.log('startApplet error: ', error);
   });
 };
 
-const onPressOpenDemoApplet = (path, query, selectedOption) => {
+const onPressOpenDemoApplet = (path, query, selectedOption, isSingleProcess) => {
   console.log('path:', path);
   console.log('query:', query);
   console.log('Selected Option:', selectedOption);
-  
+  console.log('isSingleProcess:', isSingleProcess);
+
   let startParams = {};
 
   // 如果 path 不为空，则将其作为 startParams 的一部分
@@ -86,17 +119,18 @@ const onPressOpenDemoApplet = (path, query, selectedOption) => {
   if (query.trim() !== '') {
     startParams['query'] = query.trim();
   }
-  
+
   let mode = options.indexOf(selectedOption)
-  MopSDK.startApplet({appletId:'64c23309c533620001a1971e', startParams:startParams, reLaunchMode: mode})
+  MopSDK.startApplet({appletId:'64c23309c533620001a1971e', startParams:startParams, reLaunchMode: mode, isSingleProcess: isSingleProcess})
 };
 
 
-const onPressOpenTestApplet = (path, query, selectedOption) => {
+const onPressOpenTestApplet = (path, query, selectedOption, isSingleProcess) => {
   console.log('path:', path);
   console.log('query:', query);
   console.log('Selected Option:', selectedOption);
-  
+  console.log('isSingleProcess:', isSingleProcess);
+
   let startParams = {};
 
   // 如果 path 不为空，则将其作为 startParams 的一部分
@@ -108,9 +142,9 @@ const onPressOpenTestApplet = (path, query, selectedOption) => {
   if (query.trim() !== '') {
     startParams['query'] = query.trim();
   }
-  
+
   let mode = options.indexOf(selectedOption)
-  MopSDK.startApplet({appletId:'5f17f457297b540001e06ebb', startParams:startParams, reLaunchMode: mode}).then((res) => {
+  MopSDK.startApplet({appletId:'5f17f457297b540001e06ebb', startParams:startParams, reLaunchMode: mode, isSingleProcess: isSingleProcess}).then((res) => {
     console.log('startApplet success: ', res);
   }).catch((error) => {
     console.log('startApplet error: ', error);
@@ -130,14 +164,15 @@ const onPressFinishAll = () => {
   MopSDK.finishAllRunningApplets();
 }
 
-const onPressOpenAppletByQRCode = (qrcode, selectedOption) => {
+const onPressOpenAppletByQRCode = (qrcode, selectedOption, isSingleProcess) => {
   console.log('qrcode:', qrcode);
   console.log('Selected Option:', selectedOption);
+  console.log('isSingleProcess:', isSingleProcess);
   if (selectedOption == null) {
     selectedOption = options[0];
   }
   let mode = options.indexOf(selectedOption)
-  MopSDK.qrcodeOpenApplet(qrcode, true, mode)
+  MopSDK.qrcodeOpenApplet(qrcode, isSingleProcess, mode)
 }
 
 const onPressGetBindApplets = () => {
@@ -156,7 +191,8 @@ export default class App extends Component<{}> {
     path: '',
     query: 'key1=value1&age=20',
     qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-8465dd4e7208445a--',
-    selectedOption: 'ParamExist'
+    selectedOption: 'ParamExist',
+    isSingleProcess: true  // 默认选中单进程
   };
 
   componentDidMount() {
@@ -265,38 +301,46 @@ export default class App extends Component<{}> {
     this.setState({ selectedOption: option });
   };
 
+  handleSelectSingleProcess = (isSingleProcess) => {
+    this.setState({ isSingleProcess: isSingleProcess });
+  };
+
   render() {
-    const { path, query, qrcode, selectedOption } = this.state;
+    const { path, query, qrcode, selectedOption, isSingleProcess } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>☆FINMopsdk example☆</Text>
         <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
         <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
         <Text style={styles.instructions}>{this.state.message}</Text>
+        <SingleProcessRadioButton
+          selectedSingleProcess={isSingleProcess}
+          onSelectSingleProcess={this.handleSelectSingleProcess}
+        />
         <TextInput style={styles.inputStyle} placeholder="输入path" returnKeyType="done" onChangeText={text => this.setState({path:text})}/>
         <TextInput style={styles.inputStyle} placeholder="输入query" value={query} returnKeyType="done" onChangeText={text => this.setState({query: text})}/>
         <TextInput style={styles.inputStyle} placeholder="输入二维码" value={qrcode} returnKeyType="done" onChangeText={text => this.setState({qrcode:text})}/>
         <CustomRadioButton selectedOption={selectedOption} onSelectOption={this.handleSelectOption}/>
         <Button
-          onPress={() => onPressOpenCanvasApplet(this.state.path, this.state.query, this.state.selectedOption)}
+          onPress={() => onPressOpenCanvasApplet(this.state.path, this.state.query, this.state.selectedOption, this.state.isSingleProcess)}
           title="打开画图小程序"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
         <Button
-          onPress={() => onPressOpenDemoApplet(this.state.path, this.state.query, this.state.selectedOption)}
+          onPress={() => onPressOpenDemoApplet(this.state.path, this.state.query, this.state.selectedOption, this.state.isSingleProcess)}
           title="打开官方小程序"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
         <Button
-          onPress={() => onPressOpenTestApplet(this.state.path, this.state.query, this.state.selectedOption)}
+          onPress={() => onPressOpenTestApplet(this.state.path, this.state.query, this.state.selectedOption, this.state.isSingleProcess)}
           title="打开测试小程序"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
         <Button
-          onPress={() => onPressOpenAppletByQRCode(this.state.qrcode, this.state.selectedOption)}
+          onPress={() => onPressOpenAppletByQRCode(this.state.qrcode, this.state.selectedOption, this.state.isSingleProcess)}
           title="二维码打开小程序"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
@@ -375,5 +419,24 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  singleProcessContainer: {
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+  singleProcessTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  singleProcessOptions: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  singleProcessOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
