@@ -137,7 +137,7 @@ const onPressOpenAppletByQRCode = (qrcode, selectedOption) => {
     selectedOption = options[0];
   }
   let mode = options.indexOf(selectedOption)
-  MopSDK.qrcodeOpenApplet(qrcode, false, mode)
+  MopSDK.qrcodeOpenApplet(qrcode, true, mode)
 }
 
 const onPressGetBindApplets = () => {
@@ -155,7 +155,7 @@ export default class App extends Component<{}> {
     message: '--',
     path: '',
     query: 'key1=value1&age=20',
-    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-1f7ee0bd12649437--',
+    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-8465dd4e7208445a--',
     selectedOption: 'ParamExist'
   };
 

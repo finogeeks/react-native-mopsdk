@@ -59,6 +59,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import android.os.HandlerThread;
 
 
 public class FINMopSDKModule extends ReactContextBaseJavaModule {
@@ -773,67 +775,131 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 });
             }
 
+            // @Nullable
+            // @Override
+            // public Map<String, String> getUserInfo() {
+            //     Log.d("AppletHandlerModule", "getUserInfo");
+            //     final CountDownLatch latch = new CountDownLatch(1);
+            //     final Map<String, String>[] ret = new Map[1];
+            //     handler.post(() -> {
+            //         sendEvent("extensionApi:getUserInfo", null, new FinCallback<Dynamic>() {
+            //             @Override
+            //             public void onSuccess(Dynamic o) {
+            //                 try {
+            //                     if (o != null) {
+            //                         ReadableMap map = o.asMap();
+            //                         if (map != null) {
+            //                             // 转换为HashMap
+            //                             HashMap<String, Object> hashMap = map.toHashMap();
+            //                             // 使用Gson转换为指定类型的Map
+            //                             ret[0] = new Gson().fromJson(
+            //                                 new Gson().toJson(hashMap), 
+            //                                 new TypeToken<Map<String, String>>() {}.getType()
+            //                             );
+            //                             latch.countDown();
+            //                             return;
+            //                         }
+            //                     }
+            //                     // 若前面条件不满足，赋值为空Map
+            //                     ret[0] = new HashMap<String, String>();
+            //                 } catch (Exception e) {
+            //                     // 捕获可能的转换异常，避免崩溃
+            //                     e.printStackTrace();
+            //                     ret[0] = new HashMap<String, String>();
+            //                 } finally {
+            //                     // 确保countDown一定会执行
+            //                     if (latch.getCount() > 0) {
+            //                         latch.countDown();
+            //                     }
+            //                 }
+            //             }
+
+            //             @Override
+            //             public void onError(int i, String s) {
+            //                 latch.countDown();
+
+            //             }
+
+            //             @Override
+            //             public void onProgress(int i, String s) {
+
+            //             }
+            //         });
+            //     });
+            //     try {
+            //         latch.await();
+            //     } catch (InterruptedException e) {
+            //         e.printStackTrace();
+            //     }
+            //     if (ret[0].size() > 0)
+            //         return ret[0];
+            //     else
+            //         return null;
+            // }
+
             @Nullable
             @Override
             public Map<String, String> getUserInfo() {
                 Log.d("AppletHandlerModule", "getUserInfo");
+
                 final CountDownLatch latch = new CountDownLatch(1);
                 final Map<String, String>[] ret = new Map[1];
-                handler.post(() -> {
+
+                // 改用后台线程，而不是主线程
+                HandlerThread backgroundThread = new HandlerThread("UserInfoThread");
+                backgroundThread.start();
+                Handler bgHandler = new Handler(backgroundThread.getLooper());
+
+                bgHandler.post(() -> {
                     sendEvent("extensionApi:getUserInfo", null, new FinCallback<Dynamic>() {
                         @Override
                         public void onSuccess(Dynamic o) {
                             try {
-                                if (o != null) {
-                                    ReadableMap map = o.asMap();
-                                    if (map != null) {
-                                        // 转换为HashMap
-                                        HashMap<String, Object> hashMap = map.toHashMap();
-                                        // 使用Gson转换为指定类型的Map
-                                        ret[0] = new Gson().fromJson(
-                                            new Gson().toJson(hashMap), 
+                                if (o != null && o.asMap() != null) {
+                                    HashMap<String, Object> hashMap = o.asMap().toHashMap();
+                                    ret[0] = new Gson().fromJson(
+                                            new Gson().toJson(hashMap),
                                             new TypeToken<Map<String, String>>() {}.getType()
-                                        );
-                                        latch.countDown();
-                                        return;
-                                    }
+                                    );
+                                } else {
+                                    ret[0] = new HashMap<>();
                                 }
-                                // 若前面条件不满足，赋值为空Map
-                                ret[0] = new HashMap<String, String>();
                             } catch (Exception e) {
-                                // 捕获可能的转换异常，避免崩溃
                                 e.printStackTrace();
-                                ret[0] = new HashMap<String, String>();
+                                ret[0] = new HashMap<>();
                             } finally {
-                                // 确保countDown一定会执行
-                                if (latch.getCount() > 0) {
-                                    latch.countDown();
-                                }
+                                latch.countDown();
                             }
                         }
 
                         @Override
                         public void onError(int i, String s) {
+                            ret[0] = new HashMap<>();
                             latch.countDown();
-
                         }
 
                         @Override
-                        public void onProgress(int i, String s) {
-
-                        }
+                        public void onProgress(int i, String s) {}
                     });
                 });
+
                 try {
-                    latch.await();
+                    // 增加超时保护，避免永久阻塞
+                    boolean success = latch.await(2, TimeUnit.SECONDS);
+                    if (!success) {
+                        Log.e("AppletHandlerModule", "getUserInfo timeout");
+                        ret[0] = new HashMap<>(); // 返回空，避免阻塞卡死
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    ret[0] = new HashMap<>();
+                } finally {
+                    backgroundThread.quitSafely(); // 释放线程
                 }
-                if (ret[0].size() > 0)
-                    return ret[0];
-                else
-                    return null;
+
+                return (ret[0] != null && !ret[0].isEmpty()) ? ret[0] : null;
             }
+
 
             @Nullable
             @Override
