@@ -190,7 +190,7 @@ export default class App extends Component<{}> {
     message: '--',
     path: '',
     query: 'key1=value1&age=20',
-    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-8465dd4e7208445a--',
+    qrcode: 'https://api.finclip.com/api/v1/mop/runtime/applet/-f-2f7800c0e3bc2644--',
     selectedOption: 'ParamExist',
     isSingleProcess: true  // 默认选中单进程
   };
@@ -248,6 +248,7 @@ export default class App extends Component<{}> {
 
     const handler = {
       forwardApplet(params) {
+      console.log("forwardApplet", params)
       // 转发小程序
       var appletInfo = params.appletInfo;	
       var appId = appletInfo.appId;
