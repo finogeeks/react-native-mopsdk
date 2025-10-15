@@ -750,10 +750,11 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
                 Map<String, Object> params = new HashMap<>();
                 params.put("appletInfo", new Gson().fromJson(s, new TypeToken<Map<String, Object>>() {
                 }.getType()));
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] data = baos.toByteArray();
-                params.put("bitmap", data);
+                if (bitmap != null) {
+                    // 保存到临时文件，传递文件路径
+                    String filePath = saveBitmapToTempFile(bitmap);
+                    params.put("bitmapPath", filePath);
+                }
                 handler.post(() -> {
                     sendEvent("extensionApi:forwardApplet", params, new FinCallback() {
                         @Override
@@ -1243,6 +1244,22 @@ public class FINMopSDKModule extends ReactContextBaseJavaModule {
 
                     }
                 });
+    }
+
+    private String saveBitmapToTempFile(Bitmap bitmap) {
+        try {
+            File cacheDir = reactContext.getCacheDir();
+            String fileName = "share_" +
+                    System.currentTimeMillis() + ".jpg";
+            File tempFile = new File(cacheDir, fileName);
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+            fos.close();
+            return tempFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
