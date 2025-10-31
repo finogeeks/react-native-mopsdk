@@ -79,6 +79,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
+    nodeExecutableAndArgs: ["/Users/fino/.nvm/versions/node/v20.12.2/bin/node"]
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"

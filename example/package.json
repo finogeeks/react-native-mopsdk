@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "android": "NODE_OPTIONS=\"--openssl-legacy-provider\" react-native run-android",
+    "ios": "NODE_OPTIONS=\"--openssl-legacy-provider\" react-native run-ios",
     "lint": "eslint .",
-    "start": "react-native start",
-    "test": "jest"
+    "start": "NODE_OPTIONS=\"--openssl-legacy-provider\" react-native start",
+    "test": "jest",
+    "bundle:android": "NODE_OPTIONS=\"--openssl-legacy-provider\" react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res"
   },
   "dependencies": {
     "escape-string-regexp": "^5.0.0",
