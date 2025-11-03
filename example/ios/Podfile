@@ -1,33 +1,43 @@
-platform :ios, '11.0'
-
 require_relative '../node_modules/react-native/scripts/react_native_pods'
-require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, min_ios_version_supported
+prepare_react_native_project!
+
+linkage = ENV['USE_FRAMEWORKS']
+if linkage != nil
+  Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
+  use_frameworks! :linkage => linkage.to_sym
+end
 
 target 'example' do
   config = use_native_modules!
 
   use_react_native!(
     :path => config[:reactNativePath],
-    # to enable hermes on iOS, change `false` to `true` and then install pods
-    :hermes_enabled => false
+    # Hermes is now enabled by default. Disable by setting this flag to false.
+    :hermes_enabled => true
   )
-
-  #pod 'react-native-mopsdk', :path => '../node_modules/react-native-mopsdk'
-
 
   target 'exampleTests' do
     inherit! :complete
     # Pods for testing
   end
 
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable the next line.
+  # Flipper has been removed in React Native 0.76+
+  # This is kept for compatibility but does nothing
+  def use_flipper!()
+    # No-op: Flipper is no longer supported in RN 0.76+
+    Pod::UI.puts "Note: Flipper is not supported in React Native 0.76+. Skipping Flipper configuration.".yellow
+  end
+
   use_flipper!()
 
   post_install do |installer|
-    react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    # https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L197-L202
+    react_native_post_install(
+      installer,
+      config[:reactNativePath],
+      :mac_catalyst_enabled => false
+    )
   end
 end

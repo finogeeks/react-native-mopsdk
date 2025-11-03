@@ -3,20 +3,19 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "33.0.0"
-        minSdkVersion = 21
-        compileSdkVersion = 33
-        targetSdkVersion = 33
+        buildToolsVersion = "35.0.0"
+        minSdkVersion = 23
+        compileSdkVersion = 35
+        targetSdkVersion = 35
 
-        // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
-        ndkVersion = "23.1.7779620"
+        // We use NDK 26 which has both M1 support and is the side-by-side NDK version from AGP.
+        ndkVersion = "26.1.10909125"
+        kotlinVersion = "1.9.24"
     }
     repositories {
         google()
-        jcenter()
+        mavenCentral()
 
-        google()
-        jcenter()
         maven {
             url "https://gradle.finogeeks.club/repository/applet/"
             credentials {
@@ -27,8 +26,9 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.5.2")
+        classpath("com.android.tools.build:gradle:8.7.3")
         classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -48,7 +48,7 @@ allprojects {
         }
 
         google()
-        jcenter()
+        mavenCentral()
         maven {
             url "https://gradle.finogeeks.club/repository/applet/"
             credentials {
