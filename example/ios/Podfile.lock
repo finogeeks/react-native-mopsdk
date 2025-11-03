@@ -9,9 +9,9 @@ PODS:
     - React-Core (= 0.67.4)
     - React-jsi (= 0.67.4)
     - ReactCommon/turbomodule/core (= 0.67.4)
-  - FinApplet (2.49.3)
-  - FinAppletExt (2.49.3):
-    - FinApplet (= 2.49.3)
+  - FinApplet (2.50.3)
+  - FinAppletExt (2.50.3):
+    - FinApplet (= 2.50.3)
   - fmt (6.2.1)
   - glog (0.3.5)
   - RCT-Folly (2021.06.28.00-v2):
@@ -213,8 +213,8 @@ PODS:
   - React-logger (0.67.4):
     - glog
   - react-native-mopsdk (2.0.18):
-    - FinApplet (= 2.49.3)
-    - FinAppletExt (= 2.49.3)
+    - FinApplet (= 2.50.3)
+    - FinAppletExt (= 2.50.3)
     - React
   - React-perflogger (0.67.4)
   - React-RCTActionSheet (0.67.4):
@@ -393,8 +393,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: f7b0632c6437e312acf6349288d9aa4cb6d59030
   FBReactNativeSpec: 0f4e1f4cfeace095694436e7c7fcc5bf4b03a0ff
-  FinApplet: 4081d08a1af8c83351577493f571100030916acc
-  FinAppletExt: a488ef67e1f836c74c745c5906488728bb277518
+  FinApplet: 322541201b97ca2db33c40560c6ef11edeec6278
+  FinAppletExt: cdba2974a664e7f9f6dd8e6a3e2d83fada0f66b5
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   RCT-Folly: 96e860489a846babd2d615e2d2887d5f45c1ae31
@@ -409,7 +409,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 44e84dbadebb7de442e81e5dddff14a54dd2535a
   React-jsinspector: f4775ea9118cbe1f72b834f0f842baa7a99508d8
   React-logger: 1101c1334ca91bab566a28d1c72d7de5d242381a
-  react-native-mopsdk: 70995425103f774ba83dcaac72baeb48f9bb28fd
+  react-native-mopsdk: bd13dc681aab9bba71c58a0d27812e144fd633b7
   React-perflogger: 0afaf2f01a47fd0fc368a93bfbb5bd3b26db6e7f
   React-RCTActionSheet: 59f35c4029e0b532fc42114241a06e170b7431a2
   React-RCTAnimation: aae4f4bed122e78bdab72f7118d291d70a932ce2
